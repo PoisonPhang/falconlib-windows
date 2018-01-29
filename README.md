@@ -1,5 +1,5 @@
 # falconlib-windows
-##FLBA 1017-18 programming project
+## FLBA 1017-18 programming project
 
 Develop a database program to manage the issuance of books at a school library. Give the school a name.
 
