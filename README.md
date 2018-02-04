@@ -16,7 +16,7 @@ different ID.
 * Generate/print weekly report to show books issued to whom and number of days leading to the due date return.
 * Generate/print weekly report of detail of fines (when book not returned on time).
 
-##Specific Guidelines
+## Specific Guidelines
 
 * The program must run on Windows XP or higher.
 * Solution must run standalone with no programming errors.
