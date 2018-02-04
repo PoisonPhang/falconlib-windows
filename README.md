@@ -1,6 +1,9 @@
 #falconlib-windows
+
 **Due-date:**
+
 ##Overview
+
 Develop a database program to manage the issuance of books at a school library. Give the school a name. 
 The program must be able to complete a minimum of the following tasks:
 * Track student and teacher names with ability to enter/view/edit names.
@@ -12,7 +15,9 @@ will differ for students and teachers).
 different ID.
 * Generate/print weekly report to show books issued to whom and number of days leading to the due date return.
 * Generate/print weekly report of detail of fines (when book not returned on time).
+
 ##Specific Guidelines
+
 * The program must run on Windows XP or higher.
 * Solution must run standalone with no programming errors.
 * Data must be free of viruses/malware. Any entry with contaminated data will not be judged.
