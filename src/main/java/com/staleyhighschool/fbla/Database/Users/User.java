@@ -7,12 +7,20 @@ import java.util.List;
 public class User {
     private String firstName;
     private String lastName;
+    private String userID;
     private List<Book> userBooks;
 
-    public User(String firstName, String lastName) {
+    public User() {
+        firstName = "";
+        lastName = "";
+        userID = "";
+    }
+
+    public User(String firstName, String lastName, String userID) {
         this.firstName = firstName;
         this.lastName = lastName;
         userBooks = null;
+        this.userID = userID;
     }
 
     public String getFirstName() {
