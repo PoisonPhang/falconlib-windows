@@ -13,13 +13,10 @@ public class User {
     private AccountType accountType;
     private List<Book> userBooks;
 
-    protected Connection connection;
-
     public User() {
         firstName = "";
         lastName = "";
         userID = "";
-        connection = Library.connection.getConnection();
     }
 
     public User(String firstName, String lastName, String userID, AccountType accountType) {
@@ -28,7 +25,6 @@ public class User {
         this.userID = userID;
         this.accountType = accountType;
         userBooks = null;
-        connection = Library.connection.getConnection();
     }
 
     public String getFirstName() {
