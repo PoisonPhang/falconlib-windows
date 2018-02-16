@@ -14,13 +14,10 @@ public class Book {
     private String bookAuthor;
     private String bookID;
 
-    private Connection connection;
-
     public Book(String bookName, String bookAuthor, String bookID) {
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookID = bookID;
-        connection = Library.connection.getConnection();
     }
 
     public String getBookName() {
