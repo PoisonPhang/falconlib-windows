@@ -8,5 +8,6 @@ public class Student extends User{
 
     public Student(String sFirstName, String sLastName, String sID) {
         super(sFirstName, sLastName, sID, AccountType.aSTUDENT);
+        fineRate = Library.grabFineRate(this);
     }
 }

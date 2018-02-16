@@ -11,7 +11,7 @@ public class Library {
         connection = new Connector();
     }
 
-    public double grabFineRate(User user) {
+    public static double grabFineRate(User user) {
         double fineRate = 0;
         if (user.getAccountType() == User.AccountType.aSTUDENT) {
             // TODO grab student fine rate from DB
