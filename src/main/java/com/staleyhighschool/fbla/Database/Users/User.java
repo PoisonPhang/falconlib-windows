@@ -1,26 +1,34 @@
 package com.staleyhighschool.fbla.Database.Users;
 
 import com.staleyhighschool.fbla.Database.Book;
+import com.staleyhighschool.fbla.Library;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class User {
     private String firstName;
     private String lastName;
     private String userID;
+    private AccountType accountType;
     private List<Book> userBooks;
+
+    protected Connection connection;
 
     public User() {
         firstName = "";
         lastName = "";
         userID = "";
+        connection = Library.connection.getConnection();
     }
 
-    public User(String firstName, String lastName, String userID) {
+    public User(String firstName, String lastName, String userID, AccountType accountType) {
         this.firstName = firstName;
         this.lastName = lastName;
-        userBooks = null;
         this.userID = userID;
+        this.accountType = accountType;
+        userBooks = null;
+        connection = Library.connection.getConnection();
     }
 
     public String getFirstName() {
@@ -41,5 +49,19 @@ public class User {
 
     public void grabBooks() {
         // TODO grab users books from DB
+    }
+
+    public double grabFine() {
+        double fine = 0;
+        // TODO add math for calculating fine
+        return fine;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public enum AccountType {
+        aSTUDENT, aTEACHER;
     }
 }
