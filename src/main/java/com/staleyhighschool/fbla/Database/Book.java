@@ -48,10 +48,6 @@ public class Book {
     }
 
     public static void addBook() {
-<<<<<<< Updated upstream
         // TODO add book to DB
-=======
-
->>>>>>> Stashed changes
     }
 }
