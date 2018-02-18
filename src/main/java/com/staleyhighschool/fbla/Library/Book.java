@@ -59,14 +59,25 @@ public class Book {
      * @return {@link Boolean} stating if the book is late
      */
     public boolean isLate() {
-        boolean late;
+        boolean late = false;
 
         if (isLate == Enums.IsLate.LATE) {
-            late = false;
-        } else {
+            late = true;
+        } else if (isLate == Enums.IsLate.SAFE){
             late = false;
         }
         return late;
+    }
+
+    public boolean isOut() {
+        boolean out = false;
+
+        if (isOut == Enums.IsOut.OUT) {
+            out = true;
+        } else if (isOut == Enums.IsOut.IN) {
+            out = false;
+        }
+        return out;
     }
 
     public static void addBook() {
