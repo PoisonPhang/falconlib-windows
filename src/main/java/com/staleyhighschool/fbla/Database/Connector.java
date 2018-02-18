@@ -101,4 +101,31 @@ public class Connector {
         }
         return books;
     }
+
+    public double getFineRate(Enums.AccountType accountType) {
+        Statement statement;
+        ResultSet resultSet;
+
+        String query;
+        double fineRate = 0;
+
+        query = "select STUDENT, TEACHER from " + DATABASE_NAME + ".FINE_RATE";
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                if (accountType == Enums.AccountType.aTEACHER) {
+                    fineRate = resultSet.getDouble("TEACHER");
+                } else if (accountType == Enums.AccountType.aSTUDENT) {
+                    fineRate = resultSet.getDouble("STUDENT");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return fineRate;
+    }
 }

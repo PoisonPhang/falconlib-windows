@@ -25,11 +25,7 @@ public class Library {
      */
     public static double grabFineRate(User user) {
         double fineRate = 0;
-        if (user.getAccountType() == Enums.AccountType.aSTUDENT) {
-            // TODO grab student fine rate from DB
-        } else if (user.getAccountType() == Enums.AccountType.aTEACHER) {
-            // TODO grab teacher fine rate from DB
-        }
+        connection.getFineRate(user.getAccountType());
         return fineRate;
     }
 
