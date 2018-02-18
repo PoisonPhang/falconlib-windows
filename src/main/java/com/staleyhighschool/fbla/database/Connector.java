@@ -1,9 +1,9 @@
-package com.staleyhighschool.fbla.Database;
+package com.staleyhighschool.fbla.database;
 
-import com.staleyhighschool.fbla.Library.Book;
-import com.staleyhighschool.fbla.Users.Student;
-import com.staleyhighschool.fbla.Users.Teacher;
-import com.staleyhighschool.fbla.Users.User;
+import com.staleyhighschool.fbla.library.Book;
+import com.staleyhighschool.fbla.users.Student;
+import com.staleyhighschool.fbla.users.Teacher;
+import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
 
 import java.sql.*;

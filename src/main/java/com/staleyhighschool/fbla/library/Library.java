@@ -1,8 +1,7 @@
-package com.staleyhighschool.fbla.Library;
+package com.staleyhighschool.fbla.library;
 
-import com.staleyhighschool.fbla.Database.Connector;
-import com.staleyhighschool.fbla.Users.User;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.database.Connector;
+import com.staleyhighschool.fbla.users.User;
 
 /**
  * Drives most the larger actions taken in the application
