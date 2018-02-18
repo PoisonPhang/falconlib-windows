@@ -1,6 +1,6 @@
 package com.staleyhighschool.fbla.Users;
 
-import com.staleyhighschool.fbla.Library;
+import com.staleyhighschool.fbla.Library.Library;
 import com.staleyhighschool.fbla.util.Enums;
 
 public class Student extends User {

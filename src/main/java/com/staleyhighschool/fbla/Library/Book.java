@@ -1,4 +1,4 @@
-package com.staleyhighschool.fbla.Database;
+package com.staleyhighschool.fbla.Library;
 
 import com.staleyhighschool.fbla.Users.User;
 import com.staleyhighschool.fbla.util.Enums;

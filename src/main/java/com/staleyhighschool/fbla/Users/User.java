@@ -1,6 +1,6 @@
 package com.staleyhighschool.fbla.Users;
 
-import com.staleyhighschool.fbla.Database.Book;
+import com.staleyhighschool.fbla.Library.Book;
 import com.staleyhighschool.fbla.util.Enums;
 
 import java.util.List;
