@@ -14,6 +14,8 @@ import java.util.UUID;
  */
 public class Library {
 
+    private String TAG = (this.getClass().getName() + ": ");
+
     public static Connector connection;
     public static List<User> userList;
 

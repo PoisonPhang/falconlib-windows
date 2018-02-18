@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class Connector {
 
+    private String TAG = (this.getClass().getName() + ": ");
+
     public static Connection connection;
 
     private final String DATABASE_NAME = "";

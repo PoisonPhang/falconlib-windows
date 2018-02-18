@@ -9,6 +9,9 @@ import java.util.List;
  * General User type
  */
 public abstract class User {
+
+    private String TAG = (this.getClass().getName() + ": ");
+
     private String firstName;
     private String lastName;
     private String userID;

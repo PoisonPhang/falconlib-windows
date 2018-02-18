@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Student extends User {
 
+    private String TAG = (this.getClass().getName() + ": ");
+
     private double fineRate;
     private int lateBooks;
     private List<Book> userBooks;

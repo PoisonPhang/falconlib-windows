@@ -7,6 +7,8 @@ import com.staleyhighschool.fbla.util.Enums;
  */
 public class Book {
 
+    private String TAG = (this.getClass().getName() + ": ");
+
     private String bookTitle;
     private String bookAuthor;
     private String bookID;
