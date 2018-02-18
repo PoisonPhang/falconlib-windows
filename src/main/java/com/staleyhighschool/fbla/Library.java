@@ -2,11 +2,8 @@ package com.staleyhighschool.fbla;
 
 import com.staleyhighschool.fbla.Database.Book;
 import com.staleyhighschool.fbla.Database.Connector;
-import com.staleyhighschool.fbla.Database.Users.User;
+import com.staleyhighschool.fbla.Users.User;
 import com.staleyhighschool.fbla.util.Enums;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Library {
 

@@ -1,7 +1,6 @@
 package com.staleyhighschool.fbla.Database;
 
-import com.staleyhighschool.fbla.Database.Users.User;
-import com.staleyhighschool.fbla.Library;
+import com.staleyhighschool.fbla.Users.User;
 import com.staleyhighschool.fbla.util.Enums;
 
 import java.sql.*;
@@ -36,18 +35,17 @@ public class Connector {
 
         String query = "select TITLE, AUTHOR, ID, IS_OUT, IS_LATE " + "from " + DATABASE_NAME + ".LIBRARY_BOOKS";
 
-        setBook(query);
-        return setBook(query);
+        return setBooks(query);
     }
 
     public List<Book> getUserBooks(User user) {
 
         String query = "select TITLE, AUTHOR, ID, IS_OUT, IS_LATE " + "from " + DATABASE_NAME + "." + user.getUserID();
 
-        return setBook(query);
+        return setBooks(query);
     }
 
-    private List<Book> setBook(String query) {
+    private List<Book> setBooks(String query) {
         Statement statement;
         ResultSet resultSet;
 
