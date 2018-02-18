@@ -18,6 +18,7 @@ public class Library {
 
     public static Connector connection;
     public static List<User> userList;
+    public static List<Book> bookList;
 
     /**
      * Creates the only instance of the connector object
@@ -25,6 +26,7 @@ public class Library {
     public Library() {
         connection = new Connector();
         userList = loadUserList();
+        bookList = loadBookList();
     }
 
     /**
@@ -54,6 +56,10 @@ public class Library {
         return lateBookCount;
     }
 
+    private List<Book> loadBookList() {
+        return connection.getLibraryBooks();
+    }
+
     private List<User> loadUserList() {
         return connection.getCurrentUsers();
     }
@@ -68,12 +74,16 @@ public class Library {
         }
 
         connection.addUser(user);
+        userList.add(user);
     }
 
     public void addBook(String title, String author) {
         Book book;
+
         book = new Book(title, author, generateNewID(), Enums.IsLate.SAFE, Enums.IsOut.IN);
+
         connection.addBook(book);
+        bookList.add(book);
     }
 
     private String generateNewID() {

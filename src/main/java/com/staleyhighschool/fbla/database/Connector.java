@@ -154,8 +154,7 @@ public class Connector {
 
         List<User> users = null;
 
-        Teacher teacher;
-        Student student;
+        User user;
 
         String firstName, lastName, id;
         Enums.AccountType accountType =  null;
@@ -183,11 +182,11 @@ public class Connector {
                 id = resultSet.getString("ID");
 
                 if (accountType == Enums.AccountType.aTEACHER) {
-                    teacher = new Teacher(firstName, lastName, id);
-                    users.add(teacher);
+                    user = new Teacher(firstName, lastName, id);
+                    users.add(user);
                 } else if (accountType == Enums.AccountType.aSTUDENT) {
-                    student = new Student(firstName, lastName, id);
-                    users.add(student);
+                    user = new Student(firstName, lastName, id);
+                    users.add(user);
                 }
             }
 
