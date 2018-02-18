@@ -71,6 +71,7 @@ public class Library {
     public void addBook(String title, String author) {
         Book book;
         book = new Book(title, author, generateNewID(), Enums.IsLate.SAFE, Enums.IsOut.IN);
+        connection.addBook(book);
     }
 
     private String generateNewID() {
