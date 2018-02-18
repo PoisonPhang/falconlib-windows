@@ -8,9 +8,8 @@ import java.sql.*;
 import java.util.List;
 
 /**
- * Establishes connection to Book database
- *
- * @author PoisonPhang
+ * Establishes connection with the database, gets values from database, changes values in database, and
+ * adds values to database.
  */
 public class Connector {
 
@@ -20,6 +19,9 @@ public class Connector {
     private final String DATABASE_URL = "";
     private final String PORT = ":";
 
+    /**
+     * Establishes connection to database
+     */
     public Connector() {
         try {
             connection = DriverManager.getConnection(DATABASE_URL + PORT);
@@ -28,10 +30,18 @@ public class Connector {
         }
     }
 
+    /**
+     * Gets the existing connection
+     * @return existing {@link Connection}
+     */
     public Connection getConnection() {
         return connection;
     }
 
+    /**
+     * Gets list of all books in the library
+     * @return {@link List<Book>}
+     */
     public List<Book> getLibraryBooks() {
 
         String query = "select TITLE, AUTHOR, ID, IS_OUT, IS_LATE " + "from " + DATABASE_NAME + ".LIBRARY_BOOKS";
@@ -39,6 +49,11 @@ public class Connector {
         return setBooks(query);
     }
 
+    /**
+     * Gets list of books that the given {@link User} has
+     * @param user {@link User}
+     * @return {@link List<Book>}
+     */
     public List<Book> getUserBooks(User user) {
 
         String query = "select TITLE, AUTHOR, ID, IS_OUT, IS_LATE " + "from " + DATABASE_NAME + "." + user.getUserID();
@@ -46,6 +61,11 @@ public class Connector {
         return setBooks(query);
     }
 
+    /**
+     * Grabs a list of books from a selected table
+     * @param query {@link String}
+     * @return {@link List<Book>}
+     */
     private List<Book> setBooks(String query) {
         Statement statement;
         ResultSet resultSet;
