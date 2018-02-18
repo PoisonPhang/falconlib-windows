@@ -1,6 +1,8 @@
 package com.staleyhighschool.fbla.Database;
 
 import com.staleyhighschool.fbla.Library.Book;
+import com.staleyhighschool.fbla.Users.Student;
+import com.staleyhighschool.fbla.Users.Teacher;
 import com.staleyhighschool.fbla.Users.User;
 import com.staleyhighschool.fbla.util.Enums;
 
@@ -67,6 +69,7 @@ public class Connector {
      * @return {@link List<Book>}
      */
     private List<Book> setBooks(String query) {
+
         Statement statement;
         ResultSet resultSet;
 
@@ -78,9 +81,12 @@ public class Connector {
 
         List<Book> books = null;
         Book book;
+
         try {
+
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
+
             while (resultSet.next()) {
 
                 if (resultSet.getString("IS_LATE").equals("late")) {
@@ -96,13 +102,16 @@ public class Connector {
                 book = new Book(bookTitle, bookAuthor, bookID, isLate, isOut);
                 books.add(book);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return books;
     }
 
     public double getFineRate(Enums.AccountType accountType) {
+
         Statement statement;
         ResultSet resultSet;
 
@@ -112,6 +121,7 @@ public class Connector {
         query = "select STUDENT, TEACHER from " + DATABASE_NAME + ".FINE_RATE";
 
         try {
+
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
 
@@ -122,10 +132,59 @@ public class Connector {
                     fineRate = resultSet.getDouble("STUDENT");
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return fineRate;
+    }
+
+    public List<User> getCurrentUsers() {
+
+        List<User> users = null;
+
+        Teacher teacher;
+        Student student;
+
+        String firstName, lastName, id;
+        Enums.AccountType accountType =  null;
+
+        Statement statement;
+        ResultSet resultSet;
+
+        String query = "select FIRST_NAME, LAST_NAME, ID, ACCOUNT_TYPE from " + DATABASE_NAME + ".USERS";
+
+        try {
+
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+
+                if (resultSet.getString("ACCOUNT_TYPE").equals("teacher")) {
+                    accountType = Enums.AccountType.aTEACHER;
+                } else if (resultSet.getString("ACCOUNT_TYPE").equals("student")) {
+                    accountType = Enums.AccountType.aSTUDENT;
+                }
+
+                firstName = resultSet.getString("FIRST_NAME");
+                lastName = resultSet.getString("LAST_NAME");
+                id = resultSet.getString("ID");
+
+                if (accountType == Enums.AccountType.aTEACHER) {
+                    teacher = new Teacher(firstName, lastName, id);
+                    users.add(teacher);
+                } else if (accountType == Enums.AccountType.aSTUDENT) {
+                    student = new Student(firstName, lastName, id);
+                    users.add(student);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
     }
 }
