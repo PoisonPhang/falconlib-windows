@@ -1,8 +1,10 @@
 package com.staleyhighschool.fbla.Database.Users;
 
 import com.staleyhighschool.fbla.Database.Book;
+import com.staleyhighschool.fbla.Library;
 import com.staleyhighschool.fbla.util.Enums;
 
+import java.sql.Connection;
 import java.util.List;
 
 public abstract class User {
@@ -54,10 +56,9 @@ public abstract class User {
         return userBooks;
     }
 
-    public void grabBooks() {
-        // TODO grab users books from DB
-    }
+    public abstract void setuserBooks();
 
+    public abstract void setLateBooks();
     public abstract double calculateFine(double fineRate);
 
     public Enums.AccountType getAccountType() {
