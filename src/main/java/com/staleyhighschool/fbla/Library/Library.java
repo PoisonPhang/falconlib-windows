@@ -41,7 +41,7 @@ public class Library {
     public static int lateBookCount(User user) {
         int lateBookCount = 0;
         for (Book book : user.getUserBooks()) {
-            if (book.isLate(user)) {
+            if (book.isLate()) {
                 lateBookCount++;
             }
         }

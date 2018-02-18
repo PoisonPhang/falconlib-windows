@@ -4,9 +4,7 @@ import com.staleyhighschool.fbla.Users.User;
 import com.staleyhighschool.fbla.util.Enums;
 
 /**
- * Add/Delete books from library
- *
- * @author PoisonPhang
+ * Per Book object with access and generation methods
  */
 public class Book {
 
@@ -16,6 +14,14 @@ public class Book {
     private Enums.IsOut isOut;
     private Enums.IsLate isLate;
 
+    /**
+     * Generates a new book
+     * @param bookTitle {@link String} holding the title of the {@link Book}
+     * @param bookAuthor {@link String} holding the author of the {@link Book}
+     * @param bookID {@link String} holding the generated ID of the {@link Book}
+     * @param isLate {@link com.staleyhighschool.fbla.util.Enums.IsLate} if the {@link Book} is overdue or not
+     * @param isOut {@link com.staleyhighschool.fbla.util.Enums.IsOut} if the {@link Book} is out of the library or not
+     */
     public Book(String bookTitle, String bookAuthor, String bookID, Enums.IsLate isLate, Enums.IsOut isOut) {
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
@@ -24,32 +30,36 @@ public class Book {
         this.isOut = isOut;
     }
 
+    /**
+     * Gets the title of the {@link Book}
+     * @return {@link String} holding the title of the {@link Book}
+     */
     public String getBookTitle() {
         return bookTitle;
     }
 
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
-    }
-
+    /**
+     * Gets the author of the {@link Book}
+     * @return {@link String} holding the author of the {@link Book}
+     */
     public String getBookAuthor() {
         return bookAuthor;
     }
 
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
-    }
-
+    /**
+     * Gets the ID of the {@link Book}
+     * @return {@link String} holding the ID of the {@link Book}
+     */
     public String getBookID() {
         return bookID;
     }
 
-    public void setBookID(String bookID) {
-        this.bookID = bookID;
-    }
-
-    public boolean isLate(User user) {
-        boolean late = false;
+    /**
+     * Returns boolean stating if book is late or not
+     * @return {@link Boolean} stating if the book is late
+     */
+    public boolean isLate() {
+        boolean late;
 
         if (isLate == Enums.IsLate.LATE) {
             late = false;
