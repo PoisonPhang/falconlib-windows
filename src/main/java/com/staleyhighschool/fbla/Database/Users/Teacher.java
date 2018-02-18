@@ -14,6 +14,11 @@ public class Teacher extends User {
     }
 
     @Override
+    public void setuserBooks() {
+        Library.connection.getUserBooks(this);
+    }
+
+    @Override
     public void setLateBooks() {
         lateBooks = Library.lateBookCount(this);
     }
