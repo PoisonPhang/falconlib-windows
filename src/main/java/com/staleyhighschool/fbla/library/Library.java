@@ -1,7 +1,13 @@
 package com.staleyhighschool.fbla.library;
 
 import com.staleyhighschool.fbla.database.Connector;
+import com.staleyhighschool.fbla.users.Student;
+import com.staleyhighschool.fbla.users.Teacher;
 import com.staleyhighschool.fbla.users.User;
+import com.staleyhighschool.fbla.util.Enums;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Drives most the larger actions taken in the application
@@ -9,12 +15,14 @@ import com.staleyhighschool.fbla.users.User;
 public class Library {
 
     public static Connector connection;
+    public static List<User> userList;
 
     /**
      * Creates the only instance of the connector object
      */
     public Library() {
         connection = new Connector();
+        userList = loadUserList();
     }
 
     /**
@@ -42,6 +50,33 @@ public class Library {
         }
 
         return lateBookCount;
+    }
+
+    private List<User> loadUserList() {
+        return connection.getCurrentUsers();
+    }
+
+    public void addUser(String firstName, String lastName, boolean tOrS) {
+        User user;
+
+        if (tOrS) {
+            user = new Teacher(firstName, lastName, generateNewID());
+        } else {
+            user = new Student(firstName, lastName, generateNewID());
+        }
+
+        connection.addUser(user);
+    }
+
+    public void addBook(String title, String author) {
+        Book book;
+        book = new Book(title, author, generateNewID(), Enums.IsLate.SAFE, Enums.IsOut.IN);
+    }
+
+    private String generateNewID() {
+        String id = UUID.randomUUID().toString();
+        id = id.replaceAll("-", "");
+        return id;
     }
 
     public void saveFineRate() {

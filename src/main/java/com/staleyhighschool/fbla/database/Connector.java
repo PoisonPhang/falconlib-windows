@@ -140,6 +140,14 @@ public class Connector {
         return fineRate;
     }
 
+    public void addUser(User user) {
+        // TODO add user to DB logic
+    }
+
+    public void addBook(Book book) {
+        // TODO add book to DB logic
+    }
+
     public List<User> getCurrentUsers() {
 
         List<User> users = null;

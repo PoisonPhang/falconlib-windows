@@ -78,8 +78,4 @@ public class Book {
         }
         return out;
     }
-
-    public static void addBook() {
-        // TODO add book to DB
-    }
 }
