@@ -143,7 +143,33 @@ public class Connector {
     }
 
     public void addUser(User user) {
-        // TODO add user to DB logic
+        String accountType = "";
+
+        Statement statement;
+
+        if (user.getAccountType() == Enums.AccountType.aTEACHER) {
+            accountType = "teacher";
+        } else if (user.getAccountType() == Enums.AccountType.aSTUDENT) {
+            accountType = "student";
+        }
+
+        String addToUsersQuery = "INSERT INTO USERS (FIRST NAME, LAST_NAME, ID, ACCOUNT_TYPE) " +
+                "VALUES (" + user.getFirstName() +
+                ", " + user.getLastName() +
+                ", " + user.getUserID() +
+                ", " + accountType + ")";
+
+        String createTableQuery = "CREATE TABLE " + user.getUserID() + " (BOOKS string)";
+
+        try {
+
+            statement = connection.createStatement();
+
+            statement.executeUpdate(addToUsersQuery);
+            statement.executeUpdate(createTableQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addBook(Book book) {
