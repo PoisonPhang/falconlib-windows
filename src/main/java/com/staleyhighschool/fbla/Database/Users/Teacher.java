@@ -14,8 +14,8 @@ public class Teacher extends User {
     }
 
     @Override
-    public void setuserBooks() {
-        Library.connection.getUserBooks(this);
+    public void setUserBooks() {
+        userBooks = Library.connection.getUserBooks(this);
     }
 
     @Override
@@ -25,6 +25,6 @@ public class Teacher extends User {
 
     @Override
     public double calculateFine(double fineRate) {
-        return  lateBooks * fineRate;
+        return lateBooks * fineRate;
     }
 }

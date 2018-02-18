@@ -1,10 +1,7 @@
 package com.staleyhighschool.fbla.Database.Users;
 
-import com.staleyhighschool.fbla.Database.Book;
 import com.staleyhighschool.fbla.Library;
 import com.staleyhighschool.fbla.util.Enums;
-
-import java.util.List;
 
 public class Student extends User {
 
@@ -17,8 +14,8 @@ public class Student extends User {
     }
 
     @Override
-    public void setuserBooks() {
-        Library.connection.getUserBooks(this);
+    public void setUserBooks() {
+        userBooks = Library.connection.getUserBooks(this);
     }
 
     @Override
@@ -28,6 +25,6 @@ public class Student extends User {
 
     @Override
     public double calculateFine(double fineRate) {
-        return  lateBooks * fineRate;
+        return lateBooks * fineRate;
     }
 }

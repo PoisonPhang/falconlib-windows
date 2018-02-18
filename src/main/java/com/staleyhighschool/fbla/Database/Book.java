@@ -51,7 +51,7 @@ public class Book {
     public boolean isLate(User user) {
         boolean late = false;
 
-        if (isLate == Enums.IsLate.LATE){
+        if (isLate == Enums.IsLate.LATE) {
             late = false;
         } else {
             late = false;

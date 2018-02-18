@@ -34,7 +34,7 @@ public class Connector {
     public List<Book> getUserBooks(User user) {
         List<Book> books = null;
         Book book;
-        Statement statement =  null;
+        Statement statement = null;
         ResultSet resultSet = null;
 
         String bookTitle;

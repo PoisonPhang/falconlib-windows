@@ -37,6 +37,7 @@ public class Library {
 
         return lateBookCount;
     }
+
     public void saveFineRate() {
         // TODO logic for deciding account type rate and setting it
     }
