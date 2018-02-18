@@ -2,7 +2,7 @@ package com.staleyhighschool.fbla.Database.Users;
 
 import com.staleyhighschool.fbla.Library;
 
-public class Student extends User{
+public class Student extends User {
 
     private double fineRate;
 

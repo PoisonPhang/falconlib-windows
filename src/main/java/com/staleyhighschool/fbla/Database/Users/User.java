@@ -1,9 +1,7 @@
 package com.staleyhighschool.fbla.Database.Users;
 
 import com.staleyhighschool.fbla.Database.Book;
-import com.staleyhighschool.fbla.Library;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class User {

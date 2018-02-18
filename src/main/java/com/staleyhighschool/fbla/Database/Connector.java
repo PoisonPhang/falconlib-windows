@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 /**
  * Establishes connection to Book database
+ *
  * @author PoisonPhang
  */
 public class Connector {

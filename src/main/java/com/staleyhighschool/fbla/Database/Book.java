@@ -1,11 +1,8 @@
 package com.staleyhighschool.fbla.Database;
 
-import com.staleyhighschool.fbla.Library;
-
-import java.sql.Connection;
-
 /**
  * Add/Delete books from library
+ *
  * @author PoisonPhang
  */
 public class Book {
