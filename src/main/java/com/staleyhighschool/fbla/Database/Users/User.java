@@ -1,14 +1,15 @@
 package com.staleyhighschool.fbla.Database.Users;
 
 import com.staleyhighschool.fbla.Database.Book;
+import com.staleyhighschool.fbla.util.Enums;
 
 import java.util.List;
 
-public class User {
+public abstract class User {
     private String firstName;
     private String lastName;
     private String userID;
-    private AccountType accountType;
+    private Enums.AccountType accountType;
     private List<Book> userBooks;
 
     public User() {
@@ -17,12 +18,20 @@ public class User {
         userID = "";
     }
 
-    public User(String firstName, String lastName, String userID, AccountType accountType) {
+    public User(String firstName, String lastName, String userID, Enums.AccountType accountType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userID = userID;
         this.accountType = accountType;
         userBooks = null;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getFirstName() {
@@ -41,21 +50,17 @@ public class User {
         this.lastName = lastName;
     }
 
+    public List<Book> getUserBooks() {
+        return userBooks;
+    }
+
     public void grabBooks() {
         // TODO grab users books from DB
     }
 
-    public double grabFine() {
-        double fine = 0;
-        // TODO add math for calculating fine
-        return fine;
-    }
+    public abstract double calculateFine(double fineRate);
 
-    public AccountType getAccountType() {
+    public Enums.AccountType getAccountType() {
         return accountType;
-    }
-
-    public enum AccountType {
-        aSTUDENT, aTEACHER;
     }
 }
