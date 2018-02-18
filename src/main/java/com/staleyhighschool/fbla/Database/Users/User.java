@@ -58,7 +58,7 @@ public abstract class User {
 
     public abstract void setLateBooks();
 
-    public abstract double calculateFine(double fineRate);
+    public abstract double calculateFine();
 
     public Enums.AccountType getAccountType() {
         return accountType;

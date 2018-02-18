@@ -24,7 +24,7 @@ public class Teacher extends User {
     }
 
     @Override
-    public double calculateFine(double fineRate) {
+    public double calculateFine() {
         return lateBooks * fineRate;
     }
 }

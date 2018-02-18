@@ -27,7 +27,6 @@ public class Library {
     }
 
     public static int lateBookCount(User user) {
-        List<Book> lateBooks = new ArrayList<>();
         int lateBookCount = 0;
         for (Book book : user.getUserBooks()) {
             if (book.isLate(user)) {
