@@ -4,6 +4,7 @@ import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
 import org.apache.commons.lang3.time.DateUtils;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -19,6 +20,15 @@ public class Book {
     private Enums.IsOut isOut;
     private Enums.IsLate isLate;
     private Date dateOut;
+    public static Date storeDate;
+
+    static {
+        try {
+            storeDate = DateUtils.parseDate("2000-01-01", "yyyy-MM-dd");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Generates a new book
@@ -80,7 +90,7 @@ public class Book {
         Date due;
 
         due = DateUtils.addDays(dateOut, Library.connection.getMaxDays(user));
-        if (dateOut.after(due)) {
+        if (dateOut.after(due) && !dateOut.equals(storeDate)) {
             isLate = Enums.IsLate.LATE;
         } else {
             isLate = Enums.IsLate.SAFE;
