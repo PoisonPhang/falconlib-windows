@@ -38,6 +38,7 @@ public class Connector {
 
     /**
      * Gets the existing connection
+     *
      * @return existing {@link Connection}
      */
     public Connection getConnection() {
@@ -46,6 +47,7 @@ public class Connector {
 
     /**
      * Gets list of all books in the library
+     *
      * @return {@link List<Book>}
      */
     public List<Book> getLibraryBooks() {
@@ -57,6 +59,7 @@ public class Connector {
 
     /**
      * Gets list of books that the given {@link User} has
+     *
      * @param user {@link User}
      * @return {@link List<Book>}
      */
@@ -98,6 +101,7 @@ public class Connector {
 
     /**
      * Grabs a list of books from a selected table
+     *
      * @param query {@link String}
      * @return {@link List<Book>}
      */
@@ -109,8 +113,8 @@ public class Connector {
         String bookTitle;
         String bookAuthor;
         String bookID;
-        Enums.IsLate isLate = null;
-        Enums.IsOut isOut = null;
+        Enums.IsLate isLate;
+        Enums.IsOut isOut;
         Date dateOut;
 
         List<Book> books = null;
@@ -181,7 +185,7 @@ public class Connector {
     }
 
     public void addUser(User user) {
-        String accountType = "";
+        String accountType = null;
 
         Statement statement;
 
@@ -221,7 +225,7 @@ public class Connector {
         User user;
 
         String firstName, lastName, id;
-        Enums.AccountType accountType =  null;
+        Enums.AccountType accountType = null;
 
         Statement statement;
         ResultSet resultSet;

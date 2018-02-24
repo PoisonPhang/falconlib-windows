@@ -32,11 +32,12 @@ public class Book {
 
     /**
      * Generates a new book
-     * @param bookTitle {@link String} holding the title of the {@link Book}
+     *
+     * @param bookTitle  {@link String} holding the title of the {@link Book}
      * @param bookAuthor {@link String} holding the author of the {@link Book}
-     * @param bookID {@link String} holding the generated ID of the {@link Book}
-     * @param isLate {@link com.staleyhighschool.fbla.util.Enums.IsLate} if the {@link Book} is overdue or not
-     * @param isOut {@link com.staleyhighschool.fbla.util.Enums.IsOut} if the {@link Book} is out of the library or not
+     * @param bookID     {@link String} holding the generated ID of the {@link Book}
+     * @param isLate     {@link com.staleyhighschool.fbla.util.Enums.IsLate} if the {@link Book} is overdue or not
+     * @param isOut      {@link com.staleyhighschool.fbla.util.Enums.IsOut} if the {@link Book} is out of the library or not
      */
     public Book(String bookTitle, String bookAuthor, String bookID, Enums.IsLate isLate, Enums.IsOut isOut, Date dateOut) {
         this.bookTitle = bookTitle;
@@ -49,6 +50,7 @@ public class Book {
 
     /**
      * Gets the title of the {@link Book}
+     *
      * @return {@link String} holding the title of the {@link Book}
      */
     public String getBookTitle() {
@@ -57,6 +59,7 @@ public class Book {
 
     /**
      * Gets the author of the {@link Book}
+     *
      * @return {@link String} holding the author of the {@link Book}
      */
     public String getBookAuthor() {
@@ -65,6 +68,7 @@ public class Book {
 
     /**
      * Gets the ID of the {@link Book}
+     *
      * @return {@link String} holding the ID of the {@link Book}
      */
     public String getBookID() {
@@ -73,6 +77,7 @@ public class Book {
 
     /**
      * Returns boolean stating if book is late or not
+     *
      * @return {@link Boolean} stating if the book is late
      */
     public boolean isLate() {
@@ -80,7 +85,7 @@ public class Book {
 
         if (isLate == Enums.IsLate.LATE) {
             late = true;
-        } else if (isLate == Enums.IsLate.SAFE){
+        } else if (isLate == Enums.IsLate.SAFE) {
             late = false;
         }
         return late;

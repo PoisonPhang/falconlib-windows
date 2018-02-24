@@ -25,9 +25,10 @@ public abstract class User {
 
     /**
      * Generates a new user
-     * @param firstName {@link String} holding the first name of the {@link User}
-     * @param lastName {@link String} holding the last name of the {@link User}
-     * @param userID {@link String} holding the ID of the {@link User}
+     *
+     * @param firstName   {@link String} holding the first name of the {@link User}
+     * @param lastName    {@link String} holding the last name of the {@link User}
+     * @param userID      {@link String} holding the ID of the {@link User}
      * @param accountType {@link com.staleyhighschool.fbla.util.Enums.AccountType} determining the type of account for the {@link User}
      */
     public User(String firstName, String lastName, String userID, Enums.AccountType accountType) {
@@ -39,6 +40,7 @@ public abstract class User {
 
     /**
      * Gets the ID of the {@link User}
+     *
      * @return {@link String} holding the ID of the {@link User}
      */
     public String getUserID() {
@@ -47,6 +49,7 @@ public abstract class User {
 
     /**
      * Gets the first name of the {@link User}
+     *
      * @return {@link String} holding the first name of the {@link User}
      */
     public String getFirstName() {
@@ -55,6 +58,7 @@ public abstract class User {
 
     /**
      * Gets the last name of the {@link User}
+     *
      * @return {@link String} holding the last name of the {@link User}
      */
     public String getLastName() {
@@ -63,6 +67,7 @@ public abstract class User {
 
     /**
      * Gets the {@link List<Book>} held by the {@link User}
+     *
      * @return {@link List<Book>} help by the {@link User}
      */
     public abstract List<Book> getUserBooks();

@@ -31,6 +31,7 @@ public class Library {
 
     /**
      * Gets the current fine rate given the type of user
+     *
      * @param user {@link User}
      * @return {@link Double}
      */
@@ -42,6 +43,7 @@ public class Library {
 
     /**
      * Generates a count of overdue books for the given user
+     *
      * @param user {@link User}
      * @return {@link Integer}
      */
@@ -95,7 +97,7 @@ public class Library {
     }
 
     public void checkOutBook(User user, List<Book> selectedBooks) {
-        if (selectedBooks.size()-1 <= connection.getMaxBooks(user)) {
+        if (selectedBooks.size() - 1 <= connection.getMaxBooks(user)) {
             for (Book selectedBook : selectedBooks) {
                 if (!selectedBook.isOut()) {
                     connection.userCheckOut(user.getUserID(), selectedBook.getBookID());
