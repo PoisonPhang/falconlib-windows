@@ -80,7 +80,7 @@ public class Library {
     public void addBook(String title, String author) {
         Book book;
 
-        book = new Book(title, author, generateNewID(), Enums.IsLate.SAFE, Enums.IsOut.IN);
+        book = new Book(title, author, generateNewID(), Enums.IsLate.SAFE, Enums.IsOut.IN, Book.storeDate);
 
         connection.addBook(book);
         bookList.add(book);
