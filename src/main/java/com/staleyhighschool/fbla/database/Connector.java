@@ -71,7 +71,7 @@ public class Connector {
         Enums.IsLate isLate = null;
         Enums.IsOut isOut = null;
 
-        String query = "select ID, TIME_OUT " + "from " + DATABASE_NAME + "." + user.getUserID();
+        String query = "SELECT ID, TIME_OUT " + "FROM " + DATABASE_NAME + "." + user.getUserID();
 
         Statement statement;
         ResultSet resultSet;
@@ -153,7 +153,7 @@ public class Connector {
         String query;
         double fineRate = 0;
 
-        query = "select STUDENT, TEACHER from " + DATABASE_NAME + ".RULES";
+        query = "SELECT STUDENT, TEACHER FROM " + DATABASE_NAME + ".RULES";
 
         try {
 
@@ -221,7 +221,7 @@ public class Connector {
         Statement statement;
         ResultSet resultSet;
 
-        String query = "select FIRST_NAME, LAST_NAME, ID, ACCOUNT_TYPE from " + DATABASE_NAME + ".USERS";
+        String query = "SELECT FIRST_NAME, LAST_NAME, ID, ACCOUNT_TYPE FROM " + DATABASE_NAME + ".USERS";
 
         try {
 
@@ -259,10 +259,28 @@ public class Connector {
     public int getMaxDays(User user) {
         int days = 0;
 
+        String query = null;
+
+        Statement statement;
+        ResultSet resultSet;
+        
+        String type = null;
+
         if (user.getAccountType() == Enums.AccountType.aTEACHER) {
-            // TODO add db.getTeacherMaxDays
+            query = "SELECT TEACHER FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxDays";
+            type = "TEACHER";
         } else if (user.getAccountType() == Enums.AccountType.aSTUDENT) {
-            // TODO add db.getStudentMaxDays
+            query = "SELECT STUDENT FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxDays";
+            type = "STUDENT";
+        }
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            
+            days = (int) resultSet.getDouble(type);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return days;
     }
