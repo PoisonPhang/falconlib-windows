@@ -215,7 +215,31 @@ public class Connector {
     }
 
     public void addBook(Book book) {
-        // TODO add book to DB logic
+
+        String title = book.getBookTitle();
+        String author = book.getBookAuthor();
+        String id = book.getBookID();
+        boolean isOut = book.isOut();
+        boolean isLate = book.isLate();
+        Date dateOut = Book.storeDate;
+
+        Statement statement;
+        ResultSet resultSet;
+
+        String query = "INSERT INTO LibraryBooks (title, author, id, isOut, isLate, dateOut) " +
+                "VALUES (" + title +
+                ", " + author +
+                ", " + id +
+                ", " + isOut +
+                ", " + isLate +
+                ", " + dateOut + ")";
+
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<User> getCurrentUsers() {
