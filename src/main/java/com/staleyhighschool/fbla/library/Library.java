@@ -96,16 +96,20 @@ public class Library {
 
     public void checkOutBook(User user, List<Book> selectedBooks) {
         if (selectedBooks.size()-1 <= connection.getMaxBooks(user)) {
-            for (int i = 0; i < selectedBooks.size(); i++) {
-                if (!selectedBooks.get(i).isOut()) {
-                    connection.userCheckOut(user, selectedBooks.get(i));
+            for (Book selectedBook : selectedBooks) {
+                if (!selectedBook.isOut()) {
+                    connection.userCheckOut(user.getUserID(), selectedBook.getBookID());
                 }
             }
         }
     }
 
     public void returnBook(User user, List<Book> selectedBooks) {
-
+        for (Book selectedBook : selectedBooks) {
+            if (selectedBook.isOut()) {
+                connection.userReturnBook(user.getUserID(), selectedBook.getBookID());
+            }
+        }
     }
 
     private String generateNewID() {

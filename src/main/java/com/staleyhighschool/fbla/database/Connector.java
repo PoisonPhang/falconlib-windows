@@ -312,12 +312,12 @@ public class Connector {
         return max;
     }
 
-    public void userCheckOut(User user, Book book) {
+    public void userCheckOut(String userID, String bookID) {
         String query;
 
         Statement statement;
         ResultSet resultSet;
-        query = "INSERT INTO " + user.getUserID() + "(books) VALUES (" + book.getBookID() + ")";
+        query = "INSERT INTO " + userID + "(books) VALUES (" + bookID + ")";
 
         try {
             statement = connection.createStatement();
@@ -325,5 +325,9 @@ public class Connector {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void userReturnBook(String userID, String bookID) {
+
     }
 }
