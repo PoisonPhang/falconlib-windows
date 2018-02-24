@@ -50,7 +50,7 @@ public class Connector {
      */
     public List<Book> getLibraryBooks() {
 
-        String query = "select TITLE, AUTHOR, ID, IS_OUT, IS_LATE, DATE_OUT " + "from " + DATABASE_NAME + ".LIBRARY_BOOKS";
+        String query = "select title, author, id, isOut, isLate, dateOut " + "from " + DATABASE_NAME + ".LibraryBooks";
 
         return setBooks(query);
     }
@@ -71,7 +71,7 @@ public class Connector {
         Enums.IsLate isLate = null;
         Enums.IsOut isOut = null;
 
-        String query = "SELECT ID, TIME_OUT " + "FROM " + DATABASE_NAME + "." + user.getUserID();
+        String query = "SELECT id, timeOut " + "FROM " + DATABASE_NAME + "." + user.getUserID();
 
         Statement statement;
         ResultSet resultSet;
@@ -123,16 +123,21 @@ public class Connector {
 
             while (resultSet.next()) {
 
-                if (resultSet.getString("IS_LATE").equals("late")) {
+                if (resultSet.getBoolean("isLate")) {
                     isLate = Enums.IsLate.LATE;
-                } else if (resultSet.getString("IS_OUT").equals("out")) {
+                } else {
+                    isLate = Enums.IsLate.SAFE;
+                }
+                if (resultSet.getBoolean("isOut")) {
                     isOut = Enums.IsOut.OUT;
+                } else {
+                    isOut = Enums.IsOut.IN;
                 }
 
-                bookTitle = resultSet.getString("TITLE");
-                bookAuthor = resultSet.getString("AUTHOR");
-                bookID = resultSet.getString("ID");
-                dateOut = resultSet.getDate("DATE_OUT");
+                bookTitle = resultSet.getString("title");
+                bookAuthor = resultSet.getString("author");
+                bookID = resultSet.getString("id");
+                dateOut = resultSet.getDate("dateOut");
 
                 book = new Book(bookTitle, bookAuthor, bookID, isLate, isOut, dateOut);
                 books.add(book);
@@ -153,7 +158,7 @@ public class Connector {
         String query;
         double fineRate = 0;
 
-        query = "SELECT STUDENT, TEACHER FROM " + DATABASE_NAME + ".RULES";
+        query = "SELECT student, teacher FROM " + DATABASE_NAME + ".Rules";
 
         try {
 
@@ -162,9 +167,9 @@ public class Connector {
 
             while (resultSet.next()) {
                 if (accountType == Enums.AccountType.TEACHER) {
-                    fineRate = resultSet.getDouble("TEACHER");
+                    fineRate = resultSet.getDouble("teacher");
                 } else if (accountType == Enums.AccountType.STUDENT) {
-                    fineRate = resultSet.getDouble("STUDENT");
+                    fineRate = resultSet.getDouble("teacher");
                 }
             }
 
@@ -186,13 +191,13 @@ public class Connector {
             accountType = "student";
         }
 
-        String addToUsersQuery = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, ID, ACCOUNT_TYPE) " +
+        String addToUsersQuery = "INSERT INTO USERS (firstName, lastName, id, accountType) " +
                 "VALUES (" + user.getFirstName() +
                 ", " + user.getLastName() +
                 ", " + user.getUserID() +
                 ", " + accountType + ")";
 
-        String createTableQuery = "CREATE TABLE " + user.getUserID() + " (BOOKS string)";
+        String createTableQuery = "CREATE TABLE " + user.getUserID() + " (Books STRING)";
 
         try {
 
@@ -221,7 +226,7 @@ public class Connector {
         Statement statement;
         ResultSet resultSet;
 
-        String query = "SELECT FIRST_NAME, LAST_NAME, ID, ACCOUNT_TYPE FROM " + DATABASE_NAME + ".USERS";
+        String query = "SELECT firstName, lastName, id, accountType FROM " + DATABASE_NAME + ".Users";
 
         try {
 
@@ -230,15 +235,15 @@ public class Connector {
 
             while (resultSet.next()) {
 
-                if (resultSet.getString("ACCOUNT_TYPE").equals("teacher")) {
+                if (resultSet.getString("accountType").equals("teacher")) {
                     accountType = Enums.AccountType.TEACHER;
-                } else if (resultSet.getString("ACCOUNT_TYPE").equals("student")) {
+                } else if (resultSet.getString("accountType").equals("student")) {
                     accountType = Enums.AccountType.STUDENT;
                 }
 
-                firstName = resultSet.getString("FIRST_NAME");
-                lastName = resultSet.getString("LAST_NAME");
-                id = resultSet.getString("ID");
+                firstName = resultSet.getString("firstName");
+                lastName = resultSet.getString("lastName");
+                id = resultSet.getString("id");
 
                 if (accountType == Enums.AccountType.TEACHER) {
                     user = new Teacher(firstName, lastName, id);
@@ -267,11 +272,11 @@ public class Connector {
         String type = null;
 
         if (user.getAccountType() == Enums.AccountType.TEACHER) {
-            query = "SELECT TEACHER FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxDays";
-            type = "TEACHER";
+            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule=maxDays";
+            type = "teacher";
         } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
-            query = "SELECT STUDENT FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxDays";
-            type = "STUDENT";
+            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule=maxDays";
+            type = "teacher";
         }
 
         days = getMaxRule(query, type);
@@ -289,11 +294,11 @@ public class Connector {
         String type = null;
 
         if (user.getAccountType() == Enums.AccountType.TEACHER) {
-            query = "SELECT TEACHER FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxBooks";
-            type = "TEACHER";
+            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule=maxBooks";
+            type = "teacher";
         } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
-            query = "SELECT STUDENT FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxBooks";
-            type = "STUDENT";
+            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule=maxBooks";
+            type = "student";
         }
 
         books = getMaxRule(query, type);
