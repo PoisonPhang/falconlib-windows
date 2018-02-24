@@ -274,14 +274,44 @@ public class Connector {
             type = "STUDENT";
         }
 
+        days = getMaxRule(query, type);
+        return days;
+    }
+
+    public int getMaxBooks(User user) {
+        int books = 0;
+
+        String query = null;
+
+        Statement statement;
+        ResultSet resultSet;
+
+        String type = null;
+
+        if (user.getAccountType() == Enums.AccountType.aTEACHER) {
+            query = "SELECT TEACHER FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxBooks";
+            type = "TEACHER";
+        } else if (user.getAccountType() == Enums.AccountType.aSTUDENT) {
+            query = "SELECT STUDENT FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxBooks";
+            type = "STUDENT";
+        }
+
+        books = getMaxRule(query, type);
+        return books;
+    }
+
+    private int getMaxRule(String query, String type) {
+        Statement statement;
+        ResultSet resultSet;
+        int max = 0;
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
-            
-            days = (int) resultSet.getDouble(type);
+
+            max = (int) resultSet.getDouble(type);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return days;
+        return max;
     }
 }

@@ -86,6 +86,22 @@ public class Library {
         bookList.add(book);
     }
 
+    public void deleteBook(Book book) {
+        if (book.isOut()) {
+            // TODO Tell user book can not be deleted
+        }
+    }
+
+    public void checkOutBook(User user, List<Book> selectedBooks) {
+        if (selectedBooks.size()-1 <= connection.getMaxBooks(user)) {
+            // TODO DB stuff
+        }
+    }
+
+    public void returnBook(User user, List<Book> selectedBooks) {
+
+    }
+
     private String generateNewID() {
         String id = UUID.randomUUID().toString();
         id = id.replaceAll("-", "");
