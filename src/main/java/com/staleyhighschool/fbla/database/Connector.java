@@ -153,7 +153,7 @@ public class Connector {
             accountType = "student";
         }
 
-        String addToUsersQuery = "INSERT INTO USERS (FIRST NAME, LAST_NAME, ID, ACCOUNT_TYPE) " +
+        String addToUsersQuery = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, ID, ACCOUNT_TYPE) " +
                 "VALUES (" + user.getFirstName() +
                 ", " + user.getLastName() +
                 ", " + user.getUserID() +
