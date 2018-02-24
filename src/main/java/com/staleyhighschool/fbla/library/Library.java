@@ -89,12 +89,18 @@ public class Library {
     public void deleteBook(Book book) {
         if (book.isOut()) {
             // TODO Tell user book can not be deleted
+        } else {
+            // TODO delete book
         }
     }
 
     public void checkOutBook(User user, List<Book> selectedBooks) {
         if (selectedBooks.size()-1 <= connection.getMaxBooks(user)) {
-            // TODO DB stuff
+            for (int i = 0; i < selectedBooks.size(); i++) {
+                if (!selectedBooks.get(i).isOut()) {
+                    connection.userCheckOut(user, selectedBooks.get(i));
+                }
+            }
         }
     }
 

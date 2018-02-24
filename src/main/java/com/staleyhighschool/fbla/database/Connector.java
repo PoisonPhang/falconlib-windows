@@ -191,7 +191,7 @@ public class Connector {
             accountType = "student";
         }
 
-        String addToUsersQuery = "INSERT INTO USERS (firstName, lastName, id, accountType) " +
+        String addToUsersQuery = "INSERT INTO Users (firstName, lastName, id, accountType) " +
                 "VALUES (" + user.getFirstName() +
                 ", " + user.getLastName() +
                 ", " + user.getUserID() +
@@ -310,5 +310,20 @@ public class Connector {
             e.printStackTrace();
         }
         return max;
+    }
+
+    public void userCheckOut(User user, Book book) {
+        String query;
+
+        Statement statement;
+        ResultSet resultSet;
+        query = "INSERT INTO " + user.getUserID() + "(books) VALUES (" + book.getBookID() + ")";
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
