@@ -317,6 +317,7 @@ public class Connector {
 
         Statement statement;
         ResultSet resultSet;
+
         query = "INSERT INTO " + userID + "(books) VALUES (" + bookID + ")";
 
         try {
@@ -328,6 +329,18 @@ public class Connector {
     }
 
     public void userReturnBook(String userID, String bookID) {
+        String query;
 
+        Statement statement;
+        ResultSet resultSet;
+
+        query = "DELETE FROM " + userID + " WHERE books=" + bookID;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
