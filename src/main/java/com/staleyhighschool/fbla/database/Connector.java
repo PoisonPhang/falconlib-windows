@@ -262,13 +262,9 @@ public class Connector {
     }
 
     public int getMaxDays(User user) {
-        int days = 0;
+        int days;
 
         String query = null;
-
-        Statement statement;
-        ResultSet resultSet;
-        
         String type = null;
 
         if (user.getAccountType() == Enums.AccountType.TEACHER) {
@@ -284,13 +280,9 @@ public class Connector {
     }
 
     public int getMaxBooks(User user) {
-        int books = 0;
+        int books;
 
         String query = null;
-
-        Statement statement;
-        ResultSet resultSet;
-
         String type = null;
 
         if (user.getAccountType() == Enums.AccountType.TEACHER) {
