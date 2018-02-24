@@ -161,9 +161,9 @@ public class Connector {
             resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                if (accountType == Enums.AccountType.aTEACHER) {
+                if (accountType == Enums.AccountType.TEACHER) {
                     fineRate = resultSet.getDouble("TEACHER");
-                } else if (accountType == Enums.AccountType.aSTUDENT) {
+                } else if (accountType == Enums.AccountType.STUDENT) {
                     fineRate = resultSet.getDouble("STUDENT");
                 }
             }
@@ -180,9 +180,9 @@ public class Connector {
 
         Statement statement;
 
-        if (user.getAccountType() == Enums.AccountType.aTEACHER) {
+        if (user.getAccountType() == Enums.AccountType.TEACHER) {
             accountType = "teacher";
-        } else if (user.getAccountType() == Enums.AccountType.aSTUDENT) {
+        } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
             accountType = "student";
         }
 
@@ -231,19 +231,19 @@ public class Connector {
             while (resultSet.next()) {
 
                 if (resultSet.getString("ACCOUNT_TYPE").equals("teacher")) {
-                    accountType = Enums.AccountType.aTEACHER;
+                    accountType = Enums.AccountType.TEACHER;
                 } else if (resultSet.getString("ACCOUNT_TYPE").equals("student")) {
-                    accountType = Enums.AccountType.aSTUDENT;
+                    accountType = Enums.AccountType.STUDENT;
                 }
 
                 firstName = resultSet.getString("FIRST_NAME");
                 lastName = resultSet.getString("LAST_NAME");
                 id = resultSet.getString("ID");
 
-                if (accountType == Enums.AccountType.aTEACHER) {
+                if (accountType == Enums.AccountType.TEACHER) {
                     user = new Teacher(firstName, lastName, id);
                     users.add(user);
-                } else if (accountType == Enums.AccountType.aSTUDENT) {
+                } else if (accountType == Enums.AccountType.STUDENT) {
                     user = new Student(firstName, lastName, id);
                     users.add(user);
                 }
@@ -266,10 +266,10 @@ public class Connector {
         
         String type = null;
 
-        if (user.getAccountType() == Enums.AccountType.aTEACHER) {
+        if (user.getAccountType() == Enums.AccountType.TEACHER) {
             query = "SELECT TEACHER FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxDays";
             type = "TEACHER";
-        } else if (user.getAccountType() == Enums.AccountType.aSTUDENT) {
+        } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
             query = "SELECT STUDENT FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxDays";
             type = "STUDENT";
         }
@@ -288,10 +288,10 @@ public class Connector {
 
         String type = null;
 
-        if (user.getAccountType() == Enums.AccountType.aTEACHER) {
+        if (user.getAccountType() == Enums.AccountType.TEACHER) {
             query = "SELECT TEACHER FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxBooks";
             type = "TEACHER";
-        } else if (user.getAccountType() == Enums.AccountType.aSTUDENT) {
+        } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
             query = "SELECT STUDENT FROM " + DATABASE_NAME + ".RULES WHERE RULE=maxBooks";
             type = "STUDENT";
         }

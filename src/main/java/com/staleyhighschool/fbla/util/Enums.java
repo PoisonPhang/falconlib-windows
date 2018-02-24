@@ -11,6 +11,6 @@ public class Enums {
     }
 
     public enum AccountType {
-        aSTUDENT, aTEACHER
+        STUDENT, TEACHER
     }
 }

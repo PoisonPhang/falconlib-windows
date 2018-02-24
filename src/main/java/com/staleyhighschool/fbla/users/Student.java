@@ -15,7 +15,7 @@ public class Student extends User {
     private List<Book> userBooks;
 
     public Student(String sFirstName, String sLastName, String sID) {
-        super(sFirstName, sLastName, sID, Enums.AccountType.aSTUDENT);
+        super(sFirstName, sLastName, sID, Enums.AccountType.STUDENT);
         fineRate = Library.grabFineRate(this);
     }
 
