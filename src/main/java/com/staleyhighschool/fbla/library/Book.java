@@ -1,6 +1,10 @@
 package com.staleyhighschool.fbla.library;
 
+import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
+import org.apache.commons.lang3.time.DateUtils;
+
+import java.util.Date;
 
 /**
  * Per Book object with access and generation methods
@@ -14,6 +18,7 @@ public class Book {
     private String bookID;
     private Enums.IsOut isOut;
     private Enums.IsLate isLate;
+    private Date dateOut;
 
     /**
      * Generates a new book
@@ -23,12 +28,13 @@ public class Book {
      * @param isLate {@link com.staleyhighschool.fbla.util.Enums.IsLate} if the {@link Book} is overdue or not
      * @param isOut {@link com.staleyhighschool.fbla.util.Enums.IsOut} if the {@link Book} is out of the library or not
      */
-    public Book(String bookTitle, String bookAuthor, String bookID, Enums.IsLate isLate, Enums.IsOut isOut) {
+    public Book(String bookTitle, String bookAuthor, String bookID, Enums.IsLate isLate, Enums.IsOut isOut, Date dateOut) {
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
         this.bookID = bookID;
         this.isLate = isLate;
         this.isOut = isOut;
+        this.dateOut = dateOut;
     }
 
     /**
@@ -68,6 +74,17 @@ public class Book {
             late = false;
         }
         return late;
+    }
+
+    public void markLate(User user) {
+        Date due;
+
+        due = DateUtils.addDays(dateOut, Library.connection.getMaxDays(user));
+        if (dateOut.after(due)) {
+            isLate = Enums.IsLate.LATE;
+        } else {
+            isLate = Enums.IsLate.SAFE;
+        }
     }
 
     public boolean isOut() {

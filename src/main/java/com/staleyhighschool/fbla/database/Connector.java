@@ -1,12 +1,14 @@
 package com.staleyhighschool.fbla.database;
 
 import com.staleyhighschool.fbla.library.Book;
+import com.staleyhighschool.fbla.library.Library;
 import com.staleyhighschool.fbla.users.Student;
 import com.staleyhighschool.fbla.users.Teacher;
 import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,7 +50,7 @@ public class Connector {
      */
     public List<Book> getLibraryBooks() {
 
-        String query = "select TITLE, AUTHOR, ID, IS_OUT, IS_LATE " + "from " + DATABASE_NAME + ".LIBRARY_BOOKS";
+        String query = "select TITLE, AUTHOR, ID, IS_OUT, IS_LATE, DATE_OUT " + "from " + DATABASE_NAME + ".LIBRARY_BOOKS";
 
         return setBooks(query);
     }
@@ -60,9 +62,38 @@ public class Connector {
      */
     public List<Book> getUserBooks(User user) {
 
-        String query = "select TITLE, AUTHOR, ID, IS_OUT, IS_LATE " + "from " + DATABASE_NAME + "." + user.getUserID();
+        List<Book> userBooks = null;
+        Book book;
 
-        return setBooks(query);
+        String bookTitle;
+        String bookAuthor;
+        String bookID;
+        Enums.IsLate isLate = null;
+        Enums.IsOut isOut = null;
+
+        String query = "select ID, TIME_OUT " + "from " + DATABASE_NAME + "." + user.getUserID();
+
+        Statement statement;
+        ResultSet resultSet;
+
+        try {
+
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                for (int i = 0; i < Library.bookList.size(); i++) {
+                    if (resultSet.getString("ID").equals(Library.bookList.get(i).getBookID())) {
+                        userBooks.add(Library.bookList.get(i));
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userBooks;
     }
 
     /**
@@ -80,6 +111,7 @@ public class Connector {
         String bookID;
         Enums.IsLate isLate = null;
         Enums.IsOut isOut = null;
+        Date dateOut;
 
         List<Book> books = null;
         Book book;
@@ -100,8 +132,9 @@ public class Connector {
                 bookTitle = resultSet.getString("TITLE");
                 bookAuthor = resultSet.getString("AUTHOR");
                 bookID = resultSet.getString("ID");
+                dateOut = resultSet.getDate("DATE_OUT");
 
-                book = new Book(bookTitle, bookAuthor, bookID, isLate, isOut);
+                book = new Book(bookTitle, bookAuthor, bookID, isLate, isOut, dateOut);
                 books.add(book);
             }
 
@@ -120,7 +153,7 @@ public class Connector {
         String query;
         double fineRate = 0;
 
-        query = "select STUDENT, TEACHER from " + DATABASE_NAME + ".FINE_RATE";
+        query = "select STUDENT, TEACHER from " + DATABASE_NAME + ".RULES";
 
         try {
 
@@ -221,5 +254,16 @@ public class Connector {
         }
 
         return users;
+    }
+
+    public int getMaxDays(User user) {
+        int days = 0;
+
+        if (user.getAccountType() == Enums.AccountType.aTEACHER) {
+            // TODO add db.getTeacherMaxDays
+        } else if (user.getAccountType() == Enums.AccountType.aSTUDENT) {
+            // TODO add db.getStudentMaxDays
+        }
+        return days;
     }
 }
