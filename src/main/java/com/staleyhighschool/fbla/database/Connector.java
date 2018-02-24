@@ -350,7 +350,7 @@ public class Connector {
 
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -366,7 +366,7 @@ public class Connector {
 
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
