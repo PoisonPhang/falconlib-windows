@@ -21,16 +21,16 @@ public class Connector {
 
     public static Connection connection;
 
-    private final String DATABASE_NAME = "";
-    private final String DATABASE_URL = "";
-    private final String PORT = ":";
+    private final String DATABASE_NAME = "FalconLib";
+    private final String DATABASE_URL = "jdbc:mysql://192.168.1.116:3306/FalconLib";
+    private final String PORT = ":3306";
 
     /**
      * Establishes connection to database
      */
     public Connector() {
         try {
-            connection = DriverManager.getConnection(DATABASE_URL + PORT);
+            connection = DriverManager.getConnection(DATABASE_URL, "Falcon", "mypass");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,7 +74,7 @@ public class Connector {
         Enums.IsLate isLate = null;
         Enums.IsOut isOut = null;
 
-        String query = "SELECT id, timeOut " + "FROM " + DATABASE_NAME + "." + user.getUserID();
+        String query = "SELECT id " + "FROM " + DATABASE_NAME + "." + user.getUserID();
 
         Statement statement;
         ResultSet resultSet;
