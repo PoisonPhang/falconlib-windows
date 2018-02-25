@@ -1,25 +1,27 @@
 package com.staleyhighschool.fbla.gui.lib;
 
 import com.staleyhighschool.fbla.gui.Main;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class Home {
 
     private Scene home;
-    private VBox layout;
+    private VBox navigation;
+    private BorderPane layout;
 
+    private Button mHome;
     private Button mBooks;
     private Button mUsers;
     private Button mLogs;
 
     public Home() {
-        layout = new VBox(20);
-        generateButtons();
+        navigation = new VBox(10);
+        layout = new BorderPane();
+        layout.setLeft(navigation);
+        generateNavigation();
         home = new Scene(layout, 960, 540);
     }
 
@@ -27,13 +29,18 @@ public class Home {
         return home;
     }
 
-    private void generateButtons() {
+    private void generateNavigation() {
+        mHome = new Button("Home");
         mBooks = new Button("Manage Books");
         mUsers = new Button("Manage Users");
-        mLogs = new Button("Manage Logs");
+        mLogs = new Button("Logs");
 
-        layout.getChildren().addAll(mBooks, mUsers, mLogs);
+        navigation.getChildren().addAll(mHome, mBooks, mUsers, mLogs);
 
+        mHome.setOnAction(e -> {
+            Main.window.setScene(home);
+            Main.window.setTitle(Main.APP_TITLE + " | Home");
+        });
         mBooks.setOnAction(e -> {
             Main.window.setScene(Main.manageBooks.getManageBooks());
             Main.window.setTitle(Main.APP_TITLE + " | Manage Books");
