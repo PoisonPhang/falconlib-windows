@@ -3,8 +3,6 @@ package com.staleyhighschool.fbla.gui.lib.users;
 import com.staleyhighschool.fbla.gui.Main;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 public class ManageUsers {
 

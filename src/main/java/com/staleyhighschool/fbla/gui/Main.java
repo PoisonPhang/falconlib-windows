@@ -1,15 +1,15 @@
 package com.staleyhighschool.fbla.gui;
 
 import com.staleyhighschool.fbla.gui.lib.Home;
-import com.staleyhighschool.fbla.gui.lib.logging.Logs;
 import com.staleyhighschool.fbla.gui.lib.books.ManageBooks;
+import com.staleyhighschool.fbla.gui.lib.logging.Logs;
 import com.staleyhighschool.fbla.gui.lib.users.ManageUsers;
 import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Main extends Application{
+public class Main extends Application {
 
     public static final String APP_TITLE = "Falcon Library";
 
