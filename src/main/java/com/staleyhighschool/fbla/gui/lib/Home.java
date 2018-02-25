@@ -18,7 +18,7 @@ public class Home {
     private Button mLogs;
 
     public Home() {
-        navigation = new VBox(10);
+        navigation = new VBox(0);
         layout = new BorderPane();
         layout.setLeft(navigation);
         generateNavigation();
