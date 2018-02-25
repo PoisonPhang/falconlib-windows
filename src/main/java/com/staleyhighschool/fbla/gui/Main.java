@@ -1,17 +1,22 @@
 package com.staleyhighschool.fbla.gui;
 
+import com.staleyhighschool.fbla.gui.lib.Home;
+import com.staleyhighschool.fbla.gui.lib.Logs;
+import com.staleyhighschool.fbla.gui.lib.ManageBooks;
+import com.staleyhighschool.fbla.gui.lib.ManageUsers;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application{
 
-    private final String APP_TITLE = "Falcon Library";
+    public static final String APP_TITLE = "Falcon Library";
 
-    private Scene home;
-    private Scene manageUsers;
-    private Scene manageBooks;
-    private Scene logs;
+    public static Stage window;
+
+    public static Home home;
+    public static Logs logs;
+    public static ManageBooks manageBooks;
+    public static ManageUsers manageUsers;
 
     public static void main(String[] args) {
         launch(args);
@@ -19,6 +24,16 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle(APP_TITLE);
+        window = primaryStage;
+
+        home = new Home();
+        logs = new Logs();
+        manageBooks = new ManageBooks();
+        manageUsers = new ManageUsers();
+        window.setTitle(APP_TITLE + " | Home");
+
+        window.setScene(home.getHome());
+        window.show();
     }
+
 }
