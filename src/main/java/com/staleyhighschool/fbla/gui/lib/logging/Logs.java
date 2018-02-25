@@ -1,4 +1,4 @@
-package com.staleyhighschool.fbla.gui.lib;
+package com.staleyhighschool.fbla.gui.lib.logging;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;

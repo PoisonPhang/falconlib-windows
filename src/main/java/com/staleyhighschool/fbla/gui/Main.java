@@ -1,9 +1,9 @@
 package com.staleyhighschool.fbla.gui;
 
 import com.staleyhighschool.fbla.gui.lib.Home;
-import com.staleyhighschool.fbla.gui.lib.Logs;
-import com.staleyhighschool.fbla.gui.lib.ManageBooks;
-import com.staleyhighschool.fbla.gui.lib.ManageUsers;
+import com.staleyhighschool.fbla.gui.lib.logging.Logs;
+import com.staleyhighschool.fbla.gui.lib.books.ManageBooks;
+import com.staleyhighschool.fbla.gui.lib.users.ManageUsers;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
