@@ -12,6 +12,8 @@ public class Home {
     private VBox navigation;
     private BorderPane layout;
 
+    private final String name = " | Home";
+
     private Button mHome;
     private Button mBooks;
     private Button mUsers;
@@ -39,19 +41,23 @@ public class Home {
 
         mHome.setOnAction(e -> {
             Main.window.setScene(home);
-            Main.window.setTitle(Main.APP_TITLE + " | Home");
+            Main.window.setTitle(Main.APP_TITLE + name);
         });
         mBooks.setOnAction(e -> {
             Main.window.setScene(Main.manageBooks.getManageBooks());
-            Main.window.setTitle(Main.APP_TITLE + " | Manage Books");
+            Main.window.setTitle(Main.APP_TITLE + Main.manageBooks.getName());
         });
         mUsers.setOnAction(e -> {
             Main.window.setScene(Main.manageUsers.getManageUsers());
-            Main.window.setTitle(Main.APP_TITLE + " | Manage Users");
+            Main.window.setTitle(Main.APP_TITLE + Main.manageBooks.getName());
         });
         mLogs.setOnAction(e -> {
             Main.window.setScene(Main.logs.getLogs());
-            Main.window.setTitle(Main.APP_TITLE + " | Logs");
+            Main.window.setTitle(Main.APP_TITLE + Main.logs.getName());
         });
+    }
+
+    public String getName() {
+        return name;
     }
 }

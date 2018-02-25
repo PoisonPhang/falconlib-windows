@@ -7,6 +7,7 @@ public class ManageUsers {
 
     private Scene manageUsers;
     private StackPane layout;
+    private final String name = " | Manage Users";
 
     public ManageUsers() {
         layout = new StackPane();
@@ -15,5 +16,9 @@ public class ManageUsers {
 
     public Scene getManageUsers() {
         return manageUsers;
+    }
+
+    public String getName() {
+        return name;
     }
 }

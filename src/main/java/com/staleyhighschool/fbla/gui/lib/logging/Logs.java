@@ -8,6 +8,8 @@ public class Logs {
     private Scene logs;
     StackPane layout;
 
+    private final String name = " | Logs";
+
     public Logs() {
         layout = new StackPane();
         logs = new Scene(layout, 960, 540);
@@ -15,5 +17,9 @@ public class Logs {
 
     public Scene getLogs() {
         return logs;
+    }
+
+    public String getName() {
+        return name;
     }
 }
