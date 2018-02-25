@@ -1,17 +1,19 @@
 package com.staleyhighschool.fbla.gui.lib.books;
 
+import com.staleyhighschool.fbla.gui.Main;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 
 public class ManageBooks {
 
     private Scene manageBooks;
-    private StackPane layout;
+    private BorderPane layout;
 
     private final String name = " | Manage Books";
 
     public ManageBooks() {
-        layout = new StackPane();
+        layout = new BorderPane();
+        layout.setLeft(Main.generateNavigation());
         manageBooks = new Scene(layout, 960, 540);
     }
 

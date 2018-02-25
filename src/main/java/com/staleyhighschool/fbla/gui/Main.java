@@ -5,6 +5,8 @@ import com.staleyhighschool.fbla.gui.lib.logging.Logs;
 import com.staleyhighschool.fbla.gui.lib.books.ManageBooks;
 import com.staleyhighschool.fbla.gui.lib.users.ManageUsers;
 import javafx.application.Application;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application{
@@ -36,4 +38,33 @@ public class Main extends Application{
         window.show();
     }
 
+    public static VBox generateNavigation() {
+        Button mHome = new Button("Home");
+        Button mBooks = new Button("Manage Books");
+        Button mUsers = new Button("Manage Users");
+        Button mLogs = new Button("Logs");
+
+        VBox navigation = new VBox();
+
+        navigation.getChildren().addAll(mHome, mBooks, mUsers, mLogs);
+
+        mHome.setOnAction(e -> {
+            Main.window.setScene(home.getHome());
+            Main.window.setTitle(APP_TITLE + home.getName());
+        });
+        mBooks.setOnAction(e -> {
+            Main.window.setScene(manageBooks.getManageBooks());
+            Main.window.setTitle(APP_TITLE + Main.manageBooks.getName());
+        });
+        mUsers.setOnAction(e -> {
+            Main.window.setScene(manageUsers.getManageUsers());
+            Main.window.setTitle(APP_TITLE + Main.manageUsers.getName());
+        });
+        mLogs.setOnAction(e -> {
+            Main.window.setScene(logs.getLogs());
+            Main.window.setTitle(APP_TITLE + Main.logs.getName());
+        });
+
+        return navigation;
+    }
 }

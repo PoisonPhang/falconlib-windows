@@ -9,52 +9,18 @@ import javafx.scene.layout.VBox;
 public class Home {
 
     private Scene home;
-    private VBox navigation;
     private BorderPane layout;
 
     private final String name = " | Home";
 
-    private Button mHome;
-    private Button mBooks;
-    private Button mUsers;
-    private Button mLogs;
-
     public Home() {
-        navigation = new VBox(0);
         layout = new BorderPane();
-        layout.setLeft(navigation);
-        generateNavigation();
+        layout.setLeft(Main.generateNavigation());
         home = new Scene(layout, 960, 540);
     }
 
     public Scene getHome() {
         return home;
-    }
-
-    private void generateNavigation() {
-        mHome = new Button("Home");
-        mBooks = new Button("Manage Books");
-        mUsers = new Button("Manage Users");
-        mLogs = new Button("Logs");
-
-        navigation.getChildren().addAll(mHome, mBooks, mUsers, mLogs);
-
-        mHome.setOnAction(e -> {
-            Main.window.setScene(home);
-            Main.window.setTitle(Main.APP_TITLE + name);
-        });
-        mBooks.setOnAction(e -> {
-            Main.window.setScene(Main.manageBooks.getManageBooks());
-            Main.window.setTitle(Main.APP_TITLE + Main.manageBooks.getName());
-        });
-        mUsers.setOnAction(e -> {
-            Main.window.setScene(Main.manageUsers.getManageUsers());
-            Main.window.setTitle(Main.APP_TITLE + Main.manageBooks.getName());
-        });
-        mLogs.setOnAction(e -> {
-            Main.window.setScene(Main.logs.getLogs());
-            Main.window.setTitle(Main.APP_TITLE + Main.logs.getName());
-        });
     }
 
     public String getName() {

@@ -1,17 +1,19 @@
 package com.staleyhighschool.fbla.gui.lib.logging;
 
+import com.staleyhighschool.fbla.gui.Main;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 
 public class Logs {
 
     private Scene logs;
-    StackPane layout;
+    BorderPane layout;
 
     private final String name = " | Logs";
 
     public Logs() {
-        layout = new StackPane();
+        layout = new BorderPane();
+        layout.setLeft(Main.generateNavigation());
         logs = new Scene(layout, 960, 540);
     }
 
