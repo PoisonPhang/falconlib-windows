@@ -100,7 +100,9 @@ public class Library {
         if (selectedBooks.size() - 1 <= connection.getMaxBooks(user)) {
             for (Book selectedBook : selectedBooks) {
                 if (!selectedBook.isOut()) {
-                    connection.userCheckOut(user.getUserID(), selectedBook.getBookID());
+                    connection.userCheckOut(user, selectedBook);
+
+                    selectedBook.setIsOut(Enums.IsOut.OUT);
                 }
             }
         }
@@ -109,7 +111,9 @@ public class Library {
     public void returnBook(User user, List<Book> selectedBooks) {
         for (Book selectedBook : selectedBooks) {
             if (selectedBook.isOut()) {
-                connection.userReturnBook(user.getUserID(), selectedBook.getBookID());
+                connection.userReturnBook(user, selectedBook);
+
+                selectedBook.setIsOut(Enums.IsOut.IN);
             }
         }
     }

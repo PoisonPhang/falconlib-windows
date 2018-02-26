@@ -112,4 +112,8 @@ public class Book {
         }
         return out;
     }
+
+    public void setIsOut(Enums.IsOut isOut) {
+        this.isOut = isOut;
+    }
 }

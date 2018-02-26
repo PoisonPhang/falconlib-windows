@@ -224,7 +224,6 @@ public class Connector {
         Date dateOut = Book.storeDate;
 
         Statement statement;
-        ResultSet resultSet;
 
         String query = "INSERT INTO LibraryBooks (title, author, id, isOut, isLate, dateOut) " +
                 "VALUES (" + title +
@@ -340,13 +339,12 @@ public class Connector {
         return max;
     }
 
-    public void userCheckOut(String userID, String bookID) {
+    public void userCheckOut(User user, Book book) {
         String query;
 
         Statement statement;
-        ResultSet resultSet;
 
-        query = "INSERT INTO " + userID + "(books) VALUES (" + bookID + ")";
+        query = "INSERT INTO " + user.getUserID() + "(books) VALUES (" + book.getBookID() + ")";
 
         try {
             statement = connection.createStatement();
@@ -356,13 +354,12 @@ public class Connector {
         }
     }
 
-    public void userReturnBook(String userID, String bookID) {
+    public void userReturnBook(User user, Book book) {
         String query;
 
         Statement statement;
-        ResultSet resultSet;
 
-        query = "DELETE FROM " + userID + " WHERE books=" + bookID;
+        query = "DELETE FROM " + user.getUserID() + " WHERE books=" + book.getBookID();
 
         try {
             statement = connection.createStatement();
