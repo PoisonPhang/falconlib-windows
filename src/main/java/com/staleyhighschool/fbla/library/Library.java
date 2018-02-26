@@ -92,7 +92,11 @@ public class Library {
         if (book.isOut()) {
             // TODO Tell user book can not be deleted
         } else {
-            // TODO delete book
+            connection.deleteBook(book);
+
+            for (int i = 0; i < bookList.size(); i++) {
+                bookList.remove(book);
+            }
         }
     }
 

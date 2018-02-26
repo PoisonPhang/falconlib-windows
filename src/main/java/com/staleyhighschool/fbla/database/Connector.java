@@ -241,6 +241,19 @@ public class Connector {
         }
     }
 
+    public void deleteBook(Book book) {
+        String query = "DELETE FROM LibraryBooks WHERE id=" + book.getBookID();
+
+        Statement statement;
+
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<User> getCurrentUsers() {
 
         List<User> users = null;
