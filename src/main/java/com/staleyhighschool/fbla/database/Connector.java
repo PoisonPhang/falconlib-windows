@@ -52,7 +52,7 @@ public class Connector {
      */
     public List<Book> getLibraryBooks() {
 
-        String query = "select title, author, id, isOut, isLate, dateOut " + "from " + DATABASE_NAME + ".LibraryBooks";
+        String query = "SELECT title, author, id, isOut, isLate, dateOut " + "FROM LibraryBooks";
 
         Statement statement;
         ResultSet resultSet;
@@ -118,7 +118,7 @@ public class Connector {
         Enums.IsLate isLate = null;
         Enums.IsOut isOut = null;
 
-        String query = "SELECT id " + "FROM " + DATABASE_NAME + "." + user.getUserID();
+        String query = "SELECT id " + "FROM " + user.getUserID();
 
         Statement statement;
         ResultSet resultSet;
@@ -151,7 +151,7 @@ public class Connector {
         String query;
         double fineRate = 0;
 
-        query = "SELECT student, teacher FROM " + DATABASE_NAME + ".Rules";
+        query = "SELECT student, teacher FROM Rules";
 
         try {
 
@@ -255,7 +255,7 @@ public class Connector {
         Statement statement;
         ResultSet resultSet;
 
-        String query = "SELECT firstName, lastName, id, accountType FROM " + DATABASE_NAME + ".Users";
+        String query = "SELECT firstName, lastName, id, accountType FROM Users";
 
         try {
 
@@ -297,10 +297,10 @@ public class Connector {
         String type = null;
 
         if (user.getAccountType() == Enums.AccountType.TEACHER) {
-            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule='maxDays'";
+            query = "SELECT teacher FROM Rules WHERE rule='maxDays'";
             type = "teacher";
         } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
-            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule='maxDays'";
+            query = "SELECT student FROM Rules WHERE rule='maxDays'";
             type = "teacher";
         }
 
@@ -315,10 +315,10 @@ public class Connector {
         String type = null;
 
         if (user.getAccountType() == Enums.AccountType.TEACHER) {
-            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule='maxBooks'";
+            query = "SELECT teacher FROM Rules WHERE rule='maxBooks'";
             type = "teacher";
         } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
-            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule='maxBooks'";
+            query = "SELECT student FROM Rules WHERE rule='maxBooks'";
             type = "student";
         }
 
@@ -383,10 +383,10 @@ public class Connector {
 
         if (accountType == Enums.AccountType.TEACHER) {
             type = "teacher";
-            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule='" + rule + "'";
+            query = "SELECT teacher FROM Rules WHERE rule='" + rule + "'";
         } else if (accountType == Enums.AccountType.STUDENT) {
             type = "student";
-            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule='" + rule + "'";
+            query = "SELECT student FROM Rules WHERE rule='" + rule + "'";
         }
 
         try {
@@ -421,5 +421,43 @@ public class Connector {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean checkValidID(String string) {
+        String query = null;
+
+        Statement statement;
+        ResultSet resultSet;
+
+        boolean pass =  true;
+
+        try {
+            query = "SELECT id FROM Users";
+
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                if (string.equals(resultSet.getString("id"))) {
+                    pass = false;
+                }
+            }
+
+            query = "SELECT id FROM LibraryBooks";
+
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                if (string.equals(resultSet.getString("id"))) {
+                    pass = false;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pass;
     }
 }

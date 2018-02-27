@@ -7,6 +7,7 @@ import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -123,12 +124,23 @@ public class Library {
     }
 
     private String generateNewID() {
-        String id = UUID.randomUUID().toString();
-        id = id.replaceAll("-", "");
-        return id;
+        char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+        Random rnd = new Random();
+
+        boolean pass = false;
+
+        StringBuilder sb;
+
+        do {
+            sb = new StringBuilder((100000 + rnd.nextInt(900000)) + "-");
+            for (int i = 0; i < 5; i++) {
+                sb.append(chars[rnd.nextInt(chars.length)]);
+            }
+
+            pass = connection.checkValidID(sb.toString());
+        } while (!pass);
+
+        return sb.toString();
     }
 
-    public void saveFineRate() {
-        // TODO logic for deciding account type rate and setting it
-    }
 }
