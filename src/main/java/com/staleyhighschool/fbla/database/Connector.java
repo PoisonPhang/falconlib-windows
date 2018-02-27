@@ -357,19 +357,39 @@ public class Connector {
         }
     }
 
-    public void userReturnBook(User user, Book book) {
+    public void userReturnBook(Book book) {
         String query;
 
         Statement statement;
+        ResultSet resultSet;
 
-        query = "DELETE FROM " + user.getUserID() + " WHERE books='" + book.getBookID() + "'";
+        boolean pass = false;
 
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        do {
+            for (User user : Library.userList) {
+                try {
+                    statement = connection.createStatement();
+                    resultSet = statement.executeQuery("SELECT id FROM " + user.getUserID());
+
+                    while (resultSet.next()) {
+                        if (book.getBookID().equals(resultSet.getString("id"))) {
+                            query = "DELETE FROM " + user.getUserID() + " WHERE books='" + book.getBookID() + "'";
+
+                            try {
+                                statement = connection.createStatement();
+                                statement.executeUpdate(query);
+
+                                pass = true;
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } while (!pass);
     }
 
     public double getRule(Enums.AccountType accountType, String rule) {

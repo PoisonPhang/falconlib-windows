@@ -16,13 +16,15 @@ public class Main extends Application {
 
     public static Stage window;
 
+    public static Library library;
+
     public static Home home;
     public static Logs logs;
     public static ManageBooks manageBooks;
     public static ManageUsers manageUsers;
 
     public static void main(String[] args) {
-        new Library();
+        library = new Library();
         launch(args);
     }
 

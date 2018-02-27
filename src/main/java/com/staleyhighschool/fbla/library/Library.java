@@ -89,14 +89,16 @@ public class Library {
         bookList.add(book);
     }
 
-    public void deleteBook(Book book) {
-        if (book.isOut()) {
-            // TODO Tell user book can not be deleted
-        } else {
-            connection.deleteBook(book);
+    public void deleteBook(List<Book> books) {
+        for (Book book : books) {
+            if (book.isOut()) {
+                // TODO Tell user book can not be deleted
+            } else {
+                connection.deleteBook(book);
 
-            for (int i = 0; i < bookList.size(); i++) {
-                bookList.remove(book);
+                for (int i = 0; i < bookList.size(); i++) {
+                    bookList.remove(book);
+                }
             }
         }
     }
@@ -113,10 +115,10 @@ public class Library {
         }
     }
 
-    public void returnBook(User user, List<Book> selectedBooks) {
+    public void returnBook(List<Book> selectedBooks) {
         for (Book selectedBook : selectedBooks) {
             if (selectedBook.isOut()) {
-                connection.userReturnBook(user, selectedBook);
+                connection.userReturnBook(selectedBook);
 
                 selectedBook.setIsOut(Enums.IsOut.IN);
             }
