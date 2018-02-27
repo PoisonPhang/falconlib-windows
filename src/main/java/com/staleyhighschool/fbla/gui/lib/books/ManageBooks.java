@@ -3,6 +3,7 @@ package com.staleyhighschool.fbla.gui.lib.books;
 import com.staleyhighschool.fbla.gui.Main;
 import com.staleyhighschool.fbla.library.Book;
 import com.staleyhighschool.fbla.library.Library;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
@@ -25,6 +26,7 @@ public class ManageBooks {
         mainContent.setContent(bookList);
         layout = new BorderPane();
         layout.setLeft(Main.generateNavigation());
+        layout.setCenter(mainContent);
         manageBooks = new Scene(layout, 960, 540);
     }
 
@@ -39,6 +41,10 @@ public class ManageBooks {
     private GridPane populateBookList() {
         GridPane pane = new GridPane();
 
+        pane.setPadding(new Insets(4));
+        pane.setVgap(4);
+        pane.setHgap(8);
+
         int row = 1;
 
         Text titleTag = new Text("Title");
@@ -47,8 +53,7 @@ public class ManageBooks {
         Text isOutTag = new Text("Is Out");
         Text isLateTag = new Text("Is Late");
 
-        pane
-                .add(titleTag, 0, 0);
+        pane.add(titleTag, 0, 0);
         pane.add(authorTag, 1, 0);
         pane.add(idTag, 2, 0);
         pane.add(isOutTag, 3, 0);
@@ -77,6 +82,8 @@ public class ManageBooks {
             pane.add(id, 2, row);
             pane.add(isOut, 3, row);
             pane.add(isLate, 4, row);
+
+            row++;
         }
 
         return pane;

@@ -8,6 +8,7 @@ import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Connector {
      */
     public Connector() {
         try {
-            connection = DriverManager.getConnection(DATABASE_URL, "Falcon", "mypass");
+            connection = DriverManager.getConnection(DATABASE_URL, "FalconC", "mypass");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,7 +65,7 @@ public class Connector {
         Enums.IsOut isOut;
         Date dateOut;
 
-        List<Book> books = null;
+        List<Book> books = new ArrayList<>();
         Book book;
 
         try {
