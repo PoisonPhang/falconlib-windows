@@ -22,7 +22,7 @@ public class Connector {
     public static Connection connection;
 
     private final String DATABASE_NAME = "FalconLib";
-    private final String DATABASE_URL = "jdbc:mysql://192.168.1.116:3306/FalconLib";
+    private final String DATABASE_URL = "jdbc:mysql://192.168.1.116:3306/FalconLib"; // TODO change before submission
     private final String PORT = ":3306";
 
     /**
@@ -406,7 +406,6 @@ public class Connector {
         String type = null;
 
         Statement statement;
-        ResultSet resultSet;
 
         if (accountType == Enums.AccountType.TEACHER) {
             type = "teacher";
@@ -415,5 +414,12 @@ public class Connector {
         }
 
         query = "UPDATE Rules SET " + type + "=" + value + " where rule='" + rule + "'";
+
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
