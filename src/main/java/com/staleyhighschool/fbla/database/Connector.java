@@ -110,7 +110,7 @@ public class Connector {
      */
     public List<Book> getUserBooks(User user) {
 
-        List<Book> userBooks = null;
+        List<Book> userBooks = new ArrayList<>();
         Book book;
 
         String bookTitle;
