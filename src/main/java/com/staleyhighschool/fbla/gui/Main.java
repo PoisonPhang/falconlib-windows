@@ -6,6 +6,7 @@ import com.staleyhighschool.fbla.gui.lib.logging.Logs;
 import com.staleyhighschool.fbla.gui.lib.users.ManageUsers;
 import com.staleyhighschool.fbla.library.Library;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -53,22 +54,26 @@ public class Main extends Application {
         navigation.getChildren().addAll(mHome, mBooks, mUsers, mLogs);
 
         mHome.setOnAction(e -> {
-            Main.window.setScene(home.getHome());
-            Main.window.setTitle(APP_TITLE + home.getName());
+            window.setScene(home.getHome());
+            window.setTitle(APP_TITLE + home.getName());
         });
         mBooks.setOnAction(e -> {
-            Main.window.setScene(manageBooks.getManageBooks());
-            Main.window.setTitle(APP_TITLE + Main.manageBooks.getName());
+            window.setScene(manageBooks.getManageBooks());
+            window.setTitle(APP_TITLE + Main.manageBooks.getName());
         });
         mUsers.setOnAction(e -> {
-            Main.window.setScene(manageUsers.getManageUsers());
-            Main.window.setTitle(APP_TITLE + Main.manageUsers.getName());
+            window.setScene(manageUsers.getManageUsers());
+            window.setTitle(APP_TITLE + Main.manageUsers.getName());
         });
         mLogs.setOnAction(e -> {
-            Main.window.setScene(logs.getLogs());
-            Main.window.setTitle(APP_TITLE + Main.logs.getName());
+            window.setScene(logs.getLogs());
+            window.setTitle(APP_TITLE + Main.logs.getName());
         });
 
         return navigation;
+    }
+
+    public static void changeScene(Scene scene) {
+        window.setScene(scene);
     }
 }

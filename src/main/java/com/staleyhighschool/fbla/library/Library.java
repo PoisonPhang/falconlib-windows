@@ -80,13 +80,14 @@ public class Library {
         userList.add(user);
     }
 
-    public void addBook(String title, String author) {
+    public Book addBook(String title, String author) {
         Book book;
 
         book = new Book(title, author, generateNewID(), Enums.IsLate.SAFE, Enums.IsOut.IN, Book.storeDate);
 
         connection.addBook(book);
         bookList.add(book);
+        return book;
     }
 
     public void deleteBook(List<Book> books) {

@@ -31,6 +31,8 @@ public class ManageBooks {
     private List<CheckBox> checkBoxes;
     private List<Integer> indexOfSelcted;
 
+    private int totalRows;
+
     private final String name = " | Manage Books";
 
     public ManageBooks() {
@@ -61,6 +63,8 @@ public class ManageBooks {
         Button checkOut = new Button("Check Out Selected");
         Button returnBooks = new Button("Return Selected");
         Button delete = new Button("Delete Selected");
+
+        addBook.setOnAction(e -> Main.changeScene(new AddBook().getAddBook()));
 
 //        checkOut.setOnAction(e -> Main.library.checkOutBook());
         returnBooks.setOnAction(e -> {
@@ -159,6 +163,7 @@ public class ManageBooks {
             pane.add(delete, 7, wRow);
 
             wRow++;
+            totalRows = wRow;
         }
 
         return pane;
@@ -178,6 +183,55 @@ public class ManageBooks {
         for (CheckBox box : checkBoxes) {
             box.setSelected(false);
         }
+    }
+
+    public void appendList(Book book) {
+
+        String isOutT =  "false";
+        String isLateT = "false";
+
+        if (book.isOut()) {
+            isOutT = "true";
+        }
+        if (book.isLate()) {
+            isLateT = "true";
+        }
+
+        Text index = new Text(String.valueOf(totalRows));
+        CheckBox title = new CheckBox(book.getBookTitle());
+        Text author = new Text(book.getBookAuthor());
+        Text id = new Text(book.getBookID());
+        Text isOut = new Text(isOutT);
+        Text isLate = new Text(isLateT);
+
+        Button returnBook = new Button("Return");
+        Button checkOutBook = new Button("Check Out");
+        Button delete = new Button("Delete");
+
+        System.out.println(delete.toString());
+        returnBook.setOnAction(e -> Library.connection.userReturnBook(book));
+        delete.setOnAction(e -> {
+            Library.connection.deleteBook(book);
+            deleteRow(bookList, Library.bookList.indexOf(book)+1);
+        });
+
+        checkBoxes.add(title);
+
+        bookList.add(index, 0, totalRows);
+        bookList.add(title, 1, totalRows);
+        bookList.add(author, 2, totalRows);
+        bookList.add(id, 3, totalRows);
+        bookList.add(isOut, 4, totalRows);
+        bookList.add(isLate, 5, totalRows);
+
+        if (book.isOut()) {
+            bookList.add(returnBook, 6, totalRows);
+        } else {
+            bookList.add(checkOutBook, 6, totalRows);
+        }
+
+        bookList.add(delete, 7, totalRows);
+        totalRows++;
     }
 
     private void deleteSelectedRows(GridPane grid, final List<Integer> row) {
