@@ -90,10 +90,13 @@ public class Library {
     }
 
     public void deleteBook(List<Book> books) {
+        System.out.println(TAG + "ripp " + books.size());
         for (Book book : books) {
+            System.out.println(TAG + book.isOut());
             if (book.isOut()) {
                 // TODO Tell user book can not be deleted
-            } else {
+            } else if (!book.isOut()){
+                System.out.println(TAG + "Books almost yeeted");
                 connection.deleteBook(book);
 
                 for (int i = 0; i < bookList.size(); i++) {

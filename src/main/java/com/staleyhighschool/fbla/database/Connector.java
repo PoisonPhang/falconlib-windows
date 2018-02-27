@@ -232,6 +232,7 @@ public class Connector {
     }
 
     public void deleteBook(Book book) {
+        System.out.println(TAG + "Book ID: " + book.getBookID());
         String query = "DELETE FROM LibraryBooks WHERE id='" + book.getBookID() + "'";
 
         Statement statement;
@@ -239,6 +240,7 @@ public class Connector {
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query);
+            System.out.println(TAG + "Books been Yeeted");
         } catch (SQLException e) {
             e.printStackTrace();
         }

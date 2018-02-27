@@ -113,8 +113,10 @@ public class ManageBooks {
 
             Button returnBook = new Button("Return");
             Button checkOutBook = new Button("Check Out");
+            Button delete = new Button("Delete");
 
             returnBook.setOnAction(e -> Library.connection.userReturnBook(book));
+            delete.setOnAction(e -> Library.connection.deleteBook(book));
 
             if (title.isSelected()) {
                 selectedBooks.add(book);
@@ -132,6 +134,7 @@ public class ManageBooks {
             } else {
                 pane.add(checkOutBook, 6, wRow);
             }
+            pane.add(delete, 7, wRow);
             wRow++;
         }
 
