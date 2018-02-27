@@ -79,7 +79,7 @@ public class ManageBooks {
             deselectAll();
         });
 
-        hBox.getChildren().addAll(checkOut, returnBooks, delete);
+        hBox.getChildren().addAll(addBook, checkOut, returnBooks, delete);
 
 
         return hBox;
