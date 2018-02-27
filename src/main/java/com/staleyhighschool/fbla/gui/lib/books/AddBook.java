@@ -25,6 +25,10 @@ public class AddBook {
         title.setPromptText("Title");
         author.setPromptText("Author");
 
+        buttons = new HBox(10);
+        input = new HBox(10);
+        mainContent = new VBox(20);
+
         mainContent.getChildren().addAll(input, buttons);
 
         layout = new BorderPane();
