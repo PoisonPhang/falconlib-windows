@@ -381,4 +381,34 @@ public class Connector {
             e.printStackTrace();
         }
     }
+
+    public double getRule(Enums.AccountType accountType, String rule) {
+        String query = null;
+
+        Statement statement;
+        ResultSet resultSet;
+
+        String type = null;
+
+        double rRule = 0;
+
+        if (accountType == Enums.AccountType.TEACHER) {
+            type = "teacher";
+            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule=" + rule;
+        } else if (accountType == Enums.AccountType.STUDENT) {
+            type = "student";
+            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule=" + rule;
+        }
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            rRule = resultSet.getDouble(type);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rRule;
+    }
 }
