@@ -4,6 +4,7 @@ import com.staleyhighschool.fbla.gui.lib.Home;
 import com.staleyhighschool.fbla.gui.lib.books.ManageBooks;
 import com.staleyhighschool.fbla.gui.lib.logging.Logs;
 import com.staleyhighschool.fbla.gui.lib.users.ManageUsers;
+import com.staleyhighschool.fbla.library.Library;
 import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,7 @@ public class Main extends Application {
     public static ManageUsers manageUsers;
 
     public static void main(String[] args) {
+        new Library();
         launch(args);
     }
 
