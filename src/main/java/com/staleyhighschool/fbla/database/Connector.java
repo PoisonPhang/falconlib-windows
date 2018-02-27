@@ -54,59 +54,6 @@ public class Connector {
 
         String query = "select title, author, id, isOut, isLate, dateOut " + "from " + DATABASE_NAME + ".LibraryBooks";
 
-        return setBooks(query);
-    }
-
-    /**
-     * Gets list of books that the given {@link User} has
-     *
-     * @param user {@link User}
-     * @return {@link List<Book>}
-     */
-    public List<Book> getUserBooks(User user) {
-
-        List<Book> userBooks = null;
-        Book book;
-
-        String bookTitle;
-        String bookAuthor;
-        String bookID;
-        Enums.IsLate isLate = null;
-        Enums.IsOut isOut = null;
-
-        String query = "SELECT id " + "FROM " + DATABASE_NAME + "." + user.getUserID();
-
-        Statement statement;
-        ResultSet resultSet;
-
-        try {
-
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                for (int i = 0; i < Library.bookList.size(); i++) {
-                    if (resultSet.getString("ID").equals(Library.bookList.get(i).getBookID())) {
-                        userBooks.add(Library.bookList.get(i));
-                    }
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return userBooks;
-    }
-
-    /**
-     * Grabs a list of books from a selected table
-     *
-     * @param query {@link String}
-     * @return {@link List<Book>}
-     */
-    private List<Book> setBooks(String query) {
-
         Statement statement;
         ResultSet resultSet;
 
@@ -154,6 +101,48 @@ public class Connector {
         return books;
     }
 
+    /**
+     * Gets list of books that the given {@link User} has
+     *
+     * @param user {@link User}
+     * @return {@link List<Book>}
+     */
+    public List<Book> getUserBooks(User user) {
+
+        List<Book> userBooks = null;
+        Book book;
+
+        String bookTitle;
+        String bookAuthor;
+        String bookID;
+        Enums.IsLate isLate = null;
+        Enums.IsOut isOut = null;
+
+        String query = "SELECT id " + "FROM " + DATABASE_NAME + "." + user.getUserID();
+
+        Statement statement;
+        ResultSet resultSet;
+
+        try {
+
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                for (int i = 0; i < Library.bookList.size(); i++) {
+                    if (resultSet.getString("ID").equals(Library.bookList.get(i).getBookID())) {
+                        userBooks.add(Library.bookList.get(i));
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userBooks;
+    }
+
     public double getFineRate(Enums.AccountType accountType) {
 
         Statement statement;
@@ -196,10 +185,10 @@ public class Connector {
         }
 
         String addToUsersQuery = "INSERT INTO Users (firstName, lastName, id, accountType) " +
-                "VALUES (" + user.getFirstName() +
-                ", " + user.getLastName() +
-                ", " + user.getUserID() +
-                ", " + accountType + ")";
+                "VALUES ('" + user.getFirstName() +
+                "', '" + user.getLastName() +
+                "', '" + user.getUserID() +
+                "', '" + accountType + "')";
 
         String createTableQuery = "CREATE TABLE " + user.getUserID() + " (Books STRING)";
 
@@ -226,10 +215,10 @@ public class Connector {
         Statement statement;
 
         String query = "INSERT INTO LibraryBooks (title, author, id, isOut, isLate, dateOut) " +
-                "VALUES (" + title +
-                ", " + author +
-                ", " + id +
-                ", " + isOut +
+                "VALUES ('" + title +
+                "', '" + author +
+                "', '" + id +
+                "', " + isOut +
                 ", " + isLate +
                 ", " + dateOut + ")";
 
@@ -242,7 +231,7 @@ public class Connector {
     }
 
     public void deleteBook(Book book) {
-        String query = "DELETE FROM LibraryBooks WHERE id=" + book.getBookID();
+        String query = "DELETE FROM LibraryBooks WHERE id='" + book.getBookID() + "'";
 
         Statement statement;
 
@@ -308,10 +297,10 @@ public class Connector {
         String type = null;
 
         if (user.getAccountType() == Enums.AccountType.TEACHER) {
-            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule=maxDays";
+            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule='maxDays'";
             type = "teacher";
         } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
-            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule=maxDays";
+            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule='maxDays'";
             type = "teacher";
         }
 
@@ -326,10 +315,10 @@ public class Connector {
         String type = null;
 
         if (user.getAccountType() == Enums.AccountType.TEACHER) {
-            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule=maxBooks";
+            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule='maxBooks'";
             type = "teacher";
         } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
-            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule=maxBooks";
+            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule='maxBooks'";
             type = "student";
         }
 
@@ -357,7 +346,7 @@ public class Connector {
 
         Statement statement;
 
-        query = "INSERT INTO " + user.getUserID() + "(books) VALUES (" + book.getBookID() + ")";
+        query = "INSERT INTO " + user.getUserID() + "(books) VALUES ('" + book.getBookID() + "')";
 
         try {
             statement = connection.createStatement();
@@ -372,7 +361,7 @@ public class Connector {
 
         Statement statement;
 
-        query = "DELETE FROM " + user.getUserID() + " WHERE books=" + book.getBookID();
+        query = "DELETE FROM " + user.getUserID() + " WHERE books='" + book.getBookID() + "'";
 
         try {
             statement = connection.createStatement();
@@ -394,10 +383,10 @@ public class Connector {
 
         if (accountType == Enums.AccountType.TEACHER) {
             type = "teacher";
-            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule=" + rule;
+            query = "SELECT teacher FROM " + DATABASE_NAME + ".Rules WHERE rule='" + rule + "'";
         } else if (accountType == Enums.AccountType.STUDENT) {
             type = "student";
-            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule=" + rule;
+            query = "SELECT student FROM " + DATABASE_NAME + ".Rules WHERE rule='" + rule + "'";
         }
 
         try {
@@ -410,5 +399,21 @@ public class Connector {
         }
 
         return rRule;
+    }
+
+    public void setRule(Enums.AccountType accountType, String rule, double value) {
+        String query =  null;
+        String type = null;
+
+        Statement statement;
+        ResultSet resultSet;
+
+        if (accountType == Enums.AccountType.TEACHER) {
+            type = "teacher";
+        } else if (accountType == Enums.AccountType.STUDENT) {
+            type = "student";
+        }
+
+        query = "UPDATE Rules SET " + type + "=" + value + " where rule='" + rule + "'";
     }
 }
