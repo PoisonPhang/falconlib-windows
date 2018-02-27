@@ -4,20 +4,23 @@ import com.staleyhighschool.fbla.gui.Main;
 import com.staleyhighschool.fbla.library.Book;
 import com.staleyhighschool.fbla.library.Library;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class ManageBooks {
+
+    private String TAG = (this.getClass().getName() + ": ");
 
     private Scene manageBooks;
     private BorderPane layout;
@@ -25,6 +28,8 @@ public class ManageBooks {
     private GridPane bookList;
 
     private List<Book> selectedBooks;
+    private List<CheckBox> checkBoxes;
+    private List<Integer> indexOfSelcted;
 
     private final String name = " | Manage Books";
 
@@ -52,13 +57,23 @@ public class ManageBooks {
     private HBox topButtons() {
         HBox hBox = new HBox(10);
 
+        Button addBook = new Button("Add Book");
         Button checkOut = new Button("Check Out Selected");
         Button returnBooks = new Button("Return Selected");
         Button delete = new Button("Delete Selected");
 
 //        checkOut.setOnAction(e -> Main.library.checkOutBook());
-        returnBooks.setOnAction(e -> Main.library.returnBook(selectedBooks));
-        delete.setOnAction(e -> Main.library.deleteBook(selectedBooks));
+        returnBooks.setOnAction(e -> {
+            checkSelected();
+            Main.library.returnBook(selectedBooks);
+            deselectAll();
+        });
+        delete.setOnAction(e -> {
+            checkSelected();
+            deleteSelectedRows(bookList, indexOfSelcted);
+            Main.library.deleteBook(selectedBooks);
+            deselectAll();
+        });
 
         hBox.getChildren().addAll(checkOut, returnBooks, delete);
 
@@ -67,12 +82,16 @@ public class ManageBooks {
     }
 
     private GridPane populateBookList() {
+
+        if (bookList != null) {
+        }
         GridPane pane = new GridPane();
 
         pane.setPadding(new Insets(4));
         pane.setVgap(4);
         pane.setHgap(8);
 
+        checkBoxes = new ArrayList<>();
         selectedBooks = new ArrayList<>();
 
         int wRow = 1;
@@ -115,12 +134,14 @@ public class ManageBooks {
             Button checkOutBook = new Button("Check Out");
             Button delete = new Button("Delete");
 
+            System.out.println(delete.toString());
             returnBook.setOnAction(e -> Library.connection.userReturnBook(book));
-            delete.setOnAction(e -> Library.connection.deleteBook(book));
+            delete.setOnAction(e -> {
+                Library.connection.deleteBook(book);
+                deleteRow(bookList, Library.bookList.indexOf(book)+1);
+            });
 
-            if (title.isSelected()) {
-                selectedBooks.add(book);
-            }
+            checkBoxes.add(title);
 
             pane.add(index, 0, wRow);
             pane.add(title, 1, wRow);
@@ -134,10 +155,74 @@ public class ManageBooks {
             } else {
                 pane.add(checkOutBook, 6, wRow);
             }
+
             pane.add(delete, 7, wRow);
+
             wRow++;
         }
 
         return pane;
+    }
+
+    private void checkSelected() {
+        indexOfSelcted = new ArrayList<>();
+        for (int i = 0; i < checkBoxes.size(); i++) {
+            if (checkBoxes.get(i).isSelected()) {
+                selectedBooks.add(Library.bookList.get(i));
+                indexOfSelcted.add(i);
+            }
+        }
+    }
+
+    private void deselectAll() {
+        for (CheckBox box : checkBoxes) {
+            box.setSelected(false);
+        }
+    }
+
+    private void deleteSelectedRows(GridPane grid, final List<Integer> row) {
+        Set<Node> deleteNodes = new HashSet<>();
+        for (int rw : row) {
+            for (Node child : grid.getChildren()) {
+                // get index from child
+                Integer rowIndex = GridPane.getRowIndex(child);
+
+                // handle null values for index=0
+                int r = rowIndex == null ? 0 : rowIndex;
+
+                if (r > rw) {
+                    // decrement rows for rows after the deleted row
+                    GridPane.setRowIndex(child, r-1);
+                } else if (r == rw) {
+                    // collect matching rows for deletion
+                    deleteNodes.add(child);
+                }
+            }
+        }
+
+        // remove nodes from row
+        grid.getChildren().removeAll(deleteNodes);
+    }
+
+    private void deleteRow(GridPane grid, final int row) {
+        Set<Node> deleteNodes = new HashSet<>();
+        for (Node child : grid.getChildren()) {
+            // get index from child
+            Integer rowIndex = GridPane.getRowIndex(child);
+
+            // handle null values for index=0
+            int r = rowIndex == null ? 0 : rowIndex;
+
+            if (r > row) {
+                // decrement rows for rows after the deleted row
+                GridPane.setRowIndex(child, r-1);
+            } else if (r == row) {
+                // collect matching rows for deletion
+                deleteNodes.add(child);
+            }
+        }
+
+        // remove nodes from row
+        grid.getChildren().removeAll(deleteNodes);
     }
 }
