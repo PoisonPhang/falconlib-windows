@@ -3,6 +3,7 @@ package com.staleyhighschool.fbla.gui.lib.books;
 import com.staleyhighschool.fbla.gui.Main;
 import com.staleyhighschool.fbla.library.Library;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -16,6 +17,8 @@ public class AddBook {
     private HBox input;
     private VBox mainContent;
 
+    Button createBook;
+
     private TextField title;
     private TextField author;
 
@@ -25,9 +28,14 @@ public class AddBook {
         title.setPromptText("Title");
         author.setPromptText("Author");
 
+        generateButtons();
+
         buttons = new HBox(10);
         input = new HBox(10);
         mainContent = new VBox(20);
+
+        buttons.getChildren().add(createBook);
+        input.getChildren().addAll(title, author);
 
         mainContent.getChildren().addAll(input, buttons);
 
@@ -37,7 +45,6 @@ public class AddBook {
 
         addBook = new Scene(layout, 960, 540);
 
-        newBook();
     }
 
     public Scene getAddBook() {
@@ -46,5 +53,12 @@ public class AddBook {
 
     private void newBook() {
         Main.manageBooks.appendList(Main.library.addBook(title.getText(), author.getText()));
+        Main.changeScene(Main.manageBooks.getManageBooks());
+    }
+
+    private void generateButtons() {
+        createBook = new Button("Add Book");
+
+        createBook.setOnAction(e -> newBook());
     }
 }

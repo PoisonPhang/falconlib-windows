@@ -6,6 +6,7 @@ import com.staleyhighschool.fbla.users.Student;
 import com.staleyhighschool.fbla.users.Teacher;
 import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -221,7 +222,7 @@ public class Connector {
                 "', '" + id +
                 "', " + isOut +
                 ", " + isLate +
-                ", " + dateOut + ")";
+                ", '2000-01-01')";
 
         try {
             statement = connection.createStatement();
