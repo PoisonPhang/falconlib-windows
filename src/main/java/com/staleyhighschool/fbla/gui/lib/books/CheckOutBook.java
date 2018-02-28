@@ -71,6 +71,7 @@ public class CheckOutBook {
             } else {
                 Alert.display("Failed", ("User: " + user.getUserID() + " has too many books"));
             }
+            Main.changeScene(Main.manageBooks.getManageBooks());
         });
 
         box.getChildren().addAll(title, bookID, check);
