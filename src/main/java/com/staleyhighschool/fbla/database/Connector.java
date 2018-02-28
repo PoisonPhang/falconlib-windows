@@ -208,6 +208,26 @@ public class Connector {
         }
     }
 
+    public void deleteUser(User user) {
+
+        String deleteUserTable = "DROP `" + user.getUserID() + "`";
+        String deleteUserFromLibrary = "DELETE FROM Users WHERE id='" + user.getUserID() + "'";
+        Library.userList.remove(user);
+
+        Statement statement;
+
+        if (user.getUserBooks().size() -2 == 0) {
+            try {
+                statement = connection.createStatement();
+
+                statement.executeUpdate(deleteUserTable);
+                statement.executeUpdate(deleteUserFromLibrary);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void addBook(Book book) {
 
         String title = book.getBookTitle();

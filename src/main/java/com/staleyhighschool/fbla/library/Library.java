@@ -67,7 +67,7 @@ public class Library {
         return connection.getCurrentUsers();
     }
 
-    public void addUser(String firstName, String lastName, boolean tOrS) {
+    public User addUser(String firstName, String lastName, boolean tOrS) {
         User user;
 
         if (tOrS) {
@@ -78,6 +78,16 @@ public class Library {
 
         connection.addUser(user);
         userList.add(user);
+
+        return user;
+    }
+
+    public void deleteUsers(List<User> users) {
+        for (User user : users) {
+            if (user.getUserBooks().size() -2 == 0) {
+                connection.deleteUser(user);
+            }
+        }
     }
 
     public Book addBook(String title, String author) {
@@ -91,13 +101,11 @@ public class Library {
     }
 
     public void deleteBook(List<Book> books) {
-        System.out.println(TAG + "ripp " + books.size());
         for (Book book : books) {
             System.out.println(TAG + book.isOut());
             if (book.isOut()) {
                 // TODO Tell user book can not be deleted
             } else if (!book.isOut()){
-                System.out.println(TAG + "Books almost yeeted");
                 connection.deleteBook(book);
 
                 for (int i = 0; i < bookList.size(); i++) {
@@ -107,8 +115,8 @@ public class Library {
         }
     }
 
-    public void checkOutBook(User user, Book book) {
-        if (user.getUserBooks().size() - 3 <= connection.getMaxBooks(user)) {
+    public void checkOutBooks(User user, Book book) {
+        if (user.getUserBooks().size() + 1 <= connection.getMaxBooks(user)) {
                 if (!book.isOut()) {
                     connection.userCheckOut(user, book);
 

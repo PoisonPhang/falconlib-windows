@@ -205,7 +205,7 @@ public class ManageBooks {
         }
     }
 
-    public void appendList(Book book) {
+    void appendList(Book book) {
 
         String isOutT =  "false";
         String isLateT = "false";

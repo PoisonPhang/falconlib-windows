@@ -64,6 +64,7 @@ public class Main extends Application {
         });
         mUsers.setOnAction(e -> {
             window.setScene(manageUsers.getManageUsers());
+            manageUsers.refresh();
             window.setTitle(APP_TITLE + Main.manageUsers.getName());
         });
         mLogs.setOnAction(e -> {
