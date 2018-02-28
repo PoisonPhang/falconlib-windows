@@ -12,10 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class ManageBooks {
@@ -29,7 +26,7 @@ public class ManageBooks {
 
     private List<Book> selectedBooks;
     private List<CheckBox> checkBoxes;
-    private List<Integer> indexOfSelcted;
+    private List<Integer> indexOfSelected;
 
     private int totalRows;
 
@@ -63,6 +60,7 @@ public class ManageBooks {
         Button checkOut = new Button("Check Out Selected");
         Button returnBooks = new Button("Return Selected");
         Button delete = new Button("Delete Selected");
+        Button refresh = new Button("Refresh List");
 
         addBook.setOnAction(e -> Main.changeScene(new AddBook().getAddBook()));
 
@@ -74,19 +72,30 @@ public class ManageBooks {
         });
         delete.setOnAction(e -> {
             checkSelected();
-            deleteSelectedRows(bookList, indexOfSelcted);
+            Collections.sort(indexOfSelected);
+            int runs = 0;
+            for (int row : indexOfSelected) {
+                checkBoxes.remove(row-runs);
+                deleteRow(bookList, row-runs+1);
+                runs++;
+            }
             Main.library.deleteBook(selectedBooks);
             deselectAll();
         });
 
-        hBox.getChildren().addAll(addBook, checkOut, returnBooks, delete);
+        refresh.setOnAction(e -> {
+            bookList = populateBookList();
+            mainContent.setContent(bookList);
+        });
+
+        hBox.getChildren().addAll(addBook, checkOut, returnBooks, delete, refresh);
 
 
         return hBox;
     }
 
     private GridPane populateBookList() {
-
+        totalRows = 0;
         if (bookList != null) {
         }
         GridPane pane = new GridPane();
@@ -101,14 +110,12 @@ public class ManageBooks {
         int wRow = 1;
         int tRow = 0;
 
-        Text indexTag = new Text("Index");
         Text titleTag = new Text("Title");
         Text authorTag = new Text("Author");
         Text idTag = new Text("ID");
         Text isOutTag = new Text("Is Out");
         Text isLateTag = new Text("Is Late");
 
-        pane.add(indexTag, 0, tRow);
         pane.add(titleTag, 1, tRow);
         pane.add(authorTag, 2, tRow);
         pane.add(idTag, 3, tRow);
@@ -127,7 +134,6 @@ public class ManageBooks {
                 isLateT = "true";
             }
 
-            Text index = new Text(String.valueOf(wRow));
             CheckBox title = new CheckBox(book.getBookTitle());
             Text author = new Text(book.getBookAuthor());
             Text id = new Text(book.getBookID());
@@ -147,7 +153,6 @@ public class ManageBooks {
 
             checkBoxes.add(title);
 
-            pane.add(index, 0, wRow);
             pane.add(title, 1, wRow);
             pane.add(author, 2, wRow);
             pane.add(id, 3, wRow);
@@ -170,11 +175,12 @@ public class ManageBooks {
     }
 
     private void checkSelected() {
-        indexOfSelcted = new ArrayList<>();
+        indexOfSelected = new ArrayList<>();
+        System.out.println(TAG + "Books: " + Library.bookList.size() + " Checks: " + checkBoxes.size());
         for (int i = 0; i < checkBoxes.size(); i++) {
             if (checkBoxes.get(i).isSelected()) {
                 selectedBooks.add(Library.bookList.get(i));
-                indexOfSelcted.add(i);
+                indexOfSelected.add(i);
             }
         }
     }
@@ -197,7 +203,6 @@ public class ManageBooks {
             isLateT = "true";
         }
 
-        Text index = new Text(String.valueOf(totalRows));
         CheckBox title = new CheckBox(book.getBookTitle());
         Text author = new Text(book.getBookAuthor());
         Text id = new Text(book.getBookID());
@@ -217,7 +222,6 @@ public class ManageBooks {
 
         checkBoxes.add(title);
 
-        bookList.add(index, 0, totalRows);
         bookList.add(title, 1, totalRows);
         bookList.add(author, 2, totalRows);
         bookList.add(id, 3, totalRows);
@@ -232,30 +236,6 @@ public class ManageBooks {
 
         bookList.add(delete, 7, totalRows);
         totalRows++;
-    }
-
-    private void deleteSelectedRows(GridPane grid, final List<Integer> row) {
-        Set<Node> deleteNodes = new HashSet<>();
-        for (int rw : row) {
-            for (Node child : grid.getChildren()) {
-                // get index from child
-                Integer rowIndex = GridPane.getRowIndex(child);
-
-                // handle null values for index=0
-                int r = rowIndex == null ? 0 : rowIndex;
-
-                if (r > rw) {
-                    // decrement rows for rows after the deleted row
-                    GridPane.setRowIndex(child, r-1);
-                } else if (r == rw) {
-                    // collect matching rows for deletion
-                    deleteNodes.add(child);
-                }
-            }
-        }
-
-        // remove nodes from row
-        grid.getChildren().removeAll(deleteNodes);
     }
 
     private void deleteRow(GridPane grid, final int row) {
