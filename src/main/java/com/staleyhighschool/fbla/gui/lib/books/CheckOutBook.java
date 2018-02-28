@@ -29,7 +29,6 @@ public class CheckOutBook {
     private VBox checkMenu;
 
     private Book bookToCheck;
-    private User userToCheck;
 
     public CheckOutBook(Book book) {
         bookToCheck = book;

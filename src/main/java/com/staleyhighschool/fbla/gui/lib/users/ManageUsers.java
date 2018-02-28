@@ -20,7 +20,9 @@ public class ManageUsers {
 
     private Scene manageUsers;
     private BorderPane layout;
+
     private int totalRows;
+
     private List<CheckBox> checkBoxes;
     private List<User> selectedUsers;
 
