@@ -152,13 +152,17 @@ public class ManageBooks {
             Button checkOutBook = new Button("Check Out");
             Button delete = new Button("Delete");
 
-            returnBook.setOnAction(e -> Library.connection.userReturnBook(book));
+            returnBook.setOnAction(e -> {
+                Library.connection.userReturnBook(book);
+                refresh();
+            });
 
             checkOutBook.setOnAction(e -> Main.changeScene(new CheckOutBook(book).getCheckOutBook()));
 
             delete.setOnAction(e -> {
                 Library.connection.deleteBook(book);
                 deleteRow(bookList, Library.bookList.indexOf(book)+1);
+                refresh();
             });
 
             checkBoxes.add(title);
