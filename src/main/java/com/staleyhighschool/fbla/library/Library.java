@@ -84,7 +84,8 @@ public class Library {
 
     public void deleteUsers(List<User> users) {
         for (User user : users) {
-            if (user.getUserBooks().size() -2 == 0) {
+            System.out.println(TAG + "User " + (user.getUserBooks().size() -2));
+            if (user.getUserBooks().size() == 0) {
                 connection.deleteUser(user);
             }
         }

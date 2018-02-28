@@ -177,7 +177,6 @@ public class ManageUsers {
 
     private void checkSelected() {
         indexOfSelected = new ArrayList<>();
-        System.out.println(TAG + "Books: " + Library.bookList.size() + " Checks: " + checkBoxes.size());
         for (int i = 0; i < checkBoxes.size(); i++) {
             if (checkBoxes.get(i).isSelected()) {
                 selectedUsers.add(Library.userList.get(i));

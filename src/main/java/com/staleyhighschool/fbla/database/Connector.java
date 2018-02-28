@@ -210,13 +210,14 @@ public class Connector {
 
     public void deleteUser(User user) {
 
-        String deleteUserTable = "DROP `" + user.getUserID() + "`";
+        String deleteUserTable = "DROP TABLE `" + user.getUserID() + "`";
         String deleteUserFromLibrary = "DELETE FROM Users WHERE id='" + user.getUserID() + "'";
         Library.userList.remove(user);
 
         Statement statement;
 
-        if (user.getUserBooks().size() -2 == 0) {
+        System.out.println(TAG + "User " + (user.getUserBooks().size() -2));
+        if (user.getUserBooks().size() == 0) {
             try {
                 statement = connection.createStatement();
 
