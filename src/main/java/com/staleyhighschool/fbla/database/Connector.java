@@ -373,20 +373,23 @@ public class Connector {
         ResultSet resultSet;
 
         boolean pass = false;
-
+        System.out.println(TAG + " Got in");
         do {
             for (User user : Library.userList) {
+                System.out.println(TAG + "Cycling users");
                 try {
                     statement = connection.createStatement();
-                    resultSet = statement.executeQuery("SELECT id FROM `" + user.getUserID() + "`");
+                    resultSet = statement.executeQuery("SELECT books FROM `" + user.getUserID() + "`");
 
                     while (resultSet.next()) {
-                        if (book.getBookID().equals(resultSet.getString("id"))) {
-                            query = "DELETE FROM " + user.getUserID() + " WHERE books='" + book.getBookID() + "'";
-
+                        if (book.getBookID().equals(resultSet.getString("books"))) {
+                            query = "DELETE FROM `" + user.getUserID() + "` WHERE books='" + book.getBookID() + "'";
+                            String setIn = "UPDATE LibraryBooks SET isOut=FALSE WHERE id='" + book.getBookID() + "'";
+                            book.setIsOut(Enums.IsOut.IN);
                             try {
                                 statement = connection.createStatement();
                                 statement.executeUpdate(query);
+                                statement.executeUpdate(setIn);
 
                                 pass = true;
                             } catch (SQLException e) {

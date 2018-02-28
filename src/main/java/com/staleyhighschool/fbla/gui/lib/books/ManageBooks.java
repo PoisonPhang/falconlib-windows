@@ -127,9 +127,13 @@ public class ManageBooks {
 
             if (book.isOut()) {
                 isOutT = "true";
+            } else {
+                isOutT = "false";
             }
             if (book.isLate()) {
                 isLateT = "true";
+            } else {
+                isLateT = "false";
             }
 
             CheckBox title = new CheckBox(book.getBookTitle());
