@@ -144,8 +144,10 @@ public class ManageBooks {
             Button checkOutBook = new Button("Check Out");
             Button delete = new Button("Delete");
 
-            System.out.println(delete.toString());
             returnBook.setOnAction(e -> Library.connection.userReturnBook(book));
+
+//            checkOutBook.setOnAction(e -> );
+
             delete.setOnAction(e -> {
                 Library.connection.deleteBook(book);
                 deleteRow(bookList, Library.bookList.indexOf(book)+1);
