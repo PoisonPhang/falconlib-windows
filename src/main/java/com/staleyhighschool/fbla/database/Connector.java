@@ -120,7 +120,7 @@ public class Connector {
         Enums.IsLate isLate = null;
         Enums.IsOut isOut = null;
 
-        String query = "SELECT id " + "FROM " + user.getUserID();
+        String query = "SELECT books " + "FROM `" + user.getUserID() + "`";
 
         Statement statement;
         ResultSet resultSet;
@@ -132,7 +132,7 @@ public class Connector {
 
             while (resultSet.next()) {
                 for (int i = 0; i < Library.bookList.size(); i++) {
-                    if (resultSet.getString("ID").equals(Library.bookList.get(i).getBookID())) {
+                    if (resultSet.getString("books").equals(Library.bookList.get(i).getBookID())) {
                         userBooks.add(Library.bookList.get(i));
                     }
                 }
@@ -192,7 +192,9 @@ public class Connector {
                 "', '" + user.getUserID() +
                 "', '" + accountType + "')";
 
-        String createTableQuery = "CREATE TABLE " + user.getUserID() + " (Books STRING)";
+        String createTableQuery = "CREATE TABLE `" + user.getUserID() + "` (books TEXT)";
+
+        String insertBlank = "INSERT INTO `" + user.getUserID() + "` (books) VALUES ('space')";
 
         try {
 
@@ -200,6 +202,7 @@ public class Connector {
 
             statement.executeUpdate(addToUsersQuery);
             statement.executeUpdate(createTableQuery);
+            statement.executeUpdate(insertBlank);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -249,7 +252,7 @@ public class Connector {
 
     public List<User> getCurrentUsers() {
 
-        List<User> users = null;
+        List<User> users = new ArrayList<>();
 
         User user;
 
@@ -283,6 +286,7 @@ public class Connector {
                     users.add(user);
                 } else if (accountType == Enums.AccountType.STUDENT) {
                     user = new Student(firstName, lastName, id);
+                    user.setUserBooks();
                     users.add(user);
                 }
             }
@@ -338,7 +342,9 @@ public class Connector {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
 
-            max = (int) resultSet.getDouble(type);
+            while (resultSet.next()) {
+                max = (int) resultSet.getDouble(type);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -350,7 +356,7 @@ public class Connector {
 
         Statement statement;
 
-        query = "INSERT INTO " + user.getUserID() + "(books) VALUES ('" + book.getBookID() + "')";
+        query = "INSERT INTO `" + user.getUserID() + "` (books) VALUES ('" + book.getBookID() + "')";
 
         try {
             statement = connection.createStatement();
@@ -372,7 +378,7 @@ public class Connector {
             for (User user : Library.userList) {
                 try {
                     statement = connection.createStatement();
-                    resultSet = statement.executeQuery("SELECT id FROM " + user.getUserID());
+                    resultSet = statement.executeQuery("SELECT id FROM `" + user.getUserID() + "`");
 
                     while (resultSet.next()) {
                         if (book.getBookID().equals(resultSet.getString("id"))) {

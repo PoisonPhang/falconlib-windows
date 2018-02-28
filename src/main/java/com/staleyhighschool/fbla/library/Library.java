@@ -26,8 +26,8 @@ public class Library {
      */
     public Library() {
         connection = new Connector();
-        userList = loadUserList();
         bookList = loadBookList();
+        userList = loadUserList();
     }
 
     /**
@@ -108,7 +108,7 @@ public class Library {
     }
 
     public void checkOutBook(User user, Book book) {
-        if (user.getUserBooks().size() - 2 <= connection.getMaxBooks(user)) {
+        if (user.getUserBooks().size() - 3 <= connection.getMaxBooks(user)) {
                 if (!book.isOut()) {
                     connection.userCheckOut(user, book);
 

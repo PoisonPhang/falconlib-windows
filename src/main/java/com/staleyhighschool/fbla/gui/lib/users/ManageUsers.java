@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -20,6 +21,8 @@ public class ManageUsers {
 
     private Scene manageUsers;
     private BorderPane layout;
+    private GridPane userList;
+    private ScrollPane mainContent;
 
     private int totalRows;
 
@@ -29,8 +32,13 @@ public class ManageUsers {
     private final String name = " | Manage Users";
 
     public ManageUsers() {
+        userList = populateUserList();
+        mainContent = new ScrollPane();
+        mainContent.setContent(userList);
+
         layout = new BorderPane();
         layout.setLeft(Main.generateNavigation());
+        layout.setCenter(mainContent);
         manageUsers = new Scene(layout, 960, 540);
     }
 

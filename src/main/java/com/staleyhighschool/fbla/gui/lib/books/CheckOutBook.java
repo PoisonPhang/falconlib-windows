@@ -20,7 +20,6 @@ import java.util.List;
 public class CheckOutBook {
 
     private int totalRows;
-    private ToggleGroup radioButtons;
 
     private Scene checkOutBook;
     private BorderPane layout;
@@ -29,6 +28,7 @@ public class CheckOutBook {
     private VBox checkMenu;
 
     private Book bookToCheck;
+    private User user;
 
     public CheckOutBook(Book book) {
         bookToCheck = book;
@@ -42,19 +42,14 @@ public class CheckOutBook {
         layout = new BorderPane();
         layout.setLeft(Main.generateNavigation());
         layout.setCenter(mainContent);
-        layout.setLeft(checkMenu);
+        layout.setRight(checkMenu);
 
         checkOutBook = new Scene(layout, 960, 540);
     }
 
     private void checkOut() {
-
-        System.out.println(radioButtons.getSelectedToggle().toString());
-//        for (User user : Library.userList) {
-//            if (user.getUserID().equals(radioButtons.getSelectedToggle().toString())) {
-//                Main.library.checkOutBook(user, bookToCheck);
-//            }
-//        }
+        System.out.println(user.getUserID());
+        Main.library.checkOutBook(user, bookToCheck);
     }
 
     public Scene getCheckOutBook() {
@@ -71,7 +66,7 @@ public class CheckOutBook {
         check.setOnAction(e -> {
             checkOut();
             Alert.display("Checked Out", ("Book: " + bookToCheck.getBookTitle() + "(" + bookToCheck.getBookID() + ") " +
-                    "checked out to -> User: " + radioButtons.getSelectedToggle().toString()));
+                    "checked out to -> User: " + user.getUserID()));
         });
 
         box.getChildren().addAll(title, bookID, check);
@@ -86,8 +81,6 @@ public class CheckOutBook {
         pane.setPadding(new Insets(4));
         pane.setVgap(4);
         pane.setHgap(8);
-
-        radioButtons = new ToggleGroup();
 
         int wRow = 1;
         int tRow = 0;
@@ -112,17 +105,19 @@ public class CheckOutBook {
                 type = "student";
             }
 
-            RadioButton uID = new RadioButton(user.getUserID());
+            Text uID = new Text(user.getUserID());
             Text fName = new Text(user.getFirstName());
             Text lName = new Text(user.getLastName());
             Text aType = new Text(type);
+            Button select = new Button("Select user");
 
-            uID.setToggleGroup(radioButtons);
+            select.setOnAction(e -> this.user = user);
 
             pane.add(uID, 1, wRow);
             pane.add(fName, 2, wRow);
             pane.add(lName, 3, wRow);
             pane.add(aType, 4, wRow);
+            pane.add(select, 5, wRow);
 
             wRow++;
             totalRows = wRow;
