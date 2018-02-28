@@ -23,8 +23,8 @@ public class Connector {
 
     public static Connection connection;
 
-    private final String DATABASE_NAME = "FalconLib";
-    private final String DATABASE_URL = "jdbc:mysql://192.168.1.116:3306/FalconLib"; // TODO change before submission
+    private final String DATABASE_NAME = "sql3223801";
+    private final String DATABASE_URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3223801"; // TODO change before submission
     private final String PORT = ":3306";
 
     /**
@@ -32,7 +32,7 @@ public class Connector {
      */
     public Connector() {
         try {
-            connection = DriverManager.getConnection(DATABASE_URL, "FalconC", "mypass");
+            connection = DriverManager.getConnection(DATABASE_URL, "sql3223801", "lxa6z8bfvm");
         } catch (SQLException e) {
             e.printStackTrace();
         }
