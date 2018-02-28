@@ -57,14 +57,12 @@ public class ManageBooks {
         HBox hBox = new HBox(10);
 
         Button addBook = new Button("Add Book");
-        Button checkOut = new Button("Check Out Selected");
         Button returnBooks = new Button("Return Selected");
         Button delete = new Button("Delete Selected");
         Button refresh = new Button("Refresh List");
 
         addBook.setOnAction(e -> Main.changeScene(new AddBook().getAddBook()));
 
-//        checkOut.setOnAction(e -> Main.library.checkOutBook());
         returnBooks.setOnAction(e -> {
             checkSelected();
             Main.library.returnBook(selectedBooks);
@@ -88,7 +86,7 @@ public class ManageBooks {
             mainContent.setContent(bookList);
         });
 
-        hBox.getChildren().addAll(addBook, checkOut, returnBooks, delete, refresh);
+        hBox.getChildren().addAll(addBook, returnBooks, delete, refresh);
 
 
         return hBox;
@@ -146,7 +144,7 @@ public class ManageBooks {
 
             returnBook.setOnAction(e -> Library.connection.userReturnBook(book));
 
-//            checkOutBook.setOnAction(e -> );
+            checkOutBook.setOnAction(e -> Main.changeScene(new CheckOutBook(book).getCheckOutBook()));
 
             delete.setOnAction(e -> {
                 Library.connection.deleteBook(book);
