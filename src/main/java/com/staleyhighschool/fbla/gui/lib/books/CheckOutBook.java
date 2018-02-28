@@ -47,9 +47,9 @@ public class CheckOutBook {
         checkOutBook = new Scene(layout, 960, 540);
     }
 
-    private void checkOut() {
+    private boolean checkOut() {
         System.out.println(user.getUserID());
-        Main.library.checkOutBook(user, bookToCheck);
+        return Library.connection.userCheckOut(user, bookToCheck);
     }
 
     public Scene getCheckOutBook() {
@@ -64,9 +64,13 @@ public class CheckOutBook {
         Button check = new Button("Check Out");
 
         check.setOnAction(e -> {
-            checkOut();
-            Alert.display("Checked Out", ("Book: " + bookToCheck.getBookTitle() + "(" + bookToCheck.getBookID() + ") " +
-                    "checked out to -> User: " + user.getUserID()));
+            boolean pass = checkOut();
+            if (pass) {
+                Alert.display("Checked Out", ("Book: " + bookToCheck.getBookTitle() + "(" + bookToCheck.getBookID() + ") " +
+                        "checked out to -> User: " + user.getUserID()));
+            } else {
+                Alert.display("Failed", ("User: " + user.getUserID() + " has too many books"));
+            }
         });
 
         box.getChildren().addAll(title, bookID, check);

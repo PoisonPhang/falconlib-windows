@@ -21,6 +21,7 @@ public class Student extends User {
 
     @Override
     public List<Book> getUserBooks() {
+        setUserBooks();
         return userBooks;
     }
 

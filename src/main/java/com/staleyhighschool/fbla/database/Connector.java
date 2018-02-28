@@ -351,19 +351,29 @@ public class Connector {
         return max;
     }
 
-    public void userCheckOut(User user, Book book) {
+    public boolean userCheckOut(User user, Book book) {
         String query;
 
         Statement statement;
 
-        query = "INSERT INTO `" + user.getUserID() + "` (books) VALUES ('" + book.getBookID() + "')";
+        System.out.println(TAG + "User book count:" + user.getUserBooks().size() + " " + getMaxBooks(user));
 
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (user.getUserBooks().size() + 1 <= getMaxBooks(user)) {
+            System.out.println(TAG + "good yyet");
+            query = "INSERT INTO `" + user.getUserID() + "` (books) VALUES ('" + book.getBookID() + "')";
+            String setOut = "UPDATE LibraryBooks SET isOut=TRUE WHERE id='" + book.getBookID() + "'";
+            book.setIsOut(Enums.IsOut.OUT);
+
+            try {
+                statement = connection.createStatement();
+                statement.executeUpdate(query);
+                statement.executeUpdate(setOut);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return false;
     }
 
     public void userReturnBook(Book book) {

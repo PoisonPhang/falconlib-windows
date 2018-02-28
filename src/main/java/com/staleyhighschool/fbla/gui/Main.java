@@ -59,6 +59,7 @@ public class Main extends Application {
         });
         mBooks.setOnAction(e -> {
             window.setScene(manageBooks.getManageBooks());
+            manageBooks.refresh();
             window.setTitle(APP_TITLE + Main.manageBooks.getName());
         });
         mUsers.setOnAction(e -> {

@@ -53,6 +53,11 @@ public class ManageBooks {
         return name;
     }
 
+    public void refresh() {
+        bookList = populateBookList();
+        mainContent.setContent(bookList);
+    }
+
     private HBox topButtons() {
         HBox hBox = new HBox(10);
 
@@ -67,6 +72,7 @@ public class ManageBooks {
             checkSelected();
             Main.library.returnBook(selectedBooks);
             deselectAll();
+            refresh();
         });
         delete.setOnAction(e -> {
             checkSelected();
@@ -79,11 +85,11 @@ public class ManageBooks {
             }
             Main.library.deleteBook(selectedBooks);
             deselectAll();
+            refresh();
         });
 
         refresh.setOnAction(e -> {
-            bookList = populateBookList();
-            mainContent.setContent(bookList);
+            refresh();
         });
 
         hBox.getChildren().addAll(addBook, returnBooks, delete, refresh);
