@@ -54,6 +54,10 @@ public class ManageRules {
         Button changeMaxDays = new Button("Change Rule");
         Button changeFineRate = new Button("Change Rule");
 
+        changeMaxBooks.setOnAction(e -> Main.changeScene(new ChangeRule("maxBooks").getScene()));
+        changeMaxDays.setOnAction(e -> Main.changeScene(new ChangeRule("maxDays").getScene()));
+        changeFineRate.setOnAction(e -> Main.changeScene(new ChangeRule("fineRate").getScene()));
+
         pane.add(maxBooksTag, 0, 1);
         pane.add(tMaxBooks, 1, 1);
         pane.add(sMaxBooks, 2, 1);
