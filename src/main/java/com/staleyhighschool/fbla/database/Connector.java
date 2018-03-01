@@ -214,6 +214,26 @@ public class Connector {
         }
     }
 
+    public void editUser(User user, String column, String value) {
+        String query =  "UPDATE Users SET " + column + "='" + value + "' WHERE id='" + user.getUserID() + "'";
+
+        if (column.equals("firstName")) {
+            user.setFirstName(value);
+        } else if (column.equals("lastName")) {
+            user.setLastName(value);
+        }
+
+        Statement statement;
+
+        try {
+            statement = connection.createStatement();
+
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteUser(User user) {
 
         String deleteUserTable = "DROP TABLE `" + user.getUserID() + "`";

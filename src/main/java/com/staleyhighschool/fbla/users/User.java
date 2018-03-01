@@ -10,7 +10,7 @@ import java.util.List;
  */
 public abstract class User {
 
-    private String TAG = (this.getClass().getName() + ": ");
+    private final String TAG = (this.getClass().getName() + ": ");
 
     private String firstName;
     private String lastName;
@@ -63,6 +63,14 @@ public abstract class User {
      */
     public String getLastName() {
         return lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**

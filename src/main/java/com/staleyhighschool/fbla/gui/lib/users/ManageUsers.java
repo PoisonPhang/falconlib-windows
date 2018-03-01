@@ -128,12 +128,17 @@ public class ManageUsers {
             Text lName = new Text(user.getLastName());
             Text aType = new Text(type);
 
+            Button changeUserInfo = new Button("Change Info");
+
+            changeUserInfo.setOnAction(event -> Main.changeScene(new ChangeUserInfo(user).getScene()));
+
             checkBoxes.add(uID);
 
             pane.add(uID, 1, wRow);
             pane.add(fName, 2, wRow);
             pane.add(lName, 3, wRow);
             pane.add(aType, 4, wRow);
+            pane.add(changeUserInfo, 5, wRow);
 
             wRow++;
             totalRows = wRow;
