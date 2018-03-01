@@ -47,6 +47,8 @@ public class Main extends Application {
 
         window.setScene(home.getHome());
         window.show();
+
+        window.setOnCloseRequest(e -> closeProgram());
     }
 
     public static VBox generateNavigation() {
@@ -79,6 +81,10 @@ public class Main extends Application {
         });
 
         return navigation;
+    }
+
+    private void closeProgram() {
+        Library.logging.closeLog();
     }
 
     public static void changeScene(Scene scene) {

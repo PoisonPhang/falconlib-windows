@@ -621,7 +621,7 @@ public class Connector {
         ResultSet resultSet;
 
         try {
-            today = DateUtils.parseDate(dateFormat.format(Calendar.getInstance().getTime()));
+            today = DateUtils.parseDate(dateFormat.format(Calendar.getInstance().getTime()), "yyyy-MM-dd");
         } catch (ParseException e) {
             e.printStackTrace();
         }
