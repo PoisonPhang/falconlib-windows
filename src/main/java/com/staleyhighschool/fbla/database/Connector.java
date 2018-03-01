@@ -28,7 +28,7 @@ public class Connector {
     public static Connection connection;
 
     private final String DATABASE_NAME = "sql3223801";
-    private final String DATABASE_URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3223801"; // TODO change before submission
+    private final String DATABASE_URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3223801";
     private final String PORT = ":3306";
     public static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -564,5 +564,70 @@ public class Connector {
         }
 
         return pass;
+    }
+
+    public String getLastLogDate() {
+        String query = "SELECT LastLogDate FROM LogDate";
+
+        Statement statement;
+        ResultSet resultSet;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                return dateFormat.format(resultSet.getDate("LastLogDate"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void setLastLogDate() {
+        String query = "UPDATE LogDate SET LastLogDate='" + dateFormat.format(Calendar.getInstance().getTime()) + "'";
+
+        Statement statement;
+
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean checkLogDate() {
+        String query = "SELECT LastLogDate FROM LogDate";
+        Date today = null;
+        Date lastLog = null;
+
+        Statement statement;
+        ResultSet resultSet;
+
+        try {
+            today = DateUtils.parseDate(dateFormat.format(Calendar.getInstance().getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                lastLog = (resultSet.getDate("LastLogDate"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (DateUtils.addWeeks(lastLog, 1).before(today)) {
+            return true;
+        }
+
+        return false;
     }
 }

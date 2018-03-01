@@ -13,4 +13,8 @@ public class Enums {
     public enum AccountType {
         STUDENT, TEACHER
     }
+
+    public enum LogType {
+        USER_ACTION, BOOK_ACTION, CHECKOUT, RETURN;
+    }
 }

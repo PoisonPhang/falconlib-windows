@@ -17,6 +17,7 @@ public class Library {
     private final String TAG = (this.getClass().getName() + ": ");
 
     public static Connector connection;
+    public static Logging logging;
     public static List<User> userList;
     public static List<Book> bookList;
 
@@ -25,6 +26,7 @@ public class Library {
      */
     public Library() {
         connection = new Connector();
+        logging = new Logging();
         bookList = loadBookList();
         userList = loadUserList();
     }
