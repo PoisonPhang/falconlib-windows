@@ -2,7 +2,9 @@ package com.staleyhighschool.fbla.gui;
 
 import com.staleyhighschool.fbla.gui.lib.Home;
 import com.staleyhighschool.fbla.gui.lib.books.ManageBooks;
-import com.staleyhighschool.fbla.gui.lib.logging.Logs;
+import com.staleyhighschool.fbla.gui.lib.managment.ControlPanel;
+import com.staleyhighschool.fbla.gui.lib.managment.Logs;
+import com.staleyhighschool.fbla.gui.lib.managment.ManageRules;
 import com.staleyhighschool.fbla.gui.lib.users.ManageUsers;
 import com.staleyhighschool.fbla.library.Library;
 import javafx.application.Application;
@@ -23,6 +25,8 @@ public class Main extends Application {
     public static Logs logs;
     public static ManageBooks manageBooks;
     public static ManageUsers manageUsers;
+    public static ControlPanel controlPanel;
+    public static ManageRules manageRules;
 
     public static void main(String[] args) {
         library = new Library();
@@ -37,6 +41,8 @@ public class Main extends Application {
         logs = new Logs();
         manageBooks = new ManageBooks();
         manageUsers = new ManageUsers();
+        controlPanel = new ControlPanel();
+        manageRules = new ManageRules();
         window.setTitle(APP_TITLE + " | Home");
 
         window.setScene(home.getHome());
@@ -47,11 +53,11 @@ public class Main extends Application {
         Button mHome = new Button("Home");
         Button mBooks = new Button("Manage Books");
         Button mUsers = new Button("Manage Users");
-        Button mLogs = new Button("Logs");
+        Button mCP = new Button("Control Panel");
 
         VBox navigation = new VBox();
 
-        navigation.getChildren().addAll(mHome, mBooks, mUsers, mLogs);
+        navigation.getChildren().addAll(mHome, mBooks, mUsers, mCP);
 
         mHome.setOnAction(e -> {
             window.setScene(home.getHome());
@@ -67,9 +73,9 @@ public class Main extends Application {
             manageUsers.refresh();
             window.setTitle(APP_TITLE + Main.manageUsers.getName());
         });
-        mLogs.setOnAction(e -> {
-            window.setScene(logs.getLogs());
-            window.setTitle(APP_TITLE + Main.logs.getName());
+        mCP.setOnAction(e -> {
+            window.setScene(controlPanel.getScene());
+            window.setTitle(APP_TITLE + Main.controlPanel.getName());
         });
 
         return navigation;

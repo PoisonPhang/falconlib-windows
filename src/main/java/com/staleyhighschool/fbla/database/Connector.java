@@ -433,6 +433,7 @@ public class Connector {
                             String setDate = "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Book.storeDate) + "' WHERE id='" + book.getBookID() + "'";
                             book.setIsOut(Enums.IsOut.IN);
                             book.setIsLate(Enums.IsLate.SAFE);
+                            book.setDateOut(Book.storeDate);
                             String setIsLate = "UPDATE LibraryBooks SET isLate=FALSE WHERE id='" + book.getBookID() + "'";
                             try {
                                 statement = connection.createStatement();
