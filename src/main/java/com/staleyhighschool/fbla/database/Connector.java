@@ -1,7 +1,9 @@
 package com.staleyhighschool.fbla.database;
 
+import com.staleyhighschool.fbla.gui.Main;
 import com.staleyhighschool.fbla.library.Book;
 import com.staleyhighschool.fbla.library.Library;
+import com.staleyhighschool.fbla.library.Logging;
 import com.staleyhighschool.fbla.users.Student;
 import com.staleyhighschool.fbla.users.Teacher;
 import com.staleyhighschool.fbla.users.User;
@@ -211,6 +213,8 @@ public class Connector {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        Library.logging.writeToLog(Enums.LogType.USER_ACTION, "New User: " + user.getUserID());
     }
 
     public void editUser(User user, String column, String value) {
@@ -231,18 +235,21 @@ public class Connector {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        Library.logging.writeToLog(Enums.LogType.USER_ACTION, "Edit made to User: " + user.getUserID());
     }
 
     public void deleteUser(User user) {
 
         String deleteUserTable = "DROP TABLE `" + user.getUserID() + "`";
         String deleteUserFromLibrary = "DELETE FROM Users WHERE id='" + user.getUserID() + "'";
-        Library.userList.remove(user);
 
         Statement statement;
 
         System.out.println(TAG + "User " + (user.getUserBooks().size() - 2));
         if (user.getUserBooks().size() == 0) {
+            Library.logging.writeToLog(Enums.LogType.USER_ACTION, "Deleted User: " + user.getUserID());
+            Library.userList.remove(user);
             try {
                 statement = connection.createStatement();
 
@@ -279,6 +286,8 @@ public class Connector {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        Library.logging.writeToLog(Enums.LogType.BOOK_ACTION, "Created Book: " + book.getBookID());
     }
 
     public void deleteBook(Book book) {
@@ -294,6 +303,8 @@ public class Connector {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        Library.logging.writeToLog(Enums.LogType.BOOK_ACTION, "Deleted Book: " + book.getBookID());
     }
 
     public List<User> getCurrentUsers() {
@@ -402,7 +413,7 @@ public class Connector {
 
         Statement statement;
 
-        System.out.println(TAG + "User book count:" + user.getUserBooks().size() + " " + getMaxBooks(user));
+        Library.logging.writeToLog(Enums.LogType.CHECKOUT, "User: " + user.getUserID() + ", checked out Book: " + book.getBookID());
 
         if (user.getUserBooks().size() + 1 <= getMaxBooks(user)) {
             System.out.println(TAG + "good yyet");
@@ -447,6 +458,8 @@ public class Connector {
 
                     while (resultSet.next()) {
                         if (book.getBookID().equals(resultSet.getString("books"))) {
+
+                            Library.logging.writeToLog(Enums.LogType.RETURN, "User: " + user.getUserID() + ", returned Book: " + book.getBookID());
                             query = "DELETE FROM `" + user.getUserID() + "` WHERE books='" + book.getBookID() + "'";
                             String setIn = "UPDATE LibraryBooks SET isOut=FALSE WHERE id='" + book.getBookID() + "'";
                             String setDate = "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Book.storeDate) + "' WHERE id='" + book.getBookID() + "'";
