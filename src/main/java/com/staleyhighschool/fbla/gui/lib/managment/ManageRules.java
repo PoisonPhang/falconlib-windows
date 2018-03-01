@@ -16,8 +16,12 @@ public class ManageRules {
     GridPane ruleTable;
 
     public ManageRules() {
+        ruleTable = generateGridPane();
+
         layout = new BorderPane();
         layout.setLeft(Main.generateNavigation());
+        layout.setCenter(ruleTable);
+
         scene = new Scene(layout, 960, 540);
     }
 
@@ -25,29 +29,33 @@ public class ManageRules {
         return scene;
     }
 
-    GridPane generateGridPane() {
+    void reload() {
+        ruleTable = generateGridPane();
+        layout.setCenter(ruleTable);
+    }
+    private GridPane generateGridPane() {
         GridPane pane = new GridPane();
 
         int tRow = 0;
 
         Text rule = new Text("Rule");
-        Text teacher = new Text("Teacher");
-        Text student = new Text("Student");
+        Text teacher = new Text(" Teacher ");
+        Text student = new Text(" Student ");
 
         pane.add(rule, 0, tRow);
         pane.add(teacher, 1, tRow);
-        pane.add(student, 3, tRow);
+        pane.add(student, 2, tRow);
 
-        Text maxBooksTag = new Text("Max Books");
-        Text maxDaysTag = new Text("Max Days");
-        Text fineRateTag = new Text("Fine Rate");
+        Text maxBooksTag = new Text("Max Books: ");
+        Text maxDaysTag = new Text("Max Days: ");
+        Text fineRateTag = new Text("Fine Rate: ");
 
         Text tMaxBooks = new Text(Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, "maxBooks")));
-        Text tMaxDays = new Text(Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, "maxDays")));
+        Text tMaxDays = new Text(Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, "days")));
         Text tFineRate = new Text(Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, "fineRate")));
 
         Text sMaxBooks = new Text(Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, "maxBooks")));
-        Text sMaxDays = new Text(Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, "maxDays")));
+        Text sMaxDays = new Text(Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, "days")));
         Text sFineRate = new Text(Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, "fineRate")));
 
         Button changeMaxBooks = new Button("Change Rule");
@@ -55,7 +63,7 @@ public class ManageRules {
         Button changeFineRate = new Button("Change Rule");
 
         changeMaxBooks.setOnAction(e -> Main.changeScene(new ChangeRule("maxBooks").getScene()));
-        changeMaxDays.setOnAction(e -> Main.changeScene(new ChangeRule("maxDays").getScene()));
+        changeMaxDays.setOnAction(e -> Main.changeScene(new ChangeRule("days").getScene()));
         changeFineRate.setOnAction(e -> Main.changeScene(new ChangeRule("fineRate").getScene()));
 
         pane.add(maxBooksTag, 0, 1);

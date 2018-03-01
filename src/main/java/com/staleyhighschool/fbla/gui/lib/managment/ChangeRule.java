@@ -49,6 +49,8 @@ public class ChangeRule {
         update.setOnAction(e -> {
             Library.connection.setRule(Enums.AccountType.TEACHER, ruleName, Double.parseDouble(teacher.getText()));
             Library.connection.setRule(Enums.AccountType.STUDENT, ruleName, Double.parseDouble(student.getText()));
+            Main.manageRules.reload();
+            Main.changeScene(Main.manageRules.getScene());
         });
 
         box.getChildren().addAll(rule, tBox, sBox, update);

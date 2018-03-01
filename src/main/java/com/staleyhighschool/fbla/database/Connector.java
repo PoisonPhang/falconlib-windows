@@ -477,7 +477,9 @@ public class Connector {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
 
-            rRule = resultSet.getDouble(type);
+            while (resultSet.next()) {
+                rRule = resultSet.getDouble(type);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
