@@ -6,10 +6,15 @@ import com.staleyhighschool.fbla.users.Student;
 import com.staleyhighschool.fbla.users.Teacher;
 import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +31,7 @@ public class Connector {
     private final String DATABASE_NAME = "sql3223801";
     private final String DATABASE_URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3223801"; // TODO change before submission
     private final String PORT = ":3306";
+    public static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * Establishes connection to database
@@ -246,7 +252,7 @@ public class Connector {
                 "', '" + id +
                 "', " + isOut +
                 ", " + isLate +
-                ", '2000-01-01')";
+                ", '" + dateFormat.format(Book.storeDate) + "')";
 
         try {
             statement = connection.createStatement();
@@ -383,12 +389,20 @@ public class Connector {
             System.out.println(TAG + "good yyet");
             query = "INSERT INTO `" + user.getUserID() + "` (books) VALUES ('" + book.getBookID() + "')";
             String setOut = "UPDATE LibraryBooks SET isOut=TRUE WHERE id='" + book.getBookID() + "'";
+            String setDate = "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Calendar.getInstance().getTime())+ "' WHERE id='" + book.getBookID() + "'";
             book.setIsOut(Enums.IsOut.OUT);
+            try {
+                book.setDateOut(DateUtils.parseDate(dateFormat.format(Calendar.getInstance().getTime()), "yyyy-MM-dd"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            System.out.println(TAG + dateFormat.format(Calendar.getInstance().getTime()));
 
             try {
                 statement = connection.createStatement();
                 statement.executeUpdate(query);
                 statement.executeUpdate(setOut);
+                statement.executeUpdate(setDate);
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -416,11 +430,16 @@ public class Connector {
                         if (book.getBookID().equals(resultSet.getString("books"))) {
                             query = "DELETE FROM `" + user.getUserID() + "` WHERE books='" + book.getBookID() + "'";
                             String setIn = "UPDATE LibraryBooks SET isOut=FALSE WHERE id='" + book.getBookID() + "'";
+                            String setDate = "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Book.storeDate) + "' WHERE id='" + book.getBookID() + "'";
                             book.setIsOut(Enums.IsOut.IN);
+                            book.setIsLate(Enums.IsLate.SAFE);
+                            String setIsLate = "UPDATE LibraryBooks SET isLate=FALSE WHERE id='" + book.getBookID() + "'";
                             try {
                                 statement = connection.createStatement();
                                 statement.executeUpdate(query);
                                 statement.executeUpdate(setIn);
+                                statement.executeUpdate(setDate);
+                                statement.executeUpdate(setIsLate);
 
                                 pass = true;
                             } catch (SQLException e) {

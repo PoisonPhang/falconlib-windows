@@ -116,4 +116,16 @@ public class Book {
     public void setIsOut(Enums.IsOut isOut) {
         this.isOut = isOut;
     }
+
+    public void setIsLate(Enums.IsLate isLate) {
+        this.isLate = isLate;
+    }
+
+    public void setDateOut(Date date) {
+        dateOut = date;
+    }
+
+    public Date getDateOut() {
+        return dateOut;
+    }
 }

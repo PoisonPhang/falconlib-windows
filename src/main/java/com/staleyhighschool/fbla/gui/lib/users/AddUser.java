@@ -37,8 +37,8 @@ public class AddUser {
 
         title = new TextField();
         author = new TextField();
-        title.setPromptText("Title");
-        author.setPromptText("Author");
+        title.setPromptText("First Name");
+        author.setPromptText("Last Name");
 
         teacher.setToggleGroup(type);
         student.setToggleGroup(type);
@@ -73,7 +73,7 @@ public class AddUser {
             tOrS = false;
         }
         Main.manageUsers.appendList(Main.library.addUser(title.getText(), author.getText(), tOrS));
-        Main.changeScene(Main.manageBooks.getManageBooks());
+        Main.changeScene(Main.manageUsers.getManageUsers());
     }
 
     private void generateButtons() {

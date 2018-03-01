@@ -1,5 +1,6 @@
 package com.staleyhighschool.fbla.gui.lib.books;
 
+import com.staleyhighschool.fbla.database.Connector;
 import com.staleyhighschool.fbla.gui.Main;
 import com.staleyhighschool.fbla.library.Book;
 import com.staleyhighschool.fbla.library.Library;
@@ -147,6 +148,7 @@ public class ManageBooks {
             Text id = new Text(book.getBookID());
             Text isOut = new Text(isOutT);
             Text isLate = new Text(isLateT);
+            Text date = new Text(Connector.dateFormat.format(book.getDateOut()));
 
             Button returnBook = new Button("Return");
             Button checkOutBook = new Button("Check Out");
@@ -174,12 +176,13 @@ public class ManageBooks {
             pane.add(isLate, 5, wRow);
 
             if (book.isOut()) {
-                pane.add(returnBook, 6, wRow);
+                pane.add(date, 6, wRow);
+                pane.add(returnBook, 7, wRow);
+                pane.add(delete, 8, wRow);
             } else {
                 pane.add(checkOutBook, 6, wRow);
+                pane.add(delete, 7, wRow);
             }
-
-            pane.add(delete, 7, wRow);
 
             wRow++;
             totalRows = wRow;
@@ -222,6 +225,7 @@ public class ManageBooks {
         Text id = new Text(book.getBookID());
         Text isOut = new Text(isOutT);
         Text isLate = new Text(isLateT);
+        Text date = new Text(Connector.dateFormat.format(book.getDateOut()));
 
         Button returnBook = new Button("Return");
         Button checkOutBook = new Button("Check Out");
@@ -243,12 +247,14 @@ public class ManageBooks {
         bookList.add(isLate, 5, totalRows);
 
         if (book.isOut()) {
-            bookList.add(returnBook, 6, totalRows);
+            bookList.add(date, 6, totalRows);
+            bookList.add(returnBook, 7, totalRows);
+            bookList.add(delete, 8, totalRows);
         } else {
             bookList.add(checkOutBook, 6, totalRows);
+            bookList.add(delete, 7, totalRows);
         }
 
-        bookList.add(delete, 7, totalRows);
         totalRows++;
     }
 
