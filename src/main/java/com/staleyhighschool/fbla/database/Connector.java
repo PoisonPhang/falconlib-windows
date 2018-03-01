@@ -6,7 +6,6 @@ import com.staleyhighschool.fbla.users.Student;
 import com.staleyhighschool.fbla.users.Teacher;
 import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.sql.*;
@@ -215,7 +214,7 @@ public class Connector {
     }
 
     public void editUser(User user, String column, String value) {
-        String query =  "UPDATE Users SET " + column + "='" + value + "' WHERE id='" + user.getUserID() + "'";
+        String query = "UPDATE Users SET " + column + "='" + value + "' WHERE id='" + user.getUserID() + "'";
 
         if (column.equals("firstName")) {
             user.setFirstName(value);
@@ -242,7 +241,7 @@ public class Connector {
 
         Statement statement;
 
-        System.out.println(TAG + "User " + (user.getUserBooks().size() -2));
+        System.out.println(TAG + "User " + (user.getUserBooks().size() - 2));
         if (user.getUserBooks().size() == 0) {
             try {
                 statement = connection.createStatement();
@@ -409,7 +408,7 @@ public class Connector {
             System.out.println(TAG + "good yyet");
             query = "INSERT INTO `" + user.getUserID() + "` (books) VALUES ('" + book.getBookID() + "')";
             String setOut = "UPDATE LibraryBooks SET isOut=TRUE WHERE id='" + book.getBookID() + "'";
-            String setDate = "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Calendar.getInstance().getTime())+ "' WHERE id='" + book.getBookID() + "'";
+            String setDate = "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Calendar.getInstance().getTime()) + "' WHERE id='" + book.getBookID() + "'";
             book.setIsOut(Enums.IsOut.OUT);
             try {
                 book.setDateOut(DateUtils.parseDate(dateFormat.format(Calendar.getInstance().getTime()), "yyyy-MM-dd"));
@@ -508,7 +507,7 @@ public class Connector {
     }
 
     public void setRule(Enums.AccountType accountType, String rule, double value) {
-        String query =  null;
+        String query = null;
         String type = null;
 
         Statement statement;
@@ -535,7 +534,7 @@ public class Connector {
         Statement statement;
         ResultSet resultSet;
 
-        boolean pass =  true;
+        boolean pass = true;
 
         try {
             query = "SELECT id FROM Users";

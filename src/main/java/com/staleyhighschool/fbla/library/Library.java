@@ -8,7 +8,6 @@ import com.staleyhighschool.fbla.util.Enums;
 
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * Drives most the larger actions taken in the application
@@ -84,7 +83,7 @@ public class Library {
 
     public void deleteUsers(List<User> users) {
         for (User user : users) {
-            System.out.println(TAG + "User " + (user.getUserBooks().size() -2));
+            System.out.println(TAG + "User " + (user.getUserBooks().size() - 2));
             if (user.getUserBooks().size() == 0) {
                 connection.deleteUser(user);
             }
@@ -106,7 +105,7 @@ public class Library {
             System.out.println(TAG + book.isOut());
             if (book.isOut()) {
                 // TODO Tell user book can not be deleted
-            } else if (!book.isOut()){
+            } else if (!book.isOut()) {
                 connection.deleteBook(book);
 
                 for (int i = 0; i < bookList.size(); i++) {
@@ -118,11 +117,11 @@ public class Library {
 
     public void checkOutBooks(User user, Book book) {
         if (user.getUserBooks().size() + 1 <= connection.getMaxBooks(user)) {
-                if (!book.isOut()) {
-                    connection.userCheckOut(user, book);
+            if (!book.isOut()) {
+                connection.userCheckOut(user, book);
 
-                    book.setIsOut(Enums.IsOut.OUT);
-                }
+                book.setIsOut(Enums.IsOut.OUT);
+            }
         }
     }
 

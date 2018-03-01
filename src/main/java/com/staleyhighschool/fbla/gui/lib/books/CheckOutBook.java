@@ -8,14 +8,12 @@ import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CheckOutBook {
 

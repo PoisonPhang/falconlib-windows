@@ -7,7 +7,9 @@ import com.staleyhighschool.fbla.library.Library;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -80,8 +82,8 @@ public class ManageBooks {
             Collections.sort(indexOfSelected);
             int runs = 0;
             for (int row : indexOfSelected) {
-                checkBoxes.remove(row-runs);
-                deleteRow(bookList, row-runs+1);
+                checkBoxes.remove(row - runs);
+                deleteRow(bookList, row - runs + 1);
                 runs++;
             }
             Main.library.deleteBook(selectedBooks);
@@ -129,7 +131,7 @@ public class ManageBooks {
 
         for (Book book : Library.bookList) {
 
-            String isOutT =  "false";
+            String isOutT = "false";
             String isLateT = "false";
 
             if (book.isOut()) {
@@ -163,7 +165,7 @@ public class ManageBooks {
 
             delete.setOnAction(e -> {
                 Library.connection.deleteBook(book);
-                deleteRow(bookList, Library.bookList.indexOf(book)+1);
+                deleteRow(bookList, Library.bookList.indexOf(book) + 1);
                 refresh();
             });
 
@@ -210,7 +212,7 @@ public class ManageBooks {
 
     void appendList(Book book) {
 
-        String isOutT =  "false";
+        String isOutT = "false";
         String isLateT = "false";
 
         if (book.isOut()) {
@@ -235,7 +237,7 @@ public class ManageBooks {
         returnBook.setOnAction(e -> Library.connection.userReturnBook(book));
         delete.setOnAction(e -> {
             Library.connection.deleteBook(book);
-            deleteRow(bookList, Library.bookList.indexOf(book)+1);
+            deleteRow(bookList, Library.bookList.indexOf(book) + 1);
         });
 
         checkBoxes.add(title);
@@ -269,7 +271,7 @@ public class ManageBooks {
 
             if (r > row) {
                 // decrement rows for rows after the deleted row
-                GridPane.setRowIndex(child, r-1);
+                GridPane.setRowIndex(child, r - 1);
             } else if (r == row) {
                 // collect matching rows for deletion
                 deleteNodes.add(child);

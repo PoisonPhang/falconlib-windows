@@ -33,6 +33,7 @@ public class ManageRules {
         ruleTable = generateGridPane();
         layout.setCenter(ruleTable);
     }
+
     private GridPane generateGridPane() {
         GridPane pane = new GridPane();
 

@@ -1,7 +1,6 @@
 package com.staleyhighschool.fbla.gui.lib.users;
 
 import com.staleyhighschool.fbla.gui.Main;
-import com.staleyhighschool.fbla.library.Book;
 import com.staleyhighschool.fbla.library.Library;
 import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.Enums;
@@ -75,8 +74,8 @@ public class ManageUsers {
             Collections.sort(indexOfSelected);
             int runs = 0;
             for (int row : indexOfSelected) {
-                checkBoxes.remove(row-runs);
-                deleteRow(userList, row-runs+1);
+                checkBoxes.remove(row - runs);
+                deleteRow(userList, row - runs + 1);
                 runs++;
             }
             Main.library.deleteUsers(selectedUsers);
@@ -156,20 +155,20 @@ public class ManageUsers {
         checkBoxes = new ArrayList<>();
         selectedUsers = new ArrayList<>();
 
-            String type = null;
+        String type = null;
 
-            if (user.getAccountType() == Enums.AccountType.TEACHER) {
-                type = "teacher";
-            } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
-                type = "student";
-            }
+        if (user.getAccountType() == Enums.AccountType.TEACHER) {
+            type = "teacher";
+        } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
+            type = "student";
+        }
 
-            CheckBox uID = new CheckBox(user.getUserID());
-            Text fName = new Text(user.getFirstName());
-            Text lName = new Text(user.getLastName());
-            Text aType = new Text(type);
+        CheckBox uID = new CheckBox(user.getUserID());
+        Text fName = new Text(user.getFirstName());
+        Text lName = new Text(user.getLastName());
+        Text aType = new Text(type);
 
-            checkBoxes.add(uID);
+        checkBoxes.add(uID);
 
         userList.add(uID, 1, totalRows);
         userList.add(fName, 2, totalRows);
@@ -177,7 +176,6 @@ public class ManageUsers {
         userList.add(aType, 4, totalRows);
         totalRows++;
     }
-
 
 
     private void checkSelected() {
@@ -207,7 +205,7 @@ public class ManageUsers {
 
             if (r > row) {
                 // decrement rows for rows after the deleted row
-                GridPane.setRowIndex(child, r-1);
+                GridPane.setRowIndex(child, r - 1);
             } else if (r == row) {
                 // collect matching rows for deletion
                 deleteNodes.add(child);
