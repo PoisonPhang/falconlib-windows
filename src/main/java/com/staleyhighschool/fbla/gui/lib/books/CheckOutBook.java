@@ -5,7 +5,7 @@ import com.staleyhighschool.fbla.gui.util.Alert;
 import com.staleyhighschool.fbla.library.Book;
 import com.staleyhighschool.fbla.library.Library;
 import com.staleyhighschool.fbla.users.User;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.AccountType;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -104,9 +104,9 @@ public class CheckOutBook {
 
       String type = null;
 
-      if (user.getAccountType() == Enums.AccountType.TEACHER) {
+      if (user.getAccountType() == AccountType.TEACHER) {
         type = "teacher";
-      } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
+      } else if (user.getAccountType() == AccountType.STUDENT) {
         type = "student";
       }
 

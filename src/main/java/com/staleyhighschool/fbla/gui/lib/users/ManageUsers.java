@@ -3,7 +3,7 @@ package com.staleyhighschool.fbla.gui.lib.users;
 import com.staleyhighschool.fbla.gui.Main;
 import com.staleyhighschool.fbla.library.Library;
 import com.staleyhighschool.fbla.users.User;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.AccountType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -119,9 +119,9 @@ public class ManageUsers {
 
       String type = null;
 
-      if (user.getAccountType() == Enums.AccountType.TEACHER) {
+      if (user.getAccountType() == AccountType.TEACHER) {
         type = "teacher";
-      } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
+      } else if (user.getAccountType() == AccountType.STUDENT) {
         type = "student";
       }
 
@@ -160,9 +160,9 @@ public class ManageUsers {
 
     String type = null;
 
-    if (user.getAccountType() == Enums.AccountType.TEACHER) {
+    if (user.getAccountType() == AccountType.TEACHER) {
       type = "teacher";
-    } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
+    } else if (user.getAccountType() == AccountType.STUDENT) {
       type = "student";
     }
 

@@ -1,7 +1,8 @@
 package com.staleyhighschool.fbla.library;
 
 import com.staleyhighschool.fbla.users.User;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.IsLate;
+import com.staleyhighschool.fbla.util.enums.IsOut;
 import java.text.ParseException;
 import java.util.Date;
 import org.apache.commons.lang3.time.DateUtils;
@@ -16,8 +17,8 @@ public class Book {
   private String bookTitle;
   private String bookAuthor;
   private String bookID;
-  private Enums.IsOut isOut;
-  private Enums.IsLate isLate;
+  private IsOut isOut;
+  private IsLate isLate;
   private Date dateOut;
   public static Date storeDate;
 
@@ -35,13 +36,13 @@ public class Book {
    * @param bookTitle {@link String} holding the title of the {@link Book}
    * @param bookAuthor {@link String} holding the author of the {@link Book}
    * @param bookID {@link String} holding the generated ID of the {@link Book}
-   * @param isLate {@link com.staleyhighschool.fbla.util.Enums.IsLate} if the {@link Book} is
+   * @param isLate {@link com.staleyhighschool.fbla.util.enums.IsLate} if the {@link Book} is
    * overdue or not
-   * @param isOut {@link com.staleyhighschool.fbla.util.Enums.IsOut} if the {@link Book} is out of
+   * @param isOut {@link com.staleyhighschool.fbla.util.enums.IsOut} if the {@link Book} is out of
    * the library or not
    */
-  public Book(String bookTitle, String bookAuthor, String bookID, Enums.IsLate isLate,
-      Enums.IsOut isOut, Date dateOut) {
+  public Book(String bookTitle, String bookAuthor, String bookID, IsLate isLate,
+      IsOut isOut, Date dateOut) {
     this.bookTitle = bookTitle;
     this.bookAuthor = bookAuthor;
     this.bookID = bookID;
@@ -85,9 +86,9 @@ public class Book {
   public boolean isLate() {
     boolean late = false;
 
-    if (isLate == Enums.IsLate.LATE) {
+    if (isLate == IsLate.LATE) {
       late = true;
-    } else if (isLate == Enums.IsLate.SAFE) {
+    } else if (isLate == IsLate.SAFE) {
       late = false;
     }
     return late;
@@ -98,28 +99,28 @@ public class Book {
 
     due = DateUtils.addDays(dateOut, Library.connection.getMaxDays(user));
     if (dateOut.after(due) && !dateOut.equals(storeDate)) {
-      isLate = Enums.IsLate.LATE;
+      isLate = IsLate.LATE;
     } else {
-      isLate = Enums.IsLate.SAFE;
+      isLate = IsLate.SAFE;
     }
   }
 
   public boolean isOut() {
     boolean out = false;
 
-    if (isOut == Enums.IsOut.OUT) {
+    if (isOut == IsOut.OUT) {
       out = true;
-    } else if (isOut == Enums.IsOut.IN) {
+    } else if (isOut == IsOut.IN) {
       out = false;
     }
     return out;
   }
 
-  public void setIsOut(Enums.IsOut isOut) {
+  public void setIsOut(IsOut isOut) {
     this.isOut = isOut;
   }
 
-  public void setIsLate(Enums.IsLate isLate) {
+  public void setIsLate(IsLate isLate) {
     this.isLate = isLate;
   }
 

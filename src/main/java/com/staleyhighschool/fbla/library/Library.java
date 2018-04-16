@@ -4,7 +4,8 @@ import com.staleyhighschool.fbla.database.Connector;
 import com.staleyhighschool.fbla.users.Student;
 import com.staleyhighschool.fbla.users.Teacher;
 import com.staleyhighschool.fbla.users.User;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.IsLate;
+import com.staleyhighschool.fbla.util.enums.IsOut;
 import java.util.List;
 import java.util.Random;
 
@@ -94,7 +95,7 @@ public class Library {
   public Book addBook(String title, String author) {
     Book book;
 
-    book = new Book(title, author, generateNewID(), Enums.IsLate.SAFE, Enums.IsOut.IN,
+    book = new Book(title, author, generateNewID(), IsLate.SAFE, IsOut.IN,
         Book.storeDate);
 
     connection.addBook(book);
@@ -122,7 +123,7 @@ public class Library {
       if (!book.isOut()) {
         connection.userCheckOut(user, book);
 
-        book.setIsOut(Enums.IsOut.OUT);
+        book.setIsOut(IsOut.OUT);
       }
     }
   }
@@ -132,7 +133,7 @@ public class Library {
       if (selectedBook.isOut()) {
         connection.userReturnBook(selectedBook);
 
-        selectedBook.setIsOut(Enums.IsOut.IN);
+        selectedBook.setIsOut(IsOut.IN);
       }
     }
   }

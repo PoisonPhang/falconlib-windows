@@ -1,7 +1,7 @@
 package com.staleyhighschool.fbla.users;
 
 import com.staleyhighschool.fbla.library.Book;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.AccountType;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ public abstract class User {
   private String firstName;
   private String lastName;
   private String userID;
-  private Enums.AccountType accountType;
+  private AccountType accountType;
 
   public User() {
     firstName = "";
@@ -28,10 +28,10 @@ public abstract class User {
    * @param firstName {@link String} holding the first name of the {@link User}
    * @param lastName {@link String} holding the last name of the {@link User}
    * @param userID {@link String} holding the ID of the {@link User}
-   * @param accountType {@link com.staleyhighschool.fbla.util.Enums.AccountType} determining the
+   * @param accountType {@link com.staleyhighschool.fbla.util.enums.AccountType} determining the
    * type of account for the {@link User}
    */
-  public User(String firstName, String lastName, String userID, Enums.AccountType accountType) {
+  public User(String firstName, String lastName, String userID, AccountType accountType) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.userID = userID;
@@ -86,7 +86,7 @@ public abstract class User {
 
   public abstract double calculateFine();
 
-  public Enums.AccountType getAccountType() {
+  public AccountType getAccountType() {
     return accountType;
   }
 }

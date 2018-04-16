@@ -2,7 +2,7 @@ package com.staleyhighschool.fbla.users;
 
 import com.staleyhighschool.fbla.library.Book;
 import com.staleyhighschool.fbla.library.Library;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.AccountType;
 import java.util.List;
 
 public class Student extends User {
@@ -14,7 +14,7 @@ public class Student extends User {
   private List<Book> userBooks;
 
   public Student(String sFirstName, String sLastName, String sID) {
-    super(sFirstName, sLastName, sID, Enums.AccountType.STUDENT);
+    super(sFirstName, sLastName, sID, AccountType.STUDENT);
     fineRate = Library.grabFineRate(this);
   }
 

@@ -5,7 +5,10 @@ import com.staleyhighschool.fbla.library.Library;
 import com.staleyhighschool.fbla.users.Student;
 import com.staleyhighschool.fbla.users.Teacher;
 import com.staleyhighschool.fbla.users.User;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.AccountType;
+import com.staleyhighschool.fbla.util.enums.IsLate;
+import com.staleyhighschool.fbla.util.enums.IsOut;
+import com.staleyhighschool.fbla.util.enums.LogType;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -70,8 +73,8 @@ public class Connector {
     String bookTitle;
     String bookAuthor;
     String bookID;
-    Enums.IsLate isLate;
-    Enums.IsOut isOut;
+    IsLate isLate;
+    IsOut isOut;
     Date dateOut;
 
     List<Book> books = new ArrayList<>();
@@ -85,14 +88,14 @@ public class Connector {
       while (resultSet.next()) {
 
         if (resultSet.getBoolean("isLate")) {
-          isLate = Enums.IsLate.LATE;
+          isLate = IsLate.LATE;
         } else {
-          isLate = Enums.IsLate.SAFE;
+          isLate = IsLate.SAFE;
         }
         if (resultSet.getBoolean("isOut")) {
-          isOut = Enums.IsOut.OUT;
+          isOut = IsOut.OUT;
         } else {
-          isOut = Enums.IsOut.IN;
+          isOut = IsOut.IN;
         }
 
         bookTitle = resultSet.getString("title");
@@ -125,8 +128,8 @@ public class Connector {
     String bookTitle;
     String bookAuthor;
     String bookID;
-    Enums.IsLate isLate = null;
-    Enums.IsOut isOut = null;
+    IsLate isLate = null;
+    IsOut isOut = null;
 
     String query = "SELECT books " + "FROM `" + user.getUserID() + "`";
 
@@ -153,7 +156,7 @@ public class Connector {
     return userBooks;
   }
 
-  public double getFineRate(Enums.AccountType accountType) {
+  public double getFineRate(AccountType accountType) {
 
     Statement statement;
     ResultSet resultSet;
@@ -169,9 +172,9 @@ public class Connector {
       resultSet = statement.executeQuery(query);
 
       while (resultSet.next()) {
-        if (accountType == Enums.AccountType.TEACHER) {
+        if (accountType == AccountType.TEACHER) {
           fineRate = resultSet.getDouble("teacher");
-        } else if (accountType == Enums.AccountType.STUDENT) {
+        } else if (accountType == AccountType.STUDENT) {
           fineRate = resultSet.getDouble("teacher");
         }
       }
@@ -188,9 +191,9 @@ public class Connector {
 
     Statement statement;
 
-    if (user.getAccountType() == Enums.AccountType.TEACHER) {
+    if (user.getAccountType() == AccountType.TEACHER) {
       accountType = "teacher";
-    } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
+    } else if (user.getAccountType() == AccountType.STUDENT) {
       accountType = "student";
     }
 
@@ -215,7 +218,7 @@ public class Connector {
       e.printStackTrace();
     }
 
-    Library.logging.writeToLog(Enums.LogType.USER_ACTION, "New User: " + user.getUserID());
+    Library.logging.writeToLog(LogType.USER_ACTION, "New User: " + user.getUserID());
   }
 
   public void editUser(User user, String column, String value) {
@@ -238,7 +241,7 @@ public class Connector {
       e.printStackTrace();
     }
 
-    Library.logging.writeToLog(Enums.LogType.USER_ACTION, "Edit made to User: " + user.getUserID());
+    Library.logging.writeToLog(LogType.USER_ACTION, "Edit made to User: " + user.getUserID());
   }
 
   public void deleteUser(User user) {
@@ -250,7 +253,7 @@ public class Connector {
 
     System.out.println(TAG + "User " + (user.getUserBooks().size() - 2));
     if (user.getUserBooks().size() == 0) {
-      Library.logging.writeToLog(Enums.LogType.USER_ACTION, "Deleted User: " + user.getUserID());
+      Library.logging.writeToLog(LogType.USER_ACTION, "Deleted User: " + user.getUserID());
       Library.userList.remove(user);
       try {
         statement = connection.createStatement();
@@ -289,7 +292,7 @@ public class Connector {
       e.printStackTrace();
     }
 
-    Library.logging.writeToLog(Enums.LogType.BOOK_ACTION, "Created Book: " + book.getBookID());
+    Library.logging.writeToLog(LogType.BOOK_ACTION, "Created Book: " + book.getBookID());
   }
 
   public void deleteBook(Book book) {
@@ -306,7 +309,7 @@ public class Connector {
       e.printStackTrace();
     }
 
-    Library.logging.writeToLog(Enums.LogType.BOOK_ACTION, "Deleted Book: " + book.getBookID());
+    Library.logging.writeToLog(LogType.BOOK_ACTION, "Deleted Book: " + book.getBookID());
   }
 
   public List<User> getCurrentUsers() {
@@ -316,7 +319,7 @@ public class Connector {
     User user;
 
     String firstName, lastName, id;
-    Enums.AccountType accountType = null;
+    AccountType accountType = null;
 
     Statement statement;
     ResultSet resultSet;
@@ -331,19 +334,19 @@ public class Connector {
       while (resultSet.next()) {
 
         if (resultSet.getString("accountType").equals("teacher")) {
-          accountType = Enums.AccountType.TEACHER;
+          accountType = AccountType.TEACHER;
         } else if (resultSet.getString("accountType").equals("student")) {
-          accountType = Enums.AccountType.STUDENT;
+          accountType = AccountType.STUDENT;
         }
 
         firstName = resultSet.getString("firstName");
         lastName = resultSet.getString("lastName");
         id = resultSet.getString("id");
 
-        if (accountType == Enums.AccountType.TEACHER) {
+        if (accountType == AccountType.TEACHER) {
           user = new Teacher(firstName, lastName, id);
           users.add(user);
-        } else if (accountType == Enums.AccountType.STUDENT) {
+        } else if (accountType == AccountType.STUDENT) {
           user = new Student(firstName, lastName, id);
           user.setUserBooks();
           users.add(user);
@@ -363,10 +366,10 @@ public class Connector {
     String query = null;
     String type = null;
 
-    if (user.getAccountType() == Enums.AccountType.TEACHER) {
+    if (user.getAccountType() == AccountType.TEACHER) {
       query = "SELECT teacher FROM Rules WHERE rule='maxDays'";
       type = "teacher";
-    } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
+    } else if (user.getAccountType() == AccountType.STUDENT) {
       query = "SELECT student FROM Rules WHERE rule='maxDays'";
       type = "teacher";
     }
@@ -381,10 +384,10 @@ public class Connector {
     String query = null;
     String type = null;
 
-    if (user.getAccountType() == Enums.AccountType.TEACHER) {
+    if (user.getAccountType() == AccountType.TEACHER) {
       query = "SELECT teacher FROM Rules WHERE rule='maxBooks'";
       type = "teacher";
-    } else if (user.getAccountType() == Enums.AccountType.STUDENT) {
+    } else if (user.getAccountType() == AccountType.STUDENT) {
       query = "SELECT student FROM Rules WHERE rule='maxBooks'";
       type = "student";
     }
@@ -415,7 +418,7 @@ public class Connector {
 
     Statement statement;
 
-    Library.logging.writeToLog(Enums.LogType.CHECKOUT,
+    Library.logging.writeToLog(LogType.CHECKOUT,
         "User: " + user.getUserID() + ", checked out Book: " + book.getBookID());
 
     if (user.getUserBooks().size() + 1 <= getMaxBooks(user)) {
@@ -425,7 +428,7 @@ public class Connector {
       String setDate =
           "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Calendar.getInstance().getTime())
               + "' WHERE id='" + book.getBookID() + "'";
-      book.setIsOut(Enums.IsOut.OUT);
+      book.setIsOut(IsOut.OUT);
       try {
         book.setDateOut(
             DateUtils.parseDate(dateFormat.format(Calendar.getInstance().getTime()), "yyyy-MM-dd"));
@@ -465,7 +468,7 @@ public class Connector {
           while (resultSet.next()) {
             if (book.getBookID().equals(resultSet.getString("books"))) {
 
-              Library.logging.writeToLog(Enums.LogType.RETURN,
+              Library.logging.writeToLog(LogType.RETURN,
                   "User: " + user.getUserID() + ", returned Book: " + book.getBookID());
               query =
                   "DELETE FROM `" + user.getUserID() + "` WHERE books='" + book.getBookID() + "'";
@@ -474,8 +477,8 @@ public class Connector {
               String setDate =
                   "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Book.storeDate)
                       + "' WHERE id='" + book.getBookID() + "'";
-              book.setIsOut(Enums.IsOut.IN);
-              book.setIsLate(Enums.IsLate.SAFE);
+              book.setIsOut(IsOut.IN);
+              book.setIsLate(IsLate.SAFE);
               book.setDateOut(Book.storeDate);
               String setIsLate =
                   "UPDATE LibraryBooks SET isLate=FALSE WHERE id='" + book.getBookID() + "'";
@@ -499,7 +502,7 @@ public class Connector {
     } while (!pass);
   }
 
-  public double getRule(Enums.AccountType accountType, String rule) {
+  public double getRule(AccountType accountType, String rule) {
     String query = null;
 
     Statement statement;
@@ -509,10 +512,10 @@ public class Connector {
 
     double rRule = 0;
 
-    if (accountType == Enums.AccountType.TEACHER) {
+    if (accountType == AccountType.TEACHER) {
       type = "teacher";
       query = "SELECT teacher FROM Rules WHERE rule='" + rule + "'";
-    } else if (accountType == Enums.AccountType.STUDENT) {
+    } else if (accountType == AccountType.STUDENT) {
       type = "student";
       query = "SELECT student FROM Rules WHERE rule='" + rule + "'";
     }
@@ -531,15 +534,15 @@ public class Connector {
     return rRule;
   }
 
-  public void setRule(Enums.AccountType accountType, String rule, double value) {
+  public void setRule(AccountType accountType, String rule, double value) {
     String query = null;
     String type = null;
 
     Statement statement;
 
-    if (accountType == Enums.AccountType.TEACHER) {
+    if (accountType == AccountType.TEACHER) {
       type = "teacher";
-    } else if (accountType == Enums.AccountType.STUDENT) {
+    } else if (accountType == AccountType.STUDENT) {
       type = "student";
     }
 

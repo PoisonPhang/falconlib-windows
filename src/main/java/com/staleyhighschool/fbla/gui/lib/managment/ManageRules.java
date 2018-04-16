@@ -2,7 +2,7 @@ package com.staleyhighschool.fbla.gui.lib.managment;
 
 import com.staleyhighschool.fbla.gui.Main;
 import com.staleyhighschool.fbla.library.Library;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.AccountType;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -52,18 +52,18 @@ public class ManageRules {
     Text fineRateTag = new Text("Fine Rate: ");
 
     Text tMaxBooks = new Text(
-        Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, "maxBooks")));
+        Double.toString(Library.connection.getRule(AccountType.TEACHER, "maxBooks")));
     Text tMaxDays = new Text(
-        Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, "days")));
+        Double.toString(Library.connection.getRule(AccountType.TEACHER, "days")));
     Text tFineRate = new Text(
-        Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, "fineRate")));
+        Double.toString(Library.connection.getRule(AccountType.TEACHER, "fineRate")));
 
     Text sMaxBooks = new Text(
-        Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, "maxBooks")));
+        Double.toString(Library.connection.getRule(AccountType.STUDENT, "maxBooks")));
     Text sMaxDays = new Text(
-        Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, "days")));
+        Double.toString(Library.connection.getRule(AccountType.STUDENT, "days")));
     Text sFineRate = new Text(
-        Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, "fineRate")));
+        Double.toString(Library.connection.getRule(AccountType.STUDENT, "fineRate")));
 
     Button changeMaxBooks = new Button("Change Rule");
     Button changeMaxDays = new Button("Change Rule");

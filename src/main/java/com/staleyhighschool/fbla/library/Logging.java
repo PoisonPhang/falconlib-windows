@@ -1,6 +1,6 @@
 package com.staleyhighschool.fbla.library;
 
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.LogType;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -45,24 +45,24 @@ public class Logging {
     }
   }
 
-  public void writeToLog(Enums.LogType logType, String message) {
-    if (logType == Enums.LogType.USER_ACTION) {
+  public void writeToLog(LogType logType, String message) {
+    if (logType == LogType.USER_ACTION) {
       writer.println(
           dateTime.format(Calendar.getInstance().getTime()) + " [ USER EVENT ]: " + message);
       System.out.println(
           TAG + dateTime.format(Calendar.getInstance().getTime()) + " [ USER EVENT ]: " + message);
-    } else if (logType == Enums.LogType.BOOK_ACTION) {
+    } else if (logType == LogType.BOOK_ACTION) {
       writer.println(
           dateTime.format(Calendar.getInstance().getTime()) + " [ BOOK EVENT ]: " + message);
       System.out.println(
           TAG + dateTime.format(Calendar.getInstance().getTime()) + " [ BOOK EVENT ]: " + message);
-    } else if (logType == Enums.LogType.CHECKOUT) {
+    } else if (logType == LogType.CHECKOUT) {
       writer.println(
           dateTime.format(Calendar.getInstance().getTime()) + " [ BOOK CHECKED OUT ]: " + message);
       System.out.println(
           TAG + dateTime.format(Calendar.getInstance().getTime()) + " [ BOOK CHECKED OUT ]: "
               + message);
-    } else if (logType == Enums.LogType.RETURN) {
+    } else if (logType == LogType.RETURN) {
       writer.println(
           dateTime.format(Calendar.getInstance().getTime()) + " [ BOOK RETURNED ]: " + message);
       System.out.println(

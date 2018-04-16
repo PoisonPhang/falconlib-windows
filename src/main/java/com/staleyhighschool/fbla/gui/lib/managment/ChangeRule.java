@@ -2,7 +2,7 @@ package com.staleyhighschool.fbla.gui.lib.managment;
 
 import com.staleyhighschool.fbla.gui.Main;
 import com.staleyhighschool.fbla.library.Library;
-import com.staleyhighschool.fbla.util.Enums;
+import com.staleyhighschool.fbla.util.enums.AccountType;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -38,21 +38,21 @@ public class ChangeRule {
 
     Text teacherTag = new Text("Teacher: ");
     TextField teacher = new TextField(
-        Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, ruleName)));
+        Double.toString(Library.connection.getRule(AccountType.TEACHER, ruleName)));
     tBox.getChildren().addAll(teacherTag, teacher);
 
     Text studentTag = new Text("Student: ");
     TextField student = new TextField(
-        Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, ruleName)));
+        Double.toString(Library.connection.getRule(AccountType.STUDENT, ruleName)));
     sBox.getChildren().addAll(studentTag, student);
 
     Button update = new Button("Update");
 
     update.setOnAction(e -> {
       Library.connection
-          .setRule(Enums.AccountType.TEACHER, ruleName, Double.parseDouble(teacher.getText()));
+          .setRule(AccountType.TEACHER, ruleName, Double.parseDouble(teacher.getText()));
       Library.connection
-          .setRule(Enums.AccountType.STUDENT, ruleName, Double.parseDouble(student.getText()));
+          .setRule(AccountType.STUDENT, ruleName, Double.parseDouble(student.getText()));
       Main.manageRules.reload();
       Main.changeScene(Main.manageRules.getScene());
     });
