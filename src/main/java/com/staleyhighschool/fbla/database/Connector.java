@@ -31,7 +31,7 @@ public class Connector {
   public static Connection connection;
 
   private final String DATABASE_NAME = "sql3223801";
-  private final String DATABASE_URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3223801";
+  private final String DATABASE_URL = "jdbc:sqlite:falcon-lib.db";
   private final String PORT = ":3306";
   public static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -40,7 +40,7 @@ public class Connector {
    */
   public Connector() {
     try {
-      connection = DriverManager.getConnection(DATABASE_URL, "sql3223801", "lxa6z8bfvm");
+      connection = DriverManager.getConnection(DATABASE_URL);
     } catch (SQLException e) {
       e.printStackTrace();
     }
