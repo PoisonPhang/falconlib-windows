@@ -15,79 +15,79 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static final String APP_TITLE = "Falcon Library";
+  public static final String APP_TITLE = "Falcon Library";
 
-    public static Stage window;
+  public static Stage window;
 
-    public static Library library;
+  public static Library library;
 
-    public static Home home;
-    public static Logs logs;
-    public static ManageBooks manageBooks;
-    public static ManageUsers manageUsers;
-    public static ControlPanel controlPanel;
-    public static ManageRules manageRules;
+  public static Home home;
+  public static Logs logs;
+  public static ManageBooks manageBooks;
+  public static ManageUsers manageUsers;
+  public static ControlPanel controlPanel;
+  public static ManageRules manageRules;
 
-    public static void main(String[] args) {
-        library = new Library();
-        launch(args);
-    }
+  public static void main(String[] args) {
+    library = new Library();
+    launch(args);
+  }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        window = primaryStage;
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    window = primaryStage;
 
-        home = new Home();
-        logs = new Logs();
-        manageBooks = new ManageBooks();
-        manageUsers = new ManageUsers();
-        controlPanel = new ControlPanel();
-        manageRules = new ManageRules();
-        window.setTitle(APP_TITLE + " | Home");
+    home = new Home();
+    logs = new Logs();
+    manageBooks = new ManageBooks();
+    manageUsers = new ManageUsers();
+    controlPanel = new ControlPanel();
+    manageRules = new ManageRules();
+    window.setTitle(APP_TITLE + " | Home");
 
-        window.setScene(home.getHome());
-        window.show();
+    window.setScene(home.getHome());
+    window.show();
 
-        window.setOnCloseRequest(e -> closeProgram());
-    }
+    window.setOnCloseRequest(e -> closeProgram());
+  }
 
-    public static VBox generateNavigation() {
-        Button mHome = new Button("Home");
-        Button mBooks = new Button("Manage Books");
-        Button mUsers = new Button("Manage Users");
-        Button mCP = new Button("Control Panel");
+  public static VBox generateNavigation() {
+    Button mHome = new Button("Home");
+    Button mBooks = new Button("Manage Books");
+    Button mUsers = new Button("Manage Users");
+    Button mCP = new Button("Control Panel");
 
-        VBox navigation = new VBox();
+    VBox navigation = new VBox();
 
-        navigation.getChildren().addAll(mHome, mBooks, mUsers, mCP);
+    navigation.getChildren().addAll(mHome, mBooks, mUsers, mCP);
 
-        mHome.setOnAction(e -> {
-            window.setScene(home.getHome());
-            window.setTitle(APP_TITLE + home.getName());
-        });
-        mBooks.setOnAction(e -> {
-            window.setScene(manageBooks.getManageBooks());
-            manageBooks.refresh();
-            window.setTitle(APP_TITLE + Main.manageBooks.getName());
-        });
-        mUsers.setOnAction(e -> {
-            window.setScene(manageUsers.getManageUsers());
-            manageUsers.refresh();
-            window.setTitle(APP_TITLE + Main.manageUsers.getName());
-        });
-        mCP.setOnAction(e -> {
-            window.setScene(controlPanel.getScene());
-            window.setTitle(APP_TITLE + Main.controlPanel.getName());
-        });
+    mHome.setOnAction(e -> {
+      window.setScene(home.getHome());
+      window.setTitle(APP_TITLE + home.getName());
+    });
+    mBooks.setOnAction(e -> {
+      window.setScene(manageBooks.getManageBooks());
+      manageBooks.refresh();
+      window.setTitle(APP_TITLE + Main.manageBooks.getName());
+    });
+    mUsers.setOnAction(e -> {
+      window.setScene(manageUsers.getManageUsers());
+      manageUsers.refresh();
+      window.setTitle(APP_TITLE + Main.manageUsers.getName());
+    });
+    mCP.setOnAction(e -> {
+      window.setScene(controlPanel.getScene());
+      window.setTitle(APP_TITLE + Main.controlPanel.getName());
+    });
 
-        return navigation;
-    }
+    return navigation;
+  }
 
-    private void closeProgram() {
-        Library.logging.closeLog();
-    }
+  private void closeProgram() {
+    Library.logging.closeLog();
+  }
 
-    public static void changeScene(Scene scene) {
-        window.setScene(scene);
-    }
+  public static void changeScene(Scene scene) {
+    window.setScene(scene);
+  }
 }

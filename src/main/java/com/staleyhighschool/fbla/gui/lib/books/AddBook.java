@@ -10,54 +10,54 @@ import javafx.scene.layout.VBox;
 
 public class AddBook {
 
-    private Scene addBook;
-    private BorderPane layout;
-    private HBox buttons;
-    private HBox input;
-    private VBox mainContent;
+  private Scene addBook;
+  private BorderPane layout;
+  private HBox buttons;
+  private HBox input;
+  private VBox mainContent;
 
-    Button createBook;
+  Button createBook;
 
-    private TextField title;
-    private TextField author;
+  private TextField title;
+  private TextField author;
 
-    public AddBook() {
-        title = new TextField();
-        author = new TextField();
-        title.setPromptText("Title");
-        author.setPromptText("Author");
+  public AddBook() {
+    title = new TextField();
+    author = new TextField();
+    title.setPromptText("Title");
+    author.setPromptText("Author");
 
-        generateButtons();
+    generateButtons();
 
-        buttons = new HBox(10);
-        input = new HBox(10);
-        mainContent = new VBox(20);
+    buttons = new HBox(10);
+    input = new HBox(10);
+    mainContent = new VBox(20);
 
-        buttons.getChildren().add(createBook);
-        input.getChildren().addAll(title, author);
+    buttons.getChildren().add(createBook);
+    input.getChildren().addAll(title, author);
 
-        mainContent.getChildren().addAll(input, buttons);
+    mainContent.getChildren().addAll(input, buttons);
 
-        layout = new BorderPane();
-        layout.setLeft(Main.generateNavigation());
-        layout.setCenter(mainContent);
+    layout = new BorderPane();
+    layout.setLeft(Main.generateNavigation());
+    layout.setCenter(mainContent);
 
-        addBook = new Scene(layout, 960, 540);
+    addBook = new Scene(layout, 960, 540);
 
-    }
+  }
 
-    public Scene getAddBook() {
-        return addBook;
-    }
+  public Scene getAddBook() {
+    return addBook;
+  }
 
-    private void newBook() {
-        Main.manageBooks.appendList(Main.library.addBook(title.getText(), author.getText()));
-        Main.changeScene(Main.manageBooks.getManageBooks());
-    }
+  private void newBook() {
+    Main.manageBooks.appendList(Main.library.addBook(title.getText(), author.getText()));
+    Main.changeScene(Main.manageBooks.getManageBooks());
+  }
 
-    private void generateButtons() {
-        createBook = new Button("Add Book");
+  private void generateButtons() {
+    createBook = new Button("Add Book");
 
-        createBook.setOnAction(e -> newBook());
-    }
+    createBook.setOnAction(e -> newBook());
+  }
 }

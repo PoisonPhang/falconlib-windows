@@ -6,17 +6,17 @@ import javafx.scene.layout.BorderPane;
 
 public class Logs {
 
-    private Scene logs;
-    BorderPane layout;
+  private Scene logs;
+  BorderPane layout;
 
-    public Logs() {
-        layout = new BorderPane();
-        layout.setLeft(Main.generateNavigation());
-        logs = new Scene(layout, 960, 540);
-    }
+  public Logs() {
+    layout = new BorderPane();
+    layout.setLeft(Main.generateNavigation());
+    logs = new Scene(layout, 960, 540);
+  }
 
-    public Scene getLogs() {
-        return logs;
-    }
+  public Scene getLogs() {
+    return logs;
+  }
 
 }

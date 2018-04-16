@@ -12,73 +12,73 @@ import javafx.scene.layout.VBox;
 
 public class AddUser {
 
-    private Scene addUser;
-    private BorderPane layout;
-    private HBox buttons;
-    private HBox input;
-    private VBox mainContent;
+  private Scene addUser;
+  private BorderPane layout;
+  private HBox buttons;
+  private HBox input;
+  private VBox mainContent;
 
-    private Button createUser;
+  private Button createUser;
 
-    private TextField title;
-    private TextField author;
-    private ToggleGroup type;
-    private RadioButton student;
-    private RadioButton teacher;
-    private boolean tOrS;
+  private TextField title;
+  private TextField author;
+  private ToggleGroup type;
+  private RadioButton student;
+  private RadioButton teacher;
+  private boolean tOrS;
 
-    public AddUser() {
-        tOrS = false;
+  public AddUser() {
+    tOrS = false;
 
-        type = new ToggleGroup();
+    type = new ToggleGroup();
 
-        student = new RadioButton("Student");
-        teacher = new RadioButton("Teacher");
+    student = new RadioButton("Student");
+    teacher = new RadioButton("Teacher");
 
-        title = new TextField();
-        author = new TextField();
-        title.setPromptText("First Name");
-        author.setPromptText("Last Name");
+    title = new TextField();
+    author = new TextField();
+    title.setPromptText("First Name");
+    author.setPromptText("Last Name");
 
-        teacher.setToggleGroup(type);
-        student.setToggleGroup(type);
+    teacher.setToggleGroup(type);
+    student.setToggleGroup(type);
 
-        generateButtons();
+    generateButtons();
 
-        buttons = new HBox(10);
-        input = new HBox(10);
-        mainContent = new VBox(20);
+    buttons = new HBox(10);
+    input = new HBox(10);
+    mainContent = new VBox(20);
 
-        buttons.getChildren().add(createUser);
-        input.getChildren().addAll(title, author);
+    buttons.getChildren().add(createUser);
+    input.getChildren().addAll(title, author);
 
-        mainContent.getChildren().addAll(input, buttons, teacher, student);
+    mainContent.getChildren().addAll(input, buttons, teacher, student);
 
-        layout = new BorderPane();
-        layout.setLeft(Main.generateNavigation());
-        layout.setCenter(mainContent);
+    layout = new BorderPane();
+    layout.setLeft(Main.generateNavigation());
+    layout.setCenter(mainContent);
 
-        addUser = new Scene(layout, 960, 540);
+    addUser = new Scene(layout, 960, 540);
 
+  }
+
+  public Scene getAddUser() {
+    return addUser;
+  }
+
+  private void newUser() {
+    if (teacher.isSelected()) {
+      tOrS = true;
+    } else {
+      tOrS = false;
     }
+    Main.manageUsers.appendList(Main.library.addUser(title.getText(), author.getText(), tOrS));
+    Main.changeScene(Main.manageUsers.getManageUsers());
+  }
 
-    public Scene getAddUser() {
-        return addUser;
-    }
+  private void generateButtons() {
+    createUser = new Button("Add User");
 
-    private void newUser() {
-        if (teacher.isSelected()) {
-            tOrS = true;
-        } else {
-            tOrS = false;
-        }
-        Main.manageUsers.appendList(Main.library.addUser(title.getText(), author.getText(), tOrS));
-        Main.changeScene(Main.manageUsers.getManageUsers());
-    }
-
-    private void generateButtons() {
-        createUser = new Button("Add User");
-
-        createUser.setOnAction(e -> newUser());
-    }
+    createUser.setOnAction(e -> newUser());
+  }
 }

@@ -13,52 +13,56 @@ import javafx.scene.text.Text;
 
 public class ChangeRule {
 
-    private Scene scene;
-    BorderPane layout;
-    VBox mainContent;
+  private Scene scene;
+  BorderPane layout;
+  VBox mainContent;
 
-    private String ruleName;
+  private String ruleName;
 
-    public ChangeRule(String ruleName) {
-        this.ruleName = ruleName;
-        mainContent = generateContent();
-        layout = new BorderPane();
-        layout.setLeft(Main.generateNavigation());
-        layout.setCenter(mainContent);
-        scene = new Scene(layout, 960, 540);
-    }
+  public ChangeRule(String ruleName) {
+    this.ruleName = ruleName;
+    mainContent = generateContent();
+    layout = new BorderPane();
+    layout.setLeft(Main.generateNavigation());
+    layout.setCenter(mainContent);
+    scene = new Scene(layout, 960, 540);
+  }
 
-    private VBox generateContent() {
-        VBox box = new VBox();
+  private VBox generateContent() {
+    VBox box = new VBox();
 
-        HBox tBox = new HBox();
-        HBox sBox = new HBox();
+    HBox tBox = new HBox();
+    HBox sBox = new HBox();
 
-        Text rule = new Text(ruleName);
+    Text rule = new Text(ruleName);
 
-        Text teacherTag = new Text("Teacher: ");
-        TextField teacher = new TextField(Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, ruleName)));
-        tBox.getChildren().addAll(teacherTag, teacher);
+    Text teacherTag = new Text("Teacher: ");
+    TextField teacher = new TextField(
+        Double.toString(Library.connection.getRule(Enums.AccountType.TEACHER, ruleName)));
+    tBox.getChildren().addAll(teacherTag, teacher);
 
-        Text studentTag = new Text("Student: ");
-        TextField student = new TextField(Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, ruleName)));
-        sBox.getChildren().addAll(studentTag, student);
+    Text studentTag = new Text("Student: ");
+    TextField student = new TextField(
+        Double.toString(Library.connection.getRule(Enums.AccountType.STUDENT, ruleName)));
+    sBox.getChildren().addAll(studentTag, student);
 
-        Button update = new Button("Update");
+    Button update = new Button("Update");
 
-        update.setOnAction(e -> {
-            Library.connection.setRule(Enums.AccountType.TEACHER, ruleName, Double.parseDouble(teacher.getText()));
-            Library.connection.setRule(Enums.AccountType.STUDENT, ruleName, Double.parseDouble(student.getText()));
-            Main.manageRules.reload();
-            Main.changeScene(Main.manageRules.getScene());
-        });
+    update.setOnAction(e -> {
+      Library.connection
+          .setRule(Enums.AccountType.TEACHER, ruleName, Double.parseDouble(teacher.getText()));
+      Library.connection
+          .setRule(Enums.AccountType.STUDENT, ruleName, Double.parseDouble(student.getText()));
+      Main.manageRules.reload();
+      Main.changeScene(Main.manageRules.getScene());
+    });
 
-        box.getChildren().addAll(rule, tBox, sBox, update);
+    box.getChildren().addAll(rule, tBox, sBox, update);
 
-        return box;
-    }
+    return box;
+  }
 
-    public Scene getScene() {
-        return scene;
-    }
+  public Scene getScene() {
+    return scene;
+  }
 }
