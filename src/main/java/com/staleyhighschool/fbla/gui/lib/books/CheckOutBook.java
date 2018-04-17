@@ -1,6 +1,6 @@
 package com.staleyhighschool.fbla.gui.lib.books;
 
-import com.staleyhighschool.fbla.gui.Main;
+import com.staleyhighschool.fbla.Main;
 import com.staleyhighschool.fbla.gui.util.Alert;
 import com.staleyhighschool.fbla.library.Book;
 import com.staleyhighschool.fbla.library.Library;

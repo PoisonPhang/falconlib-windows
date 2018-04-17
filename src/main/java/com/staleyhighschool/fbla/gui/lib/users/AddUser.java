@@ -1,6 +1,6 @@
 package com.staleyhighschool.fbla.gui.lib.users;
 
-import com.staleyhighschool.fbla.gui.Main;
+import com.staleyhighschool.fbla.Main;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;

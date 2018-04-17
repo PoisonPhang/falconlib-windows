@@ -1,6 +1,6 @@
 package com.staleyhighschool.fbla.gui.lib;
 
-import com.staleyhighschool.fbla.gui.Main;
+import com.staleyhighschool.fbla.Main;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 

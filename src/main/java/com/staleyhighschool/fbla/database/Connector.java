@@ -44,8 +44,9 @@ public class Connector {
    */
   public Connector() {
     try {
+      Class.forName("org.sqlite.JDBC");
       connection = DriverManager.getConnection(DATABASE_URL);
-    } catch (SQLException e) {
+    } catch (SQLException | ClassNotFoundException e) {
       e.printStackTrace();
     }
     new CreateTables(connection);

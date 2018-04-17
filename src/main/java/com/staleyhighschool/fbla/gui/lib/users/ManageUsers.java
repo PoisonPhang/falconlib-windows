@@ -1,6 +1,6 @@
 package com.staleyhighschool.fbla.gui.lib.users;
 
-import com.staleyhighschool.fbla.gui.Main;
+import com.staleyhighschool.fbla.Main;
 import com.staleyhighschool.fbla.library.Library;
 import com.staleyhighschool.fbla.users.User;
 import com.staleyhighschool.fbla.util.enums.AccountType;

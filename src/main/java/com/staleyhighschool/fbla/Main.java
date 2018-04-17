@@ -1,4 +1,4 @@
-package com.staleyhighschool.fbla.gui;
+package com.staleyhighschool.fbla;
 
 import com.staleyhighschool.fbla.gui.lib.Home;
 import com.staleyhighschool.fbla.gui.lib.books.ManageBooks;
