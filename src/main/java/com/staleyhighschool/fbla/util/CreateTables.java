@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateTables {
+
   private final String TAG = this.getClass().getName() + ": ";
 
   Connection connection;
