@@ -5,6 +5,7 @@ import com.staleyhighschool.fbla.library.Library;
 import com.staleyhighschool.fbla.users.Student;
 import com.staleyhighschool.fbla.users.Teacher;
 import com.staleyhighschool.fbla.users.User;
+import com.staleyhighschool.fbla.util.CreateTables;
 import com.staleyhighschool.fbla.util.enums.AccountType;
 import com.staleyhighschool.fbla.util.enums.IsLate;
 import com.staleyhighschool.fbla.util.enums.IsOut;
@@ -47,6 +48,7 @@ public class Connector {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    new CreateTables(connection);
   }
 
   /**
@@ -191,11 +193,7 @@ public class Connector {
 
     Statement statement;
 
-    if (user.getAccountType() == AccountType.TEACHER) {
-      accountType = "teacher";
-    } else if (user.getAccountType() == AccountType.STUDENT) {
-      accountType = "student";
-    }
+    accountType = user.getAccountTypeString();
 
     String addToUsersQuery = "INSERT INTO Users (firstName, lastName, id, accountType) " +
         "VALUES ('" + user.getFirstName() +
@@ -535,7 +533,7 @@ public class Connector {
   }
 
   public void setRule(AccountType accountType, String rule, double value) {
-    String query = null;
+    String query;
     String type = null;
 
     Statement statement;

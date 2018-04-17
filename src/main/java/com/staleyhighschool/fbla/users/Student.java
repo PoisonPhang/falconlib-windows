@@ -38,4 +38,9 @@ public class Student extends User {
   public double calculateFine() {
     return lateBooks * fineRate;
   }
+
+  @Override
+  public String getAccountTypeString() {
+    return "student";
+  }
 }

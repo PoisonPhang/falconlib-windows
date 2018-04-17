@@ -89,4 +89,6 @@ public abstract class User {
   public AccountType getAccountType() {
     return accountType;
   }
+
+  public abstract String getAccountTypeString();
 }
