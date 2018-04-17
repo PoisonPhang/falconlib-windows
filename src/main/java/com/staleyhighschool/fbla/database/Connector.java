@@ -89,12 +89,12 @@ public class Connector {
 
       while (resultSet.next()) {
 
-        if (resultSet.getBoolean("isLate")) {
+        if (resultSet.getInt("isLate") == 1) {
           isLate = IsLate.LATE;
         } else {
           isLate = IsLate.SAFE;
         }
-        if (resultSet.getBoolean("isOut")) {
+        if (resultSet.getInt("isOut") == 1) {
           isOut = IsOut.OUT;
         } else {
           isOut = IsOut.IN;
@@ -103,13 +103,13 @@ public class Connector {
         bookTitle = resultSet.getString("title");
         bookAuthor = resultSet.getString("author");
         bookID = resultSet.getString("id");
-        dateOut = resultSet.getDate("dateOut");
+        dateOut = dateFormat.parse(resultSet.getString("dateOut"));
 
         book = new Book(bookTitle, bookAuthor, bookID, isLate, isOut, dateOut);
         books.add(book);
       }
 
-    } catch (SQLException e) {
+    } catch (SQLException | ParseException e) {
       e.printStackTrace();
     }
 
@@ -125,13 +125,6 @@ public class Connector {
   public List<Book> getUserBooks(User user) {
 
     List<Book> userBooks = new ArrayList<>();
-    Book book;
-
-    String bookTitle;
-    String bookAuthor;
-    String bookID;
-    IsLate isLate = null;
-    IsOut isOut = null;
 
     String query = "SELECT books " + "FROM `" + user.getUserID() + "`";
 
@@ -269,8 +262,6 @@ public class Connector {
     String title = book.getBookTitle();
     String author = book.getBookAuthor();
     String id = book.getBookID();
-    boolean isOut = book.isOut();
-    boolean isLate = book.isLate();
     Date dateOut = Book.storeDate;
 
     Statement statement;
@@ -279,9 +270,9 @@ public class Connector {
         "VALUES ('" + title +
         "', '" + author +
         "', '" + id +
-        "', " + isOut +
-        ", " + isLate +
-        ", '" + dateFormat.format(Book.storeDate) + "')";
+        "', " + 0 +
+        ", " + 0 +
+        ", '" + dateFormat.format(dateOut) + "')";
 
     try {
       statement = connection.createStatement();
@@ -420,9 +411,8 @@ public class Connector {
         "User: " + user.getUserID() + ", checked out Book: " + book.getBookID());
 
     if (user.getUserBooks().size() + 1 <= getMaxBooks(user)) {
-      System.out.println(TAG + "good yyet");
       query = "INSERT INTO `" + user.getUserID() + "` (books) VALUES ('" + book.getBookID() + "')";
-      String setOut = "UPDATE LibraryBooks SET isOut=TRUE WHERE id='" + book.getBookID() + "'";
+      String setOut = "UPDATE LibraryBooks SET isOut=1 WHERE id='" + book.getBookID() + "'";
       String setDate =
           "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Calendar.getInstance().getTime())
               + "' WHERE id='" + book.getBookID() + "'";
@@ -471,7 +461,7 @@ public class Connector {
               query =
                   "DELETE FROM `" + user.getUserID() + "` WHERE books='" + book.getBookID() + "'";
               String setIn =
-                  "UPDATE LibraryBooks SET isOut=FALSE WHERE id='" + book.getBookID() + "'";
+                  "UPDATE LibraryBooks SET isOut=0 WHERE id='" + book.getBookID() + "'";
               String setDate =
                   "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Book.storeDate)
                       + "' WHERE id='" + book.getBookID() + "'";
@@ -479,7 +469,7 @@ public class Connector {
               book.setIsLate(IsLate.SAFE);
               book.setDateOut(Book.storeDate);
               String setIsLate =
-                  "UPDATE LibraryBooks SET isLate=FALSE WHERE id='" + book.getBookID() + "'";
+                  "UPDATE LibraryBooks SET isLate=0 WHERE id='" + book.getBookID() + "'";
               try {
                 statement = connection.createStatement();
                 statement.executeUpdate(query);
@@ -533,18 +523,16 @@ public class Connector {
   }
 
   public void setRule(AccountType accountType, String rule, double value) {
-    String query;
+    String query = null;
     String type = null;
 
     Statement statement;
 
     if (accountType == AccountType.TEACHER) {
-      type = "teacher";
+      query = "UPDATE Rules SET teacher=" + value + " where rule='" + rule + "'";
     } else if (accountType == AccountType.STUDENT) {
-      type = "student";
+      query = "UPDATE Rules SET student=" + value + " where rule='" + rule + "'";
     }
-
-    query = "UPDATE Rules SET " + type + "=" + value + " where rule='" + rule + "'";
 
     try {
       statement = connection.createStatement();
@@ -555,7 +543,7 @@ public class Connector {
   }
 
   public boolean checkValidID(String string) {
-    String query = null;
+    String query;
 
     Statement statement;
     ResultSet resultSet;
@@ -603,7 +591,7 @@ public class Connector {
       resultSet = statement.executeQuery(query);
 
       while (resultSet.next()) {
-        return dateFormat.format(resultSet.getDate("LastLogDate"));
+        return resultSet.getString("LastLogDate");
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -647,9 +635,9 @@ public class Connector {
       resultSet = statement.executeQuery(query);
 
       while (resultSet.next()) {
-        lastLog = (resultSet.getDate("LastLogDate"));
+        lastLog = dateFormat.parse(resultSet.getString("LastLogDate"));
       }
-    } catch (SQLException e) {
+    } catch (SQLException | ParseException e) {
       e.printStackTrace();
     }
 

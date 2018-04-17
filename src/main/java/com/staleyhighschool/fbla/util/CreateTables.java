@@ -42,7 +42,7 @@ public class CreateTables {
     if (!tables.contains("LogDate")) {
       createLogDateTable();
     }
-    if (!tables.contains("'781450-OQOZE'")) {
+    if (!tables.contains("781450-OQOZE")) {
       createSampleUserTable();
     }
   }
@@ -70,9 +70,9 @@ public class CreateTables {
 
       statement.executeUpdate("CREATE TABLE Rules (rule TEXT, teacher DOUBLE, student DOUBLE)");
       statement.executeUpdate("INSERT INTO Rules (rule, teacher, student) VALUES "
-          + "(maxBooks, 60, 4), "
-          + "(maxDays, 200, 28), "
-          + "(fineRate, 0.1, 0.25)");
+          + "('maxBooks', 60, 4), "
+          + "('maxDays', 200, 28), "
+          + "('fineRate', 0.1, 0.25)");
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -84,7 +84,7 @@ public class CreateTables {
     try {
       statement = connection.createStatement();
 
-      statement.executeUpdate("CREATE TABLE LogDate (LastLogDate DATE)");
+      statement.executeUpdate("CREATE TABLE LogDate (LastLogDate TEXT)");
       statement.executeUpdate("INSERT INTO LogDate (LastLogDate) VALUES "
           + "('2018-04-04')");
     } catch (SQLException e) {
@@ -99,10 +99,10 @@ public class CreateTables {
       statement = connection.createStatement();
 
       statement.executeUpdate("CREATE TABLE LibraryBooks "
-          + "(title TEXT, author TEXT, id TEXT, isOut BOOLEAN, isLate BOOLEAN, dateOut DATE)");
+          + "(title TEXT, author TEXT, id TEXT, isOut INTEGER, isLate INTEGER, dateOut DATE)");
       statement.executeUpdate("INSERT INTO LibraryBooks "
           + "(title, author, id, isOut, isLate, dateOut) VALUES "
-          + "('Prince of Thorns', 'Mark Lawrence', '658213-2BOM2', false, false, '2000-01-01')");
+          + "('Prince of Thorns', 'Mark Lawrence', '658213-2BOM2', 0, 0, '2000-01-01')");
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -115,7 +115,7 @@ public class CreateTables {
       statement = connection.createStatement();
 
       statement.executeUpdate("CREATE TABLE '781450-OQOZE' (books TEXT)");
-      statement.executeUpdate("INSERT into '781450-OQOZE' (book) VALUES "
+      statement.executeUpdate("INSERT into '781450-OQOZE' (books) VALUES "
           + "('sample')");
     } catch (SQLException e) {
       e.printStackTrace();
