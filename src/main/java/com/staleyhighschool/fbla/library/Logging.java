@@ -16,20 +16,20 @@ public class Logging {
 
   private String userName;
   private String logSaveDirPath;
-  File logSaveDirectory;
-  FileWriter log;
-  DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-  DateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-  BufferedWriter logWritter;
-  PrintWriter writer;
+  private File logSaveDirectory;
+  private FileWriter log;
+  private DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+  private DateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+  private BufferedWriter logWriter;
+  private PrintWriter writer;
 
   public Logging() {
     userName = System.getProperty("user.name");
-    logSaveDirPath = "C:\\Users\\" + userName + "\\Documents\\falcon-lib-logs";
+    logSaveDirPath = getDocumentsDirectory();
     createDirectory();
     log = checkLogCreation();
-    logWritter = new BufferedWriter(log);
-    writer = new PrintWriter(logWritter);
+    logWriter = new BufferedWriter(log);
+    writer = new PrintWriter(logWriter);
   }
 
   private void createDirectory() {
@@ -43,6 +43,17 @@ public class Logging {
         System.out.println("Failed to create directory " + logSaveDirPath);
       }
     }
+  }
+
+  private String getDocumentsDirectory() {
+    String os = System.getProperty("os.name");
+    String documents = null;
+    if (os.contains("Mac")) {
+      documents = "/Users/" + System.getProperty("user.name") + "/Documents/falcon-lib-logs/";
+    } else if (os.contains("Windows")) {
+      documents = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\falcon-lib-logs\\";
+    }
+    return documents;
   }
 
   public void writeToLog(LogType logType, String message) {
@@ -81,13 +92,13 @@ public class Logging {
       Library.connection.setLastLogDate();
       try {
         return new FileWriter(
-            ((new File(logSaveDirPath, format.format(Calendar.getInstance().getTime())))), true);
+            ((new File(logSaveDirPath, format.format(Calendar.getInstance().getTime())))) + ".txt", true);
       } catch (IOException e) {
         e.printStackTrace();
       }
     } else {
       try {
-        return new FileWriter(new File(logSaveDirPath, Library.connection.getLastLogDate()), true);
+        return new FileWriter(new File(logSaveDirPath, Library.connection.getLastLogDate()) + ".txt", true);
       } catch (IOException e) {
         e.printStackTrace();
       }
