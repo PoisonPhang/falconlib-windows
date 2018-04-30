@@ -127,7 +127,7 @@ public class Connector {
 
     List<Book> userBooks = new ArrayList<>();
 
-    String query = "SELECT books " + "FROM `" + user.getUserID() + "`";
+    String query = "SELECT books " + "FROM '" + user.getUserID() + "'";
 
     Statement statement;
     ResultSet resultSet;
@@ -195,9 +195,9 @@ public class Connector {
         "', '" + user.getUserID() +
         "', '" + accountType + "')";
 
-    String createTableQuery = "CREATE TABLE `" + user.getUserID() + "` (books TEXT)";
+    String createTableQuery = "CREATE TABLE '" + user.getUserID() + "' (books TEXT)";
 
-    String insertBlank = "INSERT INTO `" + user.getUserID() + "` (books) VALUES ('space')";
+    String insertBlank = "INSERT INTO '" + user.getUserID() + "' (books) VALUES ('space')";
 
     try {
 
@@ -238,7 +238,7 @@ public class Connector {
 
   public void deleteUser(User user) {
 
-    String deleteUserTable = "DROP TABLE `" + user.getUserID() + "`";
+    String deleteUserTable = "DROP TABLE '" + user.getUserID() + "'";
     String deleteUserFromLibrary = "DELETE FROM Users WHERE id='" + user.getUserID() + "'";
 
     Statement statement;
@@ -412,7 +412,7 @@ public class Connector {
         "User: " + user.getUserID() + ", checked out Book: " + book.getBookID());
 
     if (user.getUserBooks().size() + 1 <= getMaxBooks(user)) {
-      query = "INSERT INTO `" + user.getUserID() + "` (books) VALUES ('" + book.getBookID() + "')";
+      query = "INSERT INTO '" + user.getUserID() + "' (books) VALUES ('" + book.getBookID() + "')";
       String setOut = "UPDATE LibraryBooks SET isOut=1 WHERE id='" + book.getBookID() + "'";
       String setDate =
           "UPDATE LibraryBooks SET dateOut='" + dateFormat.format(Calendar.getInstance().getTime())
@@ -452,7 +452,7 @@ public class Connector {
         System.out.println(TAG + "Cycling users");
         try {
           statement = connection.createStatement();
-          resultSet = statement.executeQuery("SELECT books FROM `" + user.getUserID() + "`");
+          resultSet = statement.executeQuery("SELECT books FROM '" + user.getUserID() + "'");
 
           while (resultSet.next()) {
             if (book.getBookID().equals(resultSet.getString("books"))) {
@@ -460,7 +460,7 @@ public class Connector {
               Library.logging.writeToLog(LogType.RETURN,
                   "User: " + user.getUserID() + ", returned Book: " + book.getBookID());
               query =
-                  "DELETE FROM `" + user.getUserID() + "` WHERE books='" + book.getBookID() + "'";
+                  "DELETE FROM '" + user.getUserID() + "' WHERE books='" + book.getBookID() + "'";
               String setIn =
                   "UPDATE LibraryBooks SET isOut=0 WHERE id='" + book.getBookID() + "'";
               String setDate =
