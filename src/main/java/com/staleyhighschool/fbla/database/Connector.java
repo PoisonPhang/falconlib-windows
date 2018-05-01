@@ -152,6 +152,11 @@ public class Connector {
     return userBooks;
   }
 
+  /**
+   * Gets the fine rate of the given account type
+   * @param accountType the {@link AccountType}
+   * @return the fine rate of the {@link AccountType}
+   */
   public double getFineRate(AccountType accountType) {
 
     Statement statement;
@@ -182,6 +187,10 @@ public class Connector {
     return fineRate;
   }
 
+  /**
+   * Adds a user to the database and current session from a given {@link User} object
+   * @param user {@link User} you want to add to the program/database
+   */
   public void addUser(User user) {
     String accountType = null;
 
@@ -213,6 +222,12 @@ public class Connector {
     Library.logging.writeToLog(LogType.USER_ACTION, "New User: " + user.getUserID());
   }
 
+  /**
+   * Used to change a given element of a user
+   * @param user {@link User} you want to change the info for
+   * @param column Information you want to change
+   * @param value Value you want to change it to
+   */
   public void editUser(User user, String column, String value) {
     String query =
         "UPDATE Users SET " + column + "='" + value + "' WHERE id='" + user.getUserID() + "'";
@@ -236,6 +251,10 @@ public class Connector {
     Library.logging.writeToLog(LogType.USER_ACTION, "Edit made to User: " + user.getUserID());
   }
 
+  /**
+   * Deletes a user from the system/database
+   * @param user {@link User} you wish to delete
+   */
   public void deleteUser(User user) {
 
     String deleteUserTable = "DROP TABLE '" + user.getUserID() + "'";
@@ -258,6 +277,10 @@ public class Connector {
     }
   }
 
+  /**
+   * Adds a given {@link Book} object to the system/database
+   * @param book {@link Book} you wish to add
+   */
   public void addBook(Book book) {
 
     String title = book.getBookTitle();
@@ -285,6 +308,10 @@ public class Connector {
     Library.logging.writeToLog(LogType.BOOK_ACTION, "Created Book: " + book.getBookID());
   }
 
+  /**
+   * Removes a given book from the system/database
+   * @param book {@link Book} you wish to delete
+   */
   public void deleteBook(Book book) {
     System.out.println(TAG + "Book ID: " + book.getBookID());
     String query = "DELETE FROM LibraryBooks WHERE id='" + book.getBookID() + "'";
@@ -302,6 +329,10 @@ public class Connector {
     Library.logging.writeToLog(LogType.BOOK_ACTION, "Deleted Book: " + book.getBookID());
   }
 
+  /**
+   * Gets a complete list of users in the library
+   * @return Complete {@link List<User>}
+   */
   public List<User> getCurrentUsers() {
 
     List<User> users = new ArrayList<>();
@@ -350,6 +381,11 @@ public class Connector {
     return users;
   }
 
+  /**
+   * Gets the max days a selected user is able to have a book checked out
+   * @param user selected {@link User}
+   * @return Number of days a user is able to have a book out
+   */
   public int getMaxDays(User user) {
     int days;
 
@@ -368,6 +404,11 @@ public class Connector {
     return days;
   }
 
+  /**
+   * Gets the max number of books a selected user is able to check out at a time
+   * @param user Selected {@link User}
+   * @return Maximum number of books a user can have out at a time
+   */
   public int getMaxBooks(User user) {
     int books;
 
@@ -386,6 +427,12 @@ public class Connector {
     return books;
   }
 
+  /**
+   * Gets value of selected rule
+   * @param query Selected rule
+   * @param type Account type the rule is for
+   * @return Selected rule for the given account type
+   */
   private int getMaxRule(String query, String type) {
     Statement statement;
     ResultSet resultSet;
@@ -403,6 +450,12 @@ public class Connector {
     return max;
   }
 
+  /**
+   * Checks a book out to a given user
+   * @param user Selected user
+   * @param book Selected book
+   * @return if the action was successful
+   */
   public boolean userCheckOut(User user, Book book) {
     String query;
 
@@ -439,6 +492,10 @@ public class Connector {
     return false;
   }
 
+  /**
+   * Returns a selected book
+   * @param book selected {@link Book}
+   */
   public void userReturnBook(Book book) {
     String query;
 
@@ -491,6 +548,12 @@ public class Connector {
     } while (!pass);
   }
 
+  /**
+   * Gets selected rule value for a given account type
+   * @param accountType Account type
+   * @param rule Selected rule
+   * @return Value of selected rule for the given account type
+   */
   public double getRule(AccountType accountType, String rule) {
     String query = null;
 
@@ -523,6 +586,12 @@ public class Connector {
     return rRule;
   }
 
+  /**
+   * Sets the value of a rule for a given {@link AccountType}
+   * @param accountType given {@link AccountType}
+   * @param rule selected rule
+   * @param value new value
+   */
   public void setRule(AccountType accountType, String rule, double value) {
     String query = null;
     String type = null;
@@ -543,6 +612,11 @@ public class Connector {
     }
   }
 
+  /**
+   * Checks to see if an ID is already in user throughout the system
+   * @param string ID value
+   * @return true if the value is not taken
+   */
   public boolean checkValidID(String string) {
     String query;
 
@@ -581,6 +655,10 @@ public class Connector {
     return pass;
   }
 
+  /**
+   * Gets the date of the most recent log in the database
+   * @return value of the last log date
+   */
   public String getLastLogDate() {
     String query = "SELECT LastLogDate FROM LogDate";
 
@@ -601,6 +679,9 @@ public class Connector {
     return null;
   }
 
+  /**
+   * Sets the log date to today
+   */
   public void setLastLogDate() {
     String query =
         "UPDATE LogDate SET LastLogDate='" + dateFormat.format(Calendar.getInstance().getTime())
@@ -616,6 +697,10 @@ public class Connector {
     }
   }
 
+  /**
+   * Compares log dates
+   * @return false if the current date is less than one week out from the last log
+   */
   public boolean checkLogDate() {
     String query = "SELECT LastLogDate FROM LogDate";
     Date today = null;
