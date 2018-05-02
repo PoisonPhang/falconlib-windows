@@ -84,6 +84,7 @@ public class Main extends Application {
   }
 
   private void closeProgram() {
+    Library.connection.closeConnection();
     Library.logging.closeLog();
   }
 

@@ -61,6 +61,14 @@ public class Connector {
     return connection;
   }
 
+  public void closeConnection() {
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   /**
    * Gets list of all books in the library
    *
@@ -110,6 +118,9 @@ public class Connector {
         books.add(book);
       }
 
+      resultSet.close();
+      statement.close();
+
     } catch (SQLException | ParseException e) {
       e.printStackTrace();
     }
@@ -144,6 +155,9 @@ public class Connector {
           }
         }
       }
+
+      resultSet.close();
+      statement.close();
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -180,6 +194,9 @@ public class Connector {
         }
       }
 
+      resultSet.close();
+      statement.close();
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -192,7 +209,7 @@ public class Connector {
    * @param user {@link User} you want to add to the program/database
    */
   public void addUser(User user) {
-    String accountType = null;
+    String accountType;
 
     Statement statement;
 
@@ -215,6 +232,8 @@ public class Connector {
       statement.executeUpdate(addToUsersQuery);
       statement.executeUpdate(createTableQuery);
       statement.executeUpdate(insertBlank);
+
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -244,6 +263,8 @@ public class Connector {
       statement = connection.createStatement();
 
       statement.executeUpdate(query);
+
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -271,6 +292,8 @@ public class Connector {
 
         statement.executeUpdate(deleteUserTable);
         statement.executeUpdate(deleteUserFromLibrary);
+
+        statement.close();
       } catch (SQLException e) {
         e.printStackTrace();
       }
@@ -301,6 +324,8 @@ public class Connector {
     try {
       statement = connection.createStatement();
       statement.executeUpdate(query);
+
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -321,7 +346,8 @@ public class Connector {
     try {
       statement = connection.createStatement();
       statement.executeUpdate(query);
-      System.out.println(TAG + "Books been Yeeted");
+
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -373,6 +399,9 @@ public class Connector {
           users.add(user);
         }
       }
+
+      resultSet.close();
+      statement.close();
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -444,6 +473,10 @@ public class Connector {
       while (resultSet.next()) {
         max = (int) resultSet.getDouble(type);
       }
+
+      resultSet.close();
+      statement.close();
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -484,6 +517,8 @@ public class Connector {
         statement.executeUpdate(query);
         statement.executeUpdate(setOut);
         statement.executeUpdate(setDate);
+
+        statement.close();
         return true;
       } catch (SQLException e) {
         e.printStackTrace();
@@ -541,6 +576,10 @@ public class Connector {
               }
             }
           }
+
+          resultSet.close();
+          statement.close();
+
         } catch (SQLException e) {
           e.printStackTrace();
         }
@@ -579,6 +618,10 @@ public class Connector {
       while (resultSet.next()) {
         rRule = resultSet.getDouble(type);
       }
+
+      resultSet.close();
+      statement.close();
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -607,6 +650,9 @@ public class Connector {
     try {
       statement = connection.createStatement();
       statement.executeUpdate(query);
+
+      statement.close();
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -648,6 +694,9 @@ public class Connector {
         }
       }
 
+      resultSet.close();
+      statement.close();
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -672,6 +721,10 @@ public class Connector {
       while (resultSet.next()) {
         return resultSet.getString("LastLogDate");
       }
+
+      resultSet.close();
+      statement.close();
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -692,6 +745,8 @@ public class Connector {
     try {
       statement = connection.createStatement();
       statement.executeUpdate(query);
+
+      statement.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -723,6 +778,9 @@ public class Connector {
       while (resultSet.next()) {
         lastLog = dateFormat.parse(resultSet.getString("LastLogDate"));
       }
+
+      statement.close();
+
     } catch (SQLException | ParseException e) {
       e.printStackTrace();
     }
