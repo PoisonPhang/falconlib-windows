@@ -168,6 +168,7 @@ public class Connector {
 
   /**
    * Gets the fine rate of the given account type
+   *
    * @param accountType the {@link AccountType}
    * @return the fine rate of the {@link AccountType}
    */
@@ -206,6 +207,7 @@ public class Connector {
 
   /**
    * Adds a user to the database and current session from a given {@link User} object
+   *
    * @param user {@link User} you want to add to the program/database
    */
   public void addUser(User user) {
@@ -243,6 +245,7 @@ public class Connector {
 
   /**
    * Used to change a given element of a user
+   *
    * @param user {@link User} you want to change the info for
    * @param column Information you want to change
    * @param value Value you want to change it to
@@ -274,6 +277,7 @@ public class Connector {
 
   /**
    * Deletes a user from the system/database
+   *
    * @param user {@link User} you wish to delete
    */
   public void deleteUser(User user) {
@@ -302,6 +306,7 @@ public class Connector {
 
   /**
    * Adds a given {@link Book} object to the system/database
+   *
    * @param book {@link Book} you wish to add
    */
   public void addBook(Book book) {
@@ -335,6 +340,7 @@ public class Connector {
 
   /**
    * Removes a given book from the system/database
+   *
    * @param book {@link Book} you wish to delete
    */
   public void deleteBook(Book book) {
@@ -357,6 +363,7 @@ public class Connector {
 
   /**
    * Gets a complete list of users in the library
+   *
    * @return Complete {@link List<User>}
    */
   public List<User> getCurrentUsers() {
@@ -412,6 +419,7 @@ public class Connector {
 
   /**
    * Gets the max days a selected user is able to have a book checked out
+   *
    * @param user selected {@link User}
    * @return Number of days a user is able to have a book out
    */
@@ -435,6 +443,7 @@ public class Connector {
 
   /**
    * Gets the max number of books a selected user is able to check out at a time
+   *
    * @param user Selected {@link User}
    * @return Maximum number of books a user can have out at a time
    */
@@ -458,6 +467,7 @@ public class Connector {
 
   /**
    * Gets value of selected rule
+   *
    * @param query Selected rule
    * @param type Account type the rule is for
    * @return Selected rule for the given account type
@@ -485,6 +495,7 @@ public class Connector {
 
   /**
    * Checks a book out to a given user
+   *
    * @param user Selected user
    * @param book Selected book
    * @return if the action was successful
@@ -529,6 +540,7 @@ public class Connector {
 
   /**
    * Returns a selected book
+   *
    * @param book selected {@link Book}
    */
   public void userReturnBook(Book book) {
@@ -589,6 +601,7 @@ public class Connector {
 
   /**
    * Gets selected rule value for a given account type
+   *
    * @param accountType Account type
    * @param rule Selected rule
    * @return Value of selected rule for the given account type
@@ -631,6 +644,7 @@ public class Connector {
 
   /**
    * Sets the value of a rule for a given {@link AccountType}
+   *
    * @param accountType given {@link AccountType}
    * @param rule selected rule
    * @param value new value
@@ -660,6 +674,7 @@ public class Connector {
 
   /**
    * Checks to see if an ID is already in user throughout the system
+   *
    * @param string ID value
    * @return true if the value is not taken
    */
@@ -706,6 +721,7 @@ public class Connector {
 
   /**
    * Gets the date of the most recent log in the database
+   *
    * @return value of the last log date
    */
   public String getLastLogDate() {
@@ -754,6 +770,7 @@ public class Connector {
 
   /**
    * Compares log dates
+   *
    * @return false if the current date is less than one week out from the last log
    */
   public boolean checkLogDate() {

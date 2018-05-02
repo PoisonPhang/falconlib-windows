@@ -1,7 +1,7 @@
 package com.staleyhighschool.fbla.gui.lib.books;
 
-import com.staleyhighschool.fbla.database.Connector;
 import com.staleyhighschool.fbla.Main;
+import com.staleyhighschool.fbla.database.Connector;
 import com.staleyhighschool.fbla.library.Book;
 import com.staleyhighschool.fbla.library.Library;
 import java.util.ArrayList;

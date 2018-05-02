@@ -51,7 +51,8 @@ public class Logging {
     if (os.contains("Mac")) {
       documents = "/Users/" + System.getProperty("user.name") + "/Documents/falcon-lib-logs/";
     } else if (os.contains("Windows")) {
-      documents = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\falcon-lib-logs\\";
+      documents =
+          "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\falcon-lib-logs\\";
     }
     return documents;
   }
@@ -92,13 +93,15 @@ public class Logging {
       Library.connection.setLastLogDate();
       try {
         return new FileWriter(
-            ((new File(logSaveDirPath, format.format(Calendar.getInstance().getTime())))) + ".txt", true);
+            ((new File(logSaveDirPath, format.format(Calendar.getInstance().getTime())))) + ".txt",
+            true);
       } catch (IOException e) {
         e.printStackTrace();
       }
     } else {
       try {
-        return new FileWriter(new File(logSaveDirPath, Library.connection.getLastLogDate()) + ".txt", true);
+        return new FileWriter(
+            new File(logSaveDirPath, Library.connection.getLastLogDate()) + ".txt", true);
       } catch (IOException e) {
         e.printStackTrace();
       }
